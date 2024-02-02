@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="database">
+    <div class="lside-content">
+        <a href="{% url 'word:tag' %}">Tambah tag</a>
+        <br><br>
+        {% for tags in tobject %}
+        <a class="btn btn-primary" href="{% url 'database:database' %}?q={{ tags.name }}">{{ tags.name }}</a>
+        <a class="btn btn-primary" href="{% url 'word:tag-delete' tags.pk %}"><button style="float: right;">x</button></a>
+        <a class="btn btn-primary" href="{% url 'word:tag-update' tags.pk %}"><button style="float: right;">↻</button></a>
+        <br><br>
+        {% endfor %}
+    
+        <!-- <a href="{% url 'database:database' %}">Reset</a> -->
+    </div>
+
+    <div class="main-container">
+        <form method="GET" action="{% url 'database:database' %}">
+            <input type="text" name="s"/> <button>Search</button>
+        </form>
+    
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Nama pengguna</th>
+                    <th>Email</th>
+                    <th>Terakhir masuk</th>
+                    <th>Tanggal Bergabung</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in uobject %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.last_login }}</td>
+                    <td>{{ user.date_joined }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+    
+        <table class="word-table">
+            <thead>
+                <tr>
+                    <th>Word</th>
+                    <th>Definisi</th>
+                    <th>Penulis</th>
+                    <th>Date</th>
+                    <th>Up</th>
+                    <th>Down</th>
+                    <th>Pronunciation</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for word in wobject %}
+                <tr>
+                    <td>{{ word.word }}</td>
+                    <td>{{ word.definition }}</td>
+                    <td>{{ word.user }}</td>
+                    <td>{{ word.date }}</td>
+                    <td>{{ word.up }}</td>
+                    <td>{{ word.down }}</td>
+                    <td>{{ word.pronunciation }}</td>
+                    <td>
+                        <a class="btn btn-primary" href=""><button>Report</button></a>
+                        <a class="btn btn-primary" href="{% url 'word:delete' word.pk %}"><button>Delete</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .database {
+      display: grid;
+      grid-template-columns: 0.5fr 4fr;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,82 @@
+<nav>
+    <h1><a href="/">Urban Dictionary ID</a></h1>
+    <ul>
+        <li class="dropdown">
+            <button onclick="dropFunc()", class="dropBtn">Browse</button>
+            <div id="menu" class="ddcontent">
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}?b=a">a</a>
+                        <a href="{% url 'home' %}?b=b">b</a>
+                        <a href="{% url 'home' %}?b=c">c</a>
+                        <a href="{% url 'home' %}?b=d">d</a>
+                        <a href="{% url 'home' %}?b=e">e</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}?b=f">f</a>
+                        <a href="{% url 'home' %}?b=g">g</a>
+                        <a href="{% url 'home' %}?b=h">h</a>
+                        <a href="{% url 'home' %}?b=i">i</a>
+                        <a href="{% url 'home' %}?b=j">j</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}?b=k">k</a>
+                        <a href="{% url 'home' %}?b=l">l</a>
+                        <a href="{% url 'home' %}?b=m">m</a>
+                        <a href="{% url 'home' %}?b=n">n</a>
+                        <a href="{% url 'home' %}?b=o">o</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}?b=p">p</a>
+                        <a href="{% url 'home' %}?b=q">q</a>
+                        <a href="{% url 'home' %}?b=r">r</a>
+                        <a href="{% url 'home' %}?b=s">s</a>
+                        <a href="{% url 'home' %}?b=t">t</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}?b=u">u</a>
+                        <a href="{% url 'home' %}?b=v">v</a>
+                        <a href="{% url 'home' %}?b=w">w</a>
+                        <a href="{% url 'home' %}?b=x">x</a>
+                        <a href="{% url 'home' %}?b=y">y</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}?b=z">z</a>
+                        <a href="{% url 'home' %}?a=">#</a>
+                        <a href="{% url 'home' %}?n=">new</a>
+                    </li>
+                </ul>
+                
+            </div>
+        </li>
+        {% if request.user.is_superuser %}
+        <li><a href="{% url 'database:database' %}">Database</a></li>
+        {% endif %}
+        <li>
+            <form method="GET" action="{% url 'home' %}">
+                <input type="text" name="s"/> <button>Search</button>
+            </form>
+        </li>
+        <li><a href="{% url 'about' %}">About</a></li>
+    </ul>
+</nav>
+
+<script>
+function dropFunc() {
+  document.getElementById("menu").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropBtn')) {
+    var dropdowns = document.getElementsByClassName("ddcontent");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>

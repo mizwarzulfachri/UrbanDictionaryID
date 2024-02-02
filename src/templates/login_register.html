@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if page == 'login' %}
+<div class="login-form">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h2>Login</h2>
+
+        <ul class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </ul>
+        <input type="text" name="username" placeholder="Nama"/>
+
+        <input type="password" name="password" placeholder="Kata sandi"/>
+        
+        <input type="submit" value="Masuk"/>
+
+        <a href="">Lupa kata sandi?</a>
+
+    </form>
+</div>
+
+{% else %}
+<div class="register-form">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h2>Daftar</h2>
+        
+        <ul class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </ul>
+        {{ form.as_p }}
+
+        <input type="submit" value="Daftar"/>
+    </form>
+</div>
+
+{% endif %}
+{% endblock %}

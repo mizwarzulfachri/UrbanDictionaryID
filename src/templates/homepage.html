@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="homepage">
+  <div class="lside-content">
+    {% for tags in filter %}
+      <a class="btn btn-primary" href="{% url 'home' %}?q={{ tags.name }}">{{ tags.name }}</a>
+      <br>
+    {% endfor %}
+
+    <a href="{% url 'home' %}">Reset</a>
+  </div>
+
+  {% if page == 'user' %}
+    <div class="main-container">
+        <div class="user-section">
+            <h2>{{ user.username }}</h2>
+            <p>Tanggal gabung {{ user.date_joined }}</p>
+            <p>{{ user.username }} sudah menginput {{ count }} definisi</p>
+            <p>Terakhir masuk {{ user.last_login }}</p>
+        </div>
+        
+        <div class="word-list">
+            {% for instance in object_list %}
+                <h3>
+                    <a href="{{ instance.get_absolute_url }}">{{ instance.word }}</a>
+                    <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' pk=instance.pk %}`">Speak</button>
+                </h3>
+                <p>{{ instance.definition}}</p>
+                <p>
+                    Tanggal dibuat {{ instance.date }} </br>
+                    Dibuat oleh <a href="{% url 'user' pk=instance.user.id %}">{{ instance.user }}</a>
+                </p>
+                <p> Up {{ instance.up }} | Down {{ instance.down }}</p>
+                <p>
+                  Rating {{ instance.rating }}
+                  
+                  <button class="btn-primary" style="float: right;">Lapor</button>
+                  {% if request.user.id == user.id %}
+                  <a href="{% url 'word:delete' instance.pk %}">
+                    <button class="btn-primary" style="float: right;">Delete</button>
+                  </a>
+                  <a href="{% url 'word:edit' instance.pk %}">
+                    <button class="btn-primary" style="float: right;">Edit</button>
+                  </a>
+                  {% endif %}
+                </p>
+                </br>
+            {% endfor %}
+        </div>
+    </div>
+
+  {% else %}
+    <div class="main-container">
+      <h2>WoTD! - Word of The Day</h2>
+      {% if query != '' %}
+        <h2><a href="{% url 'home' %}">
+          <button>{{ query }} X</button>
+        </a></h2>
+      {% endif %}
+      
+      <div class="word-list">
+        {% for instance in object_list %}
+          <h3>
+            <a href="{{ instance.get_absolute_url }}">{{ instance.word }}</a>
+            <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' pk=instance.pk %}`">Speak</button>
+          </h3>
+          <p>{{ instance.definition}}</p>
+          <p>
+            Tanggal dibuat {{ instance.date }} </br>
+            Dibuat oleh <a href="{% url 'user' pk=instance.user.id %}">{{ instance.user }}</a>
+          </p>
+          <p> Up {{ instance.up }} | Down {{ instance.down }}</p>
+          <p>Rating {{ instance.rating }}</p>
+          </br>
+        {% endfor %}
+      </div>
+    </div>
+{% endif %}
+  <div class="rside-content">
+    {% if request.user.is_authenticated %}
+      Buat definsi kata sekarang!<br>
+      <a href="{% url 'word:create' %}">
+        <button>Tambah Definisi</button>
+      </a>
+      <a href="{% url 'logout' %}">
+        <button>Logout</button>
+      </a>
+    {% else %}
+      Buat akunmu sekarang!<br>
+      <a href="{% url 'register' %}">
+        <button>Register</button>
+      </a>
+      <a href="{% url 'login' %}">
+        <button>Login</button>
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .homepage {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+  }
+</style>
+  
+{% endblock %}

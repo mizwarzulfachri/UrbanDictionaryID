@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Word</h1>
+<h3>
+    {{ object.word|capfirst }}
+    <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' object.pk %}`">Speak</button>
+</h3>
+<h3>Rating {{ object.rating }}</h3>
+<p>Up {{ object.up }} / Down {{ object.down }}</p>
+<h3>Tanggal dibuat {{ object.date }} oleh <a href="{% url 'home' %}?u={{ object.user }}">{{ object.user }}</a></h3>
+
+
+<p>{{ object.definition }}</p>
+
+{% if request.user == object.user %}
+    <a href="{% url 'word:edit' object.pk %}">
+        <button class="btn-primary">Edit</button>
+    </a>
+    <a href="{% url 'word:delete' object.pk %}">
+        <button class="btn-primary">Delete</button>
+    </a>
+{% endif %}
+    <button class="btn-primary">Lapor</button>
+{% endblock %}  

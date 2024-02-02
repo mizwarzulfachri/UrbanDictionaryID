@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    Dari user - {{ report.user }},
+    Definisi untuk kata {{ report.word }} dianggap {{ report.category }} oleh user tersebut...
+    Alasannya... 
+    <div class="message">
+        {{ request.description }}
+    </div> 
+</div>
+{% endcontent %}
