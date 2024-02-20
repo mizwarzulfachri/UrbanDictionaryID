@@ -10,10 +10,16 @@
 <p>Up {{ object.up }} / Down {{ object.down }}</p>
 <h3>Tanggal dibuat {{ object.date }} oleh <a href="{% url 'home' %}?u={{ object.user }}">{{ object.user }}</a></h3>
 
-
 <p>{{ object.definition }}</p>
 
-{% if request.user == object.user %}
+<p>Tags:</p>
+<ul>
+  {% for tag in object.tags.all %}
+    <li>{{ tag.name }}</li>
+  {% endfor %}
+</ul>
+
+{% if request.user == object.user or request.user.is_superuser %}
     <a href="{% url 'word:edit' object.pk %}">
         <button class="btn-primary">Edit</button>
     </a>

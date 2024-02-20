@@ -22,7 +22,7 @@ from pages.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('word/', include('word.urls')),
-    path('database', include('database.urls')),
+    path('database/', include('database.urls')),
 
     # Pages path
     path('', homepage, name='home'),

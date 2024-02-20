@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if request.user.is_superuser %}
+<form action='' method="POST">
+    {% csrf_token %}
+    {% if page == 'delete' %}
+    <h1>Apakah betul mau dihapus laporan oleh {{ object.user }}, untuk kata {{ object.word }}?</h1>
+    <input type="submit" value="Betul"> <a href="{% url 'database:database' %}">Batal</a>
+    {% else %}
+    <h1>Apakah betul mau hapus {{ object.name }}?</h1>
+    <input type="submit" value="Betul"> <a href="{% url 'database:list' %}">Batal</a>
+    {% endif %}
+</form>
+{% else %}
+<h1>You are not the admin!</h1>
+{% endif %}
+{% endblock %}

@@ -16,11 +16,13 @@
     </div>
 
     <div class="main-container">
+      {% if page == 'database' %}
         <form method="GET" action="{% url 'database:database' %}">
             <input type="text" name="s"/> <button>Search</button>
         </form>
+        <a href="{% url 'database:list' %}">Laporan {{ count }}</a>
     
-        <table class="user-table">
+        <table class="table">
             <thead>
                 <tr>
                     <th>Nama pengguna</th>
@@ -58,7 +60,11 @@
             <tbody>
                 {% for word in wobject %}
                 <tr>
-                    <td>{{ word.word }}</td>
+                    <td>
+                        <a href="{% url 'word:word' word.pk %}">
+                        {{ word.word }}
+                        </a>
+                    </td>
                     <td>{{ word.definition }}</td>
                     <td>{{ word.user }}</td>
                     <td>{{ word.date }}</td>
@@ -66,13 +72,107 @@
                     <td>{{ word.down }}</td>
                     <td>{{ word.pronunciation }}</td>
                     <td>
-                        <a class="btn btn-primary" href=""><button>Report</button></a>
-                        <a class="btn btn-primary" href="{% url 'word:delete' word.pk %}"><button>Delete</button></a>
+                        <a class="btn btn-primary" href="{% url 'word:delete' word.pk %}"><button>Hapus</button></a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+      {% else %}
+        <h2>Word Report</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Categori</th>
+                    <th>Pengguna</th>
+                    <th>Kata</th>
+                    <th>Tanggal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in robject %}
+                <tr>
+                    <td><a href="{% url 'database:view' report.pk %}">{{ report.category }}</a></td>
+                    <td><a href="{% url 'user' report.user.pk %}">{{ report.user }}</a></td>
+                    <td><a href="{% url 'word:word' report.word.pk %}">{{ report.word }}</a></td>
+                    <td>{{ report.date }}</td>
+                    <td>
+                        <a href="{% url 'database:done' report.pk %}"><button>Selesai</button></a>
+                        <a href="{% url 'database:delete' report.pk %}"><button>Hapus</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+
+        <h2>Selesai</h2>
+        {% if done.count != 0 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Categori</th>
+                    <th>Pengguna</th>
+                    <th>Kata</th>
+                    <th>Tanggal</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rptdone in done %}
+                <tr>
+                    <td><a href="{% url 'database:view' rptdone.pk %}">{{ rptdone.category }}</a></td>
+                    <td><a href="{% url 'user' rptdone.user.pk %}">{{ rptdone.user }}</a></td>
+                    <td><a href="{% url 'word:word' rptdone.word.pk %}">{{ rptdone.word }}</a></td>
+                    <td>{{ rptdone.date }}</td>
+                    <td>
+                        <a href="{% url 'database:done' rptdone.pk %}"><button>Tinjau Kembali</button></a>
+                        <a href="{% url 'database:delete' rptdone.pk %}"><button>Hapus</button></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Tidak ada laporan yang selesai</p>
+        {% endif %}
+        <br>
+
+        <div class="section">
+            <h2>Kata-kata yang disensor</h2>
+            <a href="{% url 'database:censor-create' %}"><button>Tambah Kata</button></a>
+            <table >
+                <thead>
+                    <tr>
+                        <th>Kata</th>
+                        <th>Tanggal</th>
+                        <th>Despripsi</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for csp in censored %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'database:censor-edit' csp.pk %}">
+                            {{ csp.name }}
+                            </a>
+                        </td>
+                        <td>{{ csp.date }}</td>
+                        <td>{{ csp.description }}</td>
+                        <td>
+                            <a href="{% url 'database:censor-delete' csp.pk %}">
+                                <button>Hapus</button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      {% endif %}
     </div>
 </div>
 

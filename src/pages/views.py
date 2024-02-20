@@ -16,14 +16,19 @@ import pyttsx3
 # Create your views here.
 def homepage(request, *args, **kwargs):
     page = 'homepage'
+    
+    q = request.GET.get('') if request.GET.get('') != None else ''
+    wordlist = Word.objects.filter(
+        Q(word__icontains=q) 
+        ).exclude(tags__name='Vulgar').order_by('-up', '?')
 
     # Search
-    q = request.GET.get('s') if request.GET.get('s') != None else ''
-    wordlist = Word.objects.filter(
-        Q(word__icontains=q) # |
-        # Q(user__username__icontains=q)
-        ).order_by('-up', '?')
-
+    if request.GET.get('s') != None:
+        q = request.GET.get('s')
+        wordlist = Word.objects.filter(
+            Q(word__icontains=q) 
+            ).order_by('-up', '?')
+    
     # Search start with
     if request.GET.get('b') != None:
         q = request.GET.get('b') 

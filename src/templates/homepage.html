@@ -34,8 +34,9 @@
                 <p> Up {{ instance.up }} | Down {{ instance.down }}</p>
                 <p>
                   Rating {{ instance.rating }}
-                  
-                  <button class="btn-primary" style="float: right;">Lapor</button>
+                  <a href="{% url 'database:form' instance.pk %}">
+                    <button class="btn-primary" style="float: right;">Lapor</button>
+                  </a>
                   {% if request.user.id == user.id %}
                   <a href="{% url 'word:delete' instance.pk %}">
                     <button class="btn-primary" style="float: right;">Delete</button>
@@ -72,11 +73,16 @@
           </p>
           <p> Up {{ instance.up }} | Down {{ instance.down }}</p>
           <p>Rating {{ instance.rating }}</p>
+          
+          <a href="{% url 'database:form' instance.pk %}">
+            <button class="btn-primary" style="float: right;">Lapor</button>
+          </a>
           </br>
         {% endfor %}
       </div>
     </div>
 {% endif %}
+
   <div class="rside-content">
     {% if request.user.is_authenticated %}
       Buat definsi kata sekarang!<br>

@@ -2,11 +2,16 @@
 
 {% block content %}
 <div class="container">
-    Dari user - {{ report.user }},
-    Definisi untuk kata {{ report.word }} dianggap {{ report.category }} oleh user tersebut...
-    Alasannya... 
-    <div class="message">
-        {{ request.description }}
-    </div> 
+    <h4>Dari user - {{ report.user }},</h4>
+    <h4>
+        Definisi untuk kata {{ report.word }} dianggap {{ report.category }} oleh user tersebut...
+        <br>
+        Alasannya... 
+    </h4>
+    <br>
+    <div class="description">
+        {{ report.description }} 
+    </div>
+    <a href="{% url 'database:list' %}"><button>Kembali</button></a>
 </div>
-{% endcontent %}
+{% endblock %}
