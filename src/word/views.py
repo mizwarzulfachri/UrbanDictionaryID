@@ -1,15 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.files.base import ContentFile
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from difflib import SequenceMatcher
+from django.urls import reverse_lazy, reverse
+from django.db.models import Q
 
 from .forms import WordForm, RawWordForm, TagForm, RawTagForm
 
-from .models import Word, Tag
+from .models import Word, Tag, Upvotes, Downvotes, Pronounce
 from database.models import Censorship
 
-import pyttsx3
-# import gtts # Google Text To Speech only works when the audio is saved!
+import os
+import pyttsx3 # Text to speech API
+from gtts import gTTS # Google Text To Speech only works when the audio is saved!
+from pygame import mixer
 
 # Create your views here.
 
@@ -23,18 +28,39 @@ def word_create(request):
     if request.method == "POST":
         form_data = {
             'word': request.POST.get('word'),
-            'pronunciation': request.FILES.get('pronunciation'),
+            # 'pronunciation': request.FILES.get('pronunciation'),
             'definition': request.POST.get('definition'),
             'tags': request.POST.getlist('tags'),
             'user': request.user,
         }
 
         form = RawWordForm(form_data, request.FILES)
-        if form.is_valid():        
+        if form.is_valid(): 
+            # Pronounce 
+            try:
+                p = get_object_or_404(Pronounce, name__icontains=form.cleaned_data['word'])
+                print(form.cleaned_data['word'] + " has been successfully linked")
+            except Http404:
+                obj = gTTS(text=form.cleaned_data['word'], lang='id', slow=False)
+
+                file_name = "src/media/" + form.cleaned_data['word'] + ".mp3"
+                obj.save(file_name)
+
+                p = Pronounce(name = (form.cleaned_data['word']).lower())
+
+                with open(file_name, 'rb') as f:
+                    file_content = f.read()
+
+                p.pronunciation.save(file_name, ContentFile(file_content))
+                p.save()
+                
+                print(form.cleaned_data['word'] + " has been successfully created")
+                os.remove(file_name)
+
             # Word save 
             w = Word(
                 word = form.cleaned_data['word'],
-                pronunciation = form.cleaned_data['pronunciation'],
+                pronunciation = p,
                 definition = form.cleaned_data['definition'],
                 user = form.cleaned_data['user'],
             )
@@ -74,6 +100,7 @@ def word_view(request, wrd_id):
 
 @login_required(login_url='login')
 def word_edit(request, srch_id):
+    page = "word"
     try: 
         obj = Word.objects.get(pk=srch_id)
     except Word.DoesNotExist:
@@ -88,6 +115,7 @@ def word_edit(request, srch_id):
 
     context = {
         "form": form,
+        "page": page,
     }
     return render(request, "word/word_form.html", context)
 
@@ -109,16 +137,63 @@ def word_delete(request, wrd_id):
     }
     return render(request, "word/word_delete.html", context)
 
+# Word Vote
+@login_required(login_url='login')
+def up(request, word_id):
+    user = request.user
+    word = get_object_or_404(Word, pk=word_id)
+
+    up_currently = word.up
+    up = Upvotes.objects.filter(user=user, word=word).count()
+    down_currently = word.down
+    down = Downvotes.objects.filter(user=user, word=word).count()
+    
+    if not up:
+        up = Upvotes.objects.create(user=user, word=word)
+        up_currently = up_currently + 1
+    else:
+        up = Upvotes.objects.filter(user=user, word=word).delete()
+        up_currently = up_currently - 1
+
+    word.up = up_currently
+    word.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+@login_required(login_url='login')
+def down(request, word_id):
+    user = request.user
+    word = get_object_or_404(Word, pk=word_id)
+
+    down_currently = word.down
+    down = Downvotes.objects.filter(user=user, word=word).count()
+    up_currently = word.up
+    up = Upvotes.objects.filter(user=user, word=word).count()
+    
+    if not down:
+        down = Downvotes.objects.create(user=user, word=word)
+        down_currently = down_currently + 1
+    else:
+        down = Downvotes.objects.filter(user=user, word=word).delete()
+        down_currently = down_currently - 1
+
+    word.down = down_currently
+    word.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 # Word Pronunciation
 
 def text_to_speech(request, pk):
     wrd = get_object_or_404(Word, pk=pk)
-    obj = Word.objects.get(pk=pk)
+    
+    file_path = wrd.pronunciation.pronunciation.path
 
-    txt_speech = pyttsx3.init()
-    txt_speech.say(obj)
-    txt_speech.runAndWait()
-    print(obj.word + " has been pronounced")
+    if file_path:
+        mixer.init()
+
+        mixer.music.load(file_path)
+        mixer.music.play()
+
+    print(f"{wrd.word} has been pronounced")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

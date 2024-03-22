@@ -7,6 +7,8 @@ urlpatterns = [
     # Word path
     path('<int:wrd_id>/', word_view, name='word'),
     path('speech/<int:pk>/', text_to_speech, name='speech'),
+    path('up/<int:word_id>/', up, name='upvotes'),
+    path('down/<int:word_id>', down, name='downvotes'),
 
     # Tag path
     path('tag', tag_create, name='tag'),

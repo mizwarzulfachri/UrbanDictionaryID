@@ -15,9 +15,9 @@ class Word(models.Model):
     down = models.IntegerField(default=0)
     date = models.DateField(auto_now=False, auto_now_add=True)
     updated = models.DateField(auto_now=True)
-    pronunciation = models.FileField(blank=True, null=True, upload_to='pronunciation/')
 
     # Tags for searching and label
+    pronunciation = models.ForeignKey('Pronounce', blank=True, null=True, on_delete=models.PROTECT, related_name="word_pronunciation")
     tags = models.ManyToManyField('Tag', blank=True, related_name="word_tag")
 
     class Meta:
@@ -28,7 +28,7 @@ class Word(models.Model):
 
     @property
     def rating(self):
-        if self.down >= self.up:
+        if self.up == 0:
             rating = 0
         elif self.up == 0 and self.down == 0:
             rating = 0
@@ -47,6 +47,21 @@ class Word(models.Model):
 
 class Tag(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+class Upvotes(models.Model):
+    user = models.ForeignKey(User, models.CASCADE, related_name="user_up")
+    word = models.ForeignKey(Word, models.CASCADE, related_name="word_up")
+
+class Downvotes(models.Model):
+    user = models.ForeignKey(User, models.CASCADE, related_name="user_down")
+    word = models.ForeignKey(Word, models.CASCADE, related_name="word_down")
+
+class Pronounce(models.Model):
+    name = models.CharField(max_length=120)
+    pronunciation = models.FileField(blank=True, null=True, upload_to='pronunciation/')
 
     def __str__(self):
         return self.name

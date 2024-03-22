@@ -20,9 +20,28 @@ def database_pg(request, *args, **kwargs):
     userlist = user.objects.all().order_by('-date_joined')
 
     wordlist = Word.objects.all().order_by('word')
-    taglist = Tag.objects.all()
+    taglist = Tag.objects.all().order_by('name')
     reportlist = Report.objects.filter(Q(option__icontains="Tinjau"))
     countrpt = reportlist.count()
+
+    # Search
+    if request.GET.get('s') != None:
+        q = request.GET.get('s')
+        wordlist = Word.objects.filter(
+            Q(word__istartswith=q) 
+            ).order_by('word', '-up')
+
+        userlist = set()
+        for word in wordlist:
+            userlist.add(word.user)
+
+    if request.GET.get('t') != None: 
+        q = request.GET.get('t')
+        wordlist = Word.objects.filter(Q(tags__name__icontains=q)).order_by('word', '-up',)
+
+        userlist = set()
+        for word in wordlist:
+            userlist.add(word.user)
 
     context = {
         "uobject": userlist,
@@ -36,8 +55,8 @@ def database_pg(request, *args, **kwargs):
 # Report List
 def report_list(request):
     page = "list"
-    reportlist = Report.objects.filter(Q(option__icontains="Tinjau"))
-    donelist = Report.objects.filter(Q(option__icontains="Selesai"))
+    reportlist = Report.objects.filter(Q(option__icontains="Tinjau")).order_by("date")
+    donelist = Report.objects.filter(Q(option__icontains="Selesai")).order_by("date")
     censorlist = Censorship.objects.all().order_by('name')
 
     context = {

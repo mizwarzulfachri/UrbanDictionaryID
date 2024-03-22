@@ -1,34 +1,40 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
 {% if page == 'form' %}
 <!-- Report Create & Edit -->
 <form action="." method="POST" enctype="multipart/form-data"> 
-    {% csrf_token %}
-    <h2>Lapor Kata {{ word.word|title }}</h2>
-    {{ form.as_p }} 
+    <div class="word-submit">
+        {% csrf_token %}
+        <header>Lapor Kata {{ word.word|title }}</header>
+        {% render_field form.category type="checkbox" class+="input-box" %}
+        {% render_field form.description placeholder="Despripsi" class+="input-description" %}<br>
 
-    <input type="submit" value="save" />
+        <input type="submit" value="save" class="btn-submit"/>
+    </div>
 </form>
 
 {% elif page == 'censorship' %}
 <!-- Censorship Create -->
-<form action="{% url 'database:censor-create' %}" method="POST">
+<form class="word-submit" action="{% url 'database:censor-create' %}" method="POST">
     {% csrf_token %}
-    <h2>Kata yang akan disensor</h2>
-    {{ form.as_p }}
+    <header>Kata yang akan disensor</header>
+    {% render_field form.name placeholder="Kata disensor" class+="input-box" %}
+    {% render_field form.description placeholder="Deskripsi kata" class+="input-description" %}
 
-    <input type="submit" value="save"/>
+    <input type="submit" value="save" class="btn-submit"/>
 </form>
 
 {% else %}
 <!-- Censorship Edit -->
-<form action="." method="POST">
+<form class="word-submit" action="." method="POST">
     {% csrf_token %}
-    <h2>Kata yang akan disensor</h2>
-    {{ form.as_p }}
+    <header>Kata yang akan disensor</header>
+    {% render_field form.name placeholder="Kata disensor" class+="input-box" %}
+    {% render_field form.description placeholder="Deskripsi kata" class+="input-description" %}
 
-    <input type="submit" value="save"/>
+    <input type="submit" value="save" class="btn-submit"/>
 </form>
 {% endif %}
 {% endblock %}

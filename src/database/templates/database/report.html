@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-    <h4>Dari user - {{ report.user }},</h4>
-    <h4>
+<div class="word-submit">
+    <header>Dari user - {{ report.user }},</header>
+    <p>
         Definisi untuk kata {{ report.word }} dianggap {{ report.category }} oleh user tersebut...
         <br>
         Alasannya... 
-    </h4>
-    <br>
-    <div class="description">
+    </p>
+    <p>
         {{ report.description }} 
-    </div>
-    <a href="{% url 'database:list' %}"><button>Kembali</button></a>
+    </p>
+    <a href="{% url 'database:list' %}"><button class="btn-submit">Kembali</button></a>
 </div>
 {% endblock %}

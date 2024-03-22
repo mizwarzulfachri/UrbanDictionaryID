@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+    <div class="form">
+        {% if 'set-password' in request.path %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="form-header">
+                    <header>Ubah Kata Sandi</header>
+                </div>
+        
+                <ul class="messages">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            
+                {% render_field form.new_password1 placeholder="Kata Sandi Baru" class+="input-box" %} <br>
+                {% render_field form.new_password2 placeholder="Kata Sandi Konfirmasi" class+="input-box" %}
+        
+                <div class="input-submit">
+                    <input type="submit" class="btn-submit" value="Ubah Kata Sandi"/>
+                </div>
+        
+            </form>
+        {% else %}
+            <div class="form-header">
+                <header>Reset kata sandi gagal</header>
+            </div>
+
+            <p>
+                Link untuk reset kata sandi tidak valid, mungkin karena sudah pernah digunakan. Silakan meminta pengaturan ulang kata sandi baru.
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

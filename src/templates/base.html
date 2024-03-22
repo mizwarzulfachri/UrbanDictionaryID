@@ -1,21 +1,23 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
   <head>
     <title>Urban Dictionary Indonesia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="https://bootswatch.com/5/united/bootstrap.min.css" rel="stylesheet" type="text/css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{% static 'styles/main.css' %}" rel="stylesheet" type="text/css" media="screen">
   </head>
+
   <body>
     {% include 'navbar.html' %}
 
-    {% block content %} 
+    <div id="background" class="wrapper">
+      {% block content %} 
         replace moi
-
-    <h1>{{ request.user }}</h1>
-    {% endblock %}
-
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+      {% endblock %}
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
   </body>
 </html>

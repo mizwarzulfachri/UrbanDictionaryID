@@ -4,11 +4,11 @@
 <div class="homepage">
   <div class="lside-content">
     {% for tags in filter %}
-      <a class="btn btn-primary" href="{% url 'home' %}?q={{ tags.name }}">{{ tags.name }}</a>
+      <a href="{% url 'home' %}?q={{ tags.name }}"><button class="btn-submit">{{ tags.name }}</button></a>
       <br>
     {% endfor %}
 
-    <a href="{% url 'home' %}">Reset</a>
+    <a href="{% url 'home' %}"><button class="btn-submit">Reset ↻</button></a>
   </div>
 
   {% if page == 'user' %}
@@ -19,94 +19,137 @@
             <p>{{ user.username }} sudah menginput {{ count }} definisi</p>
             <p>Terakhir masuk {{ user.last_login }}</p>
         </div>
-        
-        <div class="word-list">
-            {% for instance in object_list %}
-                <h3>
-                    <a href="{{ instance.get_absolute_url }}">{{ instance.word }}</a>
-                    <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' pk=instance.pk %}`">Speak</button>
-                </h3>
-                <p>{{ instance.definition}}</p>
-                <p>
-                    Tanggal dibuat {{ instance.date }} </br>
-                    Dibuat oleh <a href="{% url 'user' pk=instance.user.id %}">{{ instance.user }}</a>
-                </p>
-                <p> Up {{ instance.up }} | Down {{ instance.down }}</p>
-                <p>
-                  Rating {{ instance.rating }}
-                  <a href="{% url 'database:form' instance.pk %}">
-                    <button class="btn-primary" style="float: right;">Lapor</button>
-                  </a>
-                  {% if request.user.id == user.id %}
-                  <a href="{% url 'word:delete' instance.pk %}">
-                    <button class="btn-primary" style="float: right;">Delete</button>
-                  </a>
-                  <a href="{% url 'word:edit' instance.pk %}">
-                    <button class="btn-primary" style="float: right;">Edit</button>
-                  </a>
-                  {% endif %}
-                </p>
-                </br>
-            {% endfor %}
-        </div>
+
+        {% for instance in object_list %}
+      <div class="word-list">
+        <h3>
+          <a href="{{ instance.get_absolute_url }}">{{ instance.word }}</a>
+          <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' pk=instance.pk %}`">
+            <i class="fa fa-volume-up" aria-hidden="true"></i>
+          </button>
+        </h3>
+        <p>{{ instance.definition|linebreaks }}</p>
+          
+        Tanggal dibuat {{ instance.date }} </br>
+        Dibuat oleh <a href="{% url 'user' pk=instance.user.id %}">{{ instance.user }}</a>
+
+        <div class="rating" data-rating="{{ instance.rating }}"></div>
+
+        <a href="{% url 'word:upvotes' word_id=instance.pk %}">
+          <button class="btn" id="positive" onclick="toggleP()">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            {{ instance.up }}
+          </button>
+        </a>
+            
+        <a href="{% url 'word:downvotes' word_id=instance.pk %}">
+          <button class="btn" id="negative" onclick="toggleN()">
+            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            {{ instance.down }}
+          </button>
+        </a>
+
+        <!-- Rating {{ instance.rating }} -->
+        <a href="{% url 'database:form' instance.pk %}">
+          <button class="button-word" style="float: right;">
+            Lapor <i class="fa fa-flag" aria-hidden="true"></i>
+          </button>
+        </a>
+        {% if request.user.id == user.id %}
+        <a href="{% url 'word:delete' instance.pk %}">
+          <button class="button-word" style="float: right;">Delete</button>
+        </a>
+        <a href="{% url 'word:edit' instance.pk %}">
+          <button class="button-word" style="float: right;">Edit</button>
+        </a>
+        {% endif %}
+      </div>
+      {% endfor %}
     </div>
 
   {% else %}
     <div class="main-container">
-      <h2>WoTD! - Word of The Day</h2>
+      <!-- <h2>WoTD! - Word of The Day</h2> -->
       {% if query != '' %}
         <h2><a href="{% url 'home' %}">
-          <button>{{ query }} X</button>
+          <button class="btn-submit">
+            {{ query }}
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
         </a></h2>
       {% endif %}
       
+      {% for instance in object_list %}
       <div class="word-list">
-        {% for instance in object_list %}
-          <h3>
-            <a href="{{ instance.get_absolute_url }}">{{ instance.word }}</a>
-            <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' pk=instance.pk %}`">Speak</button>
-          </h3>
-          <p>{{ instance.definition}}</p>
-          <p>
-            Tanggal dibuat {{ instance.date }} </br>
-            Dibuat oleh <a href="{% url 'user' pk=instance.user.id %}">{{ instance.user }}</a>
-          </p>
-          <p> Up {{ instance.up }} | Down {{ instance.down }}</p>
-          <p>Rating {{ instance.rating }}</p>
+        <h3>
+          <a href="{{ instance.get_absolute_url }}">{{ instance.word }}</a>
+          <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' pk=instance.pk %}`">
+            <i class="fa fa-volume-up" aria-hidden="true"></i>
+          </button>
+        </h3>
+        <p>{{ instance.definition|linebreaks }}</p>
           
-          <a href="{% url 'database:form' instance.pk %}">
-            <button class="btn-primary" style="float: right;">Lapor</button>
-          </a>
-          </br>
-        {% endfor %}
+        Tanggal dibuat {{ instance.date }} </br>
+        Dibuat oleh <a href="{% url 'user' pk=instance.user.id %}">{{ instance.user }}</a>
+
+        <div class="rating" data-rating="{{ instance.rating }}"></div>
+
+        <a href="{% url 'word:upvotes' word_id=instance.pk %}">
+          <button class="btn" id="positive" onclick="toggleP()">
+            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            {{ instance.up }}
+          </button>
+        </a>
+            
+        <a href="{% url 'word:downvotes' word_id=instance.pk %}">
+          <button class="btn" id="negative" onclick="toggleN()">
+            <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+            {{ instance.down }}
+          </button>
+        </a>
+
+        <!-- Rating {{ instance.rating }} -->
+        <a href="{% url 'database:form' instance.pk %}">
+          <button class="button-word" style="float: right;">
+            Lapor <i class="fa fa-flag" aria-hidden="true"></i>
+          </button>
+        </a>
       </div>
+      {% endfor %}
     </div>
 {% endif %}
 
   <div class="rside-content">
     {% if request.user.is_authenticated %}
       Buat definsi kata sekarang!<br>
-      <a href="{% url 'word:create' %}">
-        <button>Tambah Definisi</button>
-      </a>
-      <a href="{% url 'logout' %}">
-        <button>Logout</button>
-      </a>
+      <div class="content-button">
+        <a href="{% url 'word:create' %}">
+          <button class="rsc-rbtn">Tambah Definisi</button>
+        </a>
+        <a href="{% url 'logout' %}">
+          <button class="rsc-lbtn">Logout</button>
+        </a>
+      </div>
     {% else %}
       Buat akunmu sekarang!<br>
-      <a href="{% url 'register' %}">
-        <button>Register</button>
-      </a>
-      <a href="{% url 'login' %}">
-        <button>Login</button>
-      </a>
+      <div class="content-button">
+        <a href="{% url 'register' %}">
+          <button class="rsc-rbtn">Register</button>
+        </a>
+        <a href="{% url 'login' %}">
+          <button class="rsc-lbtn">Login</button>
+        </a>
+      </div>
     {% endif %}
   </div>
 </div>
 
+<div class="bottom-bar">®2023</div>
 <style>
   .homepage {
+    padding-top: 95px;
     display: grid;
+    flex: 1;
     grid-template-columns: 1fr 3fr 1fr;
   }
 </style>

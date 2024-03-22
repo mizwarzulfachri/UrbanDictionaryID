@@ -2,17 +2,23 @@
 
 {% block content %}
 {% if request.user.is_superuser %}
-<form action='' method="POST">
+<form class="word-submit" action='' method="POST">
     {% csrf_token %}
     {% if page == 'delete' %}
-    <h1>Apakah betul mau dihapus laporan oleh {{ object.user }}, untuk kata {{ object.word }}?</h1>
-    <input type="submit" value="Betul"> <a href="{% url 'database:database' %}">Batal</a>
+        <header>Apakah betul mau dihapus laporan oleh {{ object.user }}, untuk kata {{ object.word }}?</header><br>
+        <div style="flex-direction: row;">
+            <input type="submit" class="btn-submit" value="Betul"> <a class="btn-submit" href="{% url 'database:list' %}">Batal</a>
+        </div>
     {% else %}
-    <h1>Apakah betul mau hapus {{ object.name }}?</h1>
-    <input type="submit" value="Betul"> <a href="{% url 'database:list' %}">Batal</a>
+        <header>Apakah betul mau hapus {{ object.name }}?</header><br>
+        <div style="flex-direction: row;">
+            <input type="submit" class="btn-submit" value="Betul"> <a class="btn-submit" href="{% url 'database:list' %}">Batal</a>
+        </div>
     {% endif %}
 </form>
 {% else %}
-<h1>You are not the admin!</h1>
+<div class="word-submit">
+    <h1>You are not the admin!</h1>
+</div>
 {% endif %}
 {% endblock %}

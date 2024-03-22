@@ -1,31 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Word</h1>
-<h3>
-    {{ object.word|capfirst }}
-    <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' object.pk %}`">Speak</button>
-</h3>
-<h3>Rating {{ object.rating }}</h3>
-<p>Up {{ object.up }} / Down {{ object.down }}</p>
-<h3>Tanggal dibuat {{ object.date }} oleh <a href="{% url 'home' %}?u={{ object.user }}">{{ object.user }}</a></h3>
+<div class="section">
+    <h1>Definisi Kata</h1>
+    <h3>
+        {{ object.word|capfirst }}
+        <button class="btn btn-outline-play" onclick="location.href=`{% url 'word:speech' object.pk %}`">Speak</button>
+    </h3>
+    <h3>Rating {{ object.rating }}</h3>
+    <p>Up {{ object.up }} / Down {{ object.down }}</p>
+    <h3>Tanggal dibuat {{ object.date }} oleh <a href="{% url 'user' object.user.id %}">{{ object.user }}</a></h3>
 
-<p>{{ object.definition }}</p>
+    <p>{{ object.definition }}</p>
 
-<p>Tags:</p>
-<ul>
-  {% for tag in object.tags.all %}
-    <li>{{ tag.name }}</li>
-  {% endfor %}
-</ul>
+    <p>Tags:</p>
+    <ul>
+    {% for tag in object.tags.all %}
+        <li>{{ tag.name }}</li>
+    {% endfor %}
+    </ul>
 
-{% if request.user == object.user or request.user.is_superuser %}
-    <a href="{% url 'word:edit' object.pk %}">
-        <button class="btn-primary">Edit</button>
+    {% if request.user == object.user or request.user.is_superuser %}
+        <a href="{% url 'word:edit' object.pk %}">
+            <button class="btn-submit">Edit</button>
+        </a>
+        <a href="{% url 'word:delete' object.pk %}">
+            <button class="btn-submit">Delete</button>
+        </a>
+    {% endif %}
+    <a href="{% url 'database:form' object.pk %}">
+        <button class="btn-submit">Lapor</button>
     </a>
-    <a href="{% url 'word:delete' object.pk %}">
-        <button class="btn-primary">Delete</button>
-    </a>
-{% endif %}
-    <button class="btn-primary">Lapor</button>
+</div>
 {% endblock %}  

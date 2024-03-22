@@ -1,0 +1,473 @@
+/* Contents of styling */
+/* 0 - Base Html */
+/* T1 - Navbar */
+/* T1-1 - Dropdown Button */
+/* T1-2 - Search */
+/* T1-3 About Navbar */
+/* P1 - Homepage Styling */
+/* P2 - Register/Login Form */
+/* P3 - About Page Styling */
+
+/* 0 Base Html */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#background {
+    background-image: linear-gradient(to bottom right, #FF9900, #D6578B, #8E5B9A);
+    height: max-content;
+    width: 100%;
+}
+
+/* End of Base Html */
+
+/* T1 Navbar */
+.navbar-default{
+    background-image: linear-gradient(to bottom right, #FF9900, #FF675B);
+    border-bottom: 5px solid #8E5B9A;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index : 10000
+}
+
+.navbar-list {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-list li {
+    margin-right: 15px; 
+}
+
+/* T1-1 Dropdown Button */
+.dropBtn {
+    background-color: transparent;
+    color: #402E32;
+    border-radius: 25px;
+    padding: 10px 32px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropBtn:hover, .dropBtn:focus {
+    background-color: rgba(238, 107, 0, 0.5);
+}
+
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+.ddcontent {
+    border-radius: 5px;
+    border: 5px solid #2F4858;
+    display: none;
+    position: absolute;
+    background-color: #8E5B9A;
+    min-width: 5px;
+    box-shadow: 0px 5px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.ddcontent li {
+    color: #8E5B9A;
+    padding: 1px;
+    display: block;
+    left: 50%;
+    transform: translateX(-8%);
+}
+
+.ddcontent a {
+    color: #2F4858;
+    background-color: hsla(0, 0%, 27%, 0);
+    padding: 5px;
+    text-decoration: none;
+    display: inline;
+}
+
+.ddcontent a:hover {
+    color: #8E5B9A;
+    background-color: #4A5784;
+    padding: 5px;
+}
+
+.show {display: block;}
+/* End of dropdown button */
+
+/* T1-2 Search */
+.search-form {
+    border-radius: 15px;
+    border-style: none;
+    outline: none;
+    background: #FFF7E9;
+    padding: 15px;
+    width: 550px;
+    height: 24px;
+}
+
+.btn-search {
+    background-color: transparent;
+    border: 5px solid #AE8A68;
+    border-radius: 15px;
+    padding: 5px 15px;
+    font-size: 16px;
+    color: #402E32;
+    cursor: pointer;
+    margin: 5px;
+    transition: .2s;
+}
+
+.btn-search:hover {
+    background-color: #AE8A68;
+}
+/* End of Search */
+
+/* T1-3 About Navbar */
+.btn-nav {
+    background-color: transparent;
+    color: #402E32;
+    border-radius: 25px;
+    padding: 5px 15px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-nav:hover {
+    background-color: rgba(238, 107, 0, 0.5);
+}
+/* End of about for navbar */
+
+/* End of Navbar */
+
+/* P1 Homepage Styling */
+.word-list {
+    background-color: #4A5784;
+    color: white;
+    font-size: larger;
+    border-radius: 5px;
+    border: 2px solid #2F4858;
+    padding: 30px;
+    margin: 10px;
+}
+
+.button-word {
+    background-color: transparent;
+    border: 3px solid #402E32;
+    border-radius: 15px;
+    padding: 5px 15px;
+    margin: 2px;
+    font-size: 16px;
+    color: #402E32;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.button-word:hover {
+    background-color: #402E32;
+    color: #FFF7E9;
+}
+
+.rside-content {
+    background-color: #FFF7E9;
+    color: rgb(63, 39, 39);
+    border-radius: 10px;
+    border: 2px solid #402E32;
+    text-align: center;
+    width: 250px;
+    height: 250px;
+    margin: 10px;
+    position: relative;
+}
+
+.content-button {
+    background-color: transparent;
+    color: #402E32;
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+}
+
+.rsc-rbtn {
+    background-color: transparent;
+    color: #402E32;
+    border-radius: 0px 0px 0px 10px;
+    border: 2px solid #402E32;
+    text-align: center;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.rsc-lbtn {
+    background-color: transparent;
+    color: #402E32;
+    border-radius: 0px 0px 10px 0px;
+    border: 2px solid #402E32;
+    width: 100%;
+    padding: 10px 20px;
+}
+
+.btn {
+    background-color: transparent;
+    border: none;
+    color: #402E32;
+    font-size: large;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* End of Homepage styling */
+
+/* P2 Register/Login/Word Form */
+.container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: max-content;
+    height: max-content;
+    padding: 20px;
+    background-color: #FF9900;
+    border: 5px solid #FFF7E9;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.form-header {
+    text-align: center;
+    margin: 20px 0 40px 0;
+}
+
+.form-header header {
+    color: #402E32;
+    font-size: 30px;
+    font-weight: 600; 
+}
+
+.input-box {
+    width: 410px;
+    height: 40px;
+    font-size: 18px;
+    padding: 0 25px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    background-color: #AE8A68;
+    transition: .2s;
+}
+::placeholder {
+    font-weight: 350;
+    color: white;
+}
+
+.input-box:focus{
+    width: 425px;
+}
+
+.btn-submit {
+    background-color: transparent;
+    border: 5px solid #8E5B9A;
+    border-radius: 15px;
+    padding: 5px 15px;
+    font-size: 16px;
+    color: #2F4858;
+    cursor: pointer;
+    margin: 5px;
+    transition: .2s;
+    font-weight: bold;
+}
+
+.btn-submit:hover, .btn-submit:focus {
+    background-color: #D6578B;
+    border: 5px solid #D6578B;
+    box-shadow: 0px 5px 10px 0px #d6578c86;
+    padding: 5px 25px;
+}
+
+.star {
+    font-size: 3vh;
+    cursor: pointer;
+}
+
+.star::before {
+    content: "\2605"; /* Unicode character for a solid star */
+    color: #402E32;
+}
+
+.star.checked::before {
+    color: #ffcc00; /* Color for checked stars */
+}
+
+/* End of Register/Login/Word Form */
+
+/* P3 About Page Styling */
+.section {
+    background-color: #FF9900;
+    border: 5px solid #FFF7E9;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.section header {
+    color: #2B3A6F;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+/* End of About Page Styling */
+
+/* P4 Forms */
+.word-submit {
+    background-color: #FF9900;
+    border: 5px solid #FFF7E9;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.word-submit header {
+    color: #402E32;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.input-description {
+    width: 410px;
+    height: 200px;
+    font-size: 18px;
+    padding: 10px 25px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    background-color: #AE8A68;
+    transition: .2s;
+}
+::placeholder {
+    font-weight: 350;
+    color: white;
+}
+
+.input-description:focus {
+    width: 425px;
+}
+
+.selector {
+    display: grid;
+    flex: 1;
+    grid-template-columns: 2fr 2fr;
+}
+
+/* P5 Bottom-Bar */
+.bottom-bar {
+    background-image: linear-gradient(to top left, #FF675B, #8E5B9A);
+    border-top: 5px solid #8E5B9A;
+    color: #FFF7E9;
+    margin-top: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    bottom: 0;
+}
+
+/* P6 Database */
+.database {
+    background-color: #FFF7E9;
+    color: #402E32;
+    border-radius: 5px;
+    border: 1px solid #402E32;
+    padding: 20px;
+    margin: 10px;
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: .6fr 4fr;
+}
+
+.lside-content {
+    padding: 2px;
+    text-align: center;
+}
+
+#d-table {
+    border-radius: 5px;
+    font-family: serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#d-table td, #d-table th {
+    border: 1px solid #402E32;
+    padding: 8px;
+}
+
+#d-table tr:nth-child(even) {
+    background-color: #FF9900;
+}
+
+#d-table tr:hover {
+    background-color: #ffc259;
+}
+
+#d-table th {
+    padding: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #402E32;
+    color: #FFF7E9;
+}
+
+.search-db {
+    border-radius: 15px;
+    border-style: none;
+    outline: none;
+    background: transparent;
+    border: #AE8A68 solid 5px;
+    padding: 15px;
+    width: 550px;
+    height: 24px;
+}

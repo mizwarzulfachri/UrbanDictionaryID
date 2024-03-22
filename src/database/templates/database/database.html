@@ -3,26 +3,43 @@
 {% block content %}
 <div class="database">
     <div class="lside-content">
-        <a href="{% url 'word:tag' %}">Tambah tag</a>
-        <br><br>
+        <a href="{% url 'word:tag' %}"><button class="button-word">
+            Tambah tag <i class="fa fa-plus" aria-hidden="true"></i>
+        </button></a>
+        <table>
+        <tbody>
         {% for tags in tobject %}
-        <a class="btn btn-primary" href="{% url 'database:database' %}?q={{ tags.name }}">{{ tags.name }}</a>
-        <a class="btn btn-primary" href="{% url 'word:tag-delete' tags.pk %}"><button style="float: right;">x</button></a>
-        <a class="btn btn-primary" href="{% url 'word:tag-update' tags.pk %}"><button style="float: right;">↻</button></a>
-        <br><br>
+            <tr>
+                <td>
+                    <a href="{% url 'database:database' %}?t={{ tags.name }}">{{ tags.name }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'word:tag-delete' tags.pk %}"><button class="button-word"><i class="fa fa-times" aria-hidden="true"></i></button></a>
+                </td>
+                <td>
+                    <a href="{% url 'word:tag-update' tags.pk %}"><button class="button-word">
+                        <i class="fa fa-repeat" aria-hidden="true"></i>
+                    </button></a>
+                </td>
+            </tr>            
         {% endfor %}
-    
+        </tbody>
+        </table>
         <!-- <a href="{% url 'database:database' %}">Reset</a> -->
     </div>
 
     <div class="main-container">
       {% if page == 'database' %}
+    <div style="display: flex; align-items: center;">
         <form method="GET" action="{% url 'database:database' %}">
-            <input type="text" name="s"/> <button>Search</button>
+            <input class="search-db" type="text" name="s"/> <button class="btn-search">Cari</button>
         </form>
-        <a href="{% url 'database:list' %}">Laporan {{ count }}</a>
+        <a style="margin-left: auto;" href="{% url 'database:list' %}"><button class="button-word">
+            Laporan {{ count }} <i class="fa fa-flag-o" aria-hidden="true"></i>
+        </button></a>
+    </div>
     
-        <table class="table">
+        <table id="d-table">
             <thead>
                 <tr>
                     <th>Nama pengguna</th>
@@ -44,7 +61,7 @@
         </table>
         <br>
     
-        <table class="word-table">
+        <table id="d-table">
             <thead>
                 <tr>
                     <th>Word</th>
@@ -65,14 +82,14 @@
                         {{ word.word }}
                         </a>
                     </td>
-                    <td>{{ word.definition }}</td>
+                    <td>{{ word.definition|linebreaks }}</td>
                     <td>{{ word.user }}</td>
                     <td>{{ word.date }}</td>
                     <td>{{ word.up }}</td>
                     <td>{{ word.down }}</td>
                     <td>{{ word.pronunciation }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{% url 'word:delete' word.pk %}"><button>Hapus</button></a>
+                        <a href="{% url 'word:delete' word.pk %}"><button class="button-word">Hapus <i class="fa fa-times" aria-hidden="true"></i></button></a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -81,7 +98,8 @@
 
       {% else %}
         <h2>Word Report</h2>
-        <table class="table">
+        {% if robject.count != 0 %}
+        <table id="d-table">
             <thead>
                 <tr>
                     <th>Categori</th>
@@ -99,18 +117,21 @@
                     <td><a href="{% url 'word:word' report.word.pk %}">{{ report.word }}</a></td>
                     <td>{{ report.date }}</td>
                     <td>
-                        <a href="{% url 'database:done' report.pk %}"><button>Selesai</button></a>
-                        <a href="{% url 'database:delete' report.pk %}"><button>Hapus</button></a>
+                        <a href="{% url 'database:done' report.pk %}"><button class="button-word">Selesai</button></a>
+                        <a href="{% url 'database:delete' report.pk %}"><button class="button-word">Hapus</button></a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <h3 style="color: red;">Tidak ada laporan!</h3>
+        {% endif %}
         <br>
 
         <h2>Selesai</h2>
         {% if done.count != 0 %}
-        <table>
+        <table id="d-table">
             <thead>
                 <tr>
                     <th>Categori</th>
@@ -128,22 +149,23 @@
                     <td><a href="{% url 'word:word' rptdone.word.pk %}">{{ rptdone.word }}</a></td>
                     <td>{{ rptdone.date }}</td>
                     <td>
-                        <a href="{% url 'database:done' rptdone.pk %}"><button>Tinjau Kembali</button></a>
-                        <a href="{% url 'database:delete' rptdone.pk %}"><button>Hapus</button></a>
+                        <a href="{% url 'database:done' rptdone.pk %}"><button class="button-word">Tinjau Kembali</button></a>
+                        <a href="{% url 'database:delete' rptdone.pk %}"><button class="button-word">Hapus</button></a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <p>Tidak ada laporan yang selesai</p>
+        <h3 style="color: red;">Tidak ada laporan yang selesai</h3>
         {% endif %}
         <br>
-
-        <div class="section">
-            <h2>Kata-kata yang disensor</h2>
-            <a href="{% url 'database:censor-create' %}"><button>Tambah Kata</button></a>
-            <table >
+           
+        <h2>Kata-kata yang disensor</h2>
+         <a href="{% url 'database:censor-create' %}"><button class="button-word">
+            Tambah Kata <i class="fa fa-plus" aria-hidden="true"></i>
+        </button></a>
+            <table id="d-table">
                 <thead>
                     <tr>
                         <th>Kata</th>
@@ -161,26 +183,17 @@
                             </a>
                         </td>
                         <td>{{ csp.date }}</td>
-                        <td>{{ csp.description }}</td>
+                        <td>{{ csp.description|linebreaks }}</td>
                         <td>
                             <a href="{% url 'database:censor-delete' csp.pk %}">
-                                <button>Hapus</button>
+                                <button class="button-word">Hapus</button>
                             </a>
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
       {% endif %}
     </div>
 </div>
-
-<style>
-    .database {
-      display: grid;
-      grid-template-columns: 0.5fr 4fr;
-    }
-</style>
-
 {% endblock %}

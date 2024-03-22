@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="form">
+        <div class="form-header">
+            <header>Reset kata sandi selesai</header>
+        </div>
+
+        <p>
+            Kata sandi Anda sudah digantikan. Anda dapat melanjutkan dan masuk sekarang.
+        </p>
+        <a href="{% url 'login' %}">
+            <button class="btn-submit">Login</button>
+        </a>
+    </div>
+{% endblock %}

@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action='' method="POST">
+<form class="word-submit" action='' method="POST">
     {% csrf_token %}
     {% if page == 'tag' %}
-    <h1>Apakah betul mau dihapus {{ object.name }}?</h1>
-    <input type="submit" value="Betul"> <a href="{% url 'database:database' %}">Batal</a>
+    <header>Apakah betul mau dihapus {{ object.name }}?</header><br>
+    <div style="flex-direction: row;">    
+        <input class="btn-submit" type="submit" value="Betul"> <a class="btn-submit" href="{% url 'database:database' %}">Batal</a>
+    </div>
     {% else %}
     <h1>Apakah betul mau dihapus {{ object.word }}?</h1>
-    <input type="submit" value="Betul"> <a href="{% url 'word:word' object.pk %}">Batal</a>
+    <div style="flex-direction: row;">
+        <input class="btn-submit" type="submit" value="Betul"> <a class="btn-submit" href="{% url 'word:word' object.pk %}">Batal</a>
+    </div>
     {% endif %}
 </form>
 {% endblock %}

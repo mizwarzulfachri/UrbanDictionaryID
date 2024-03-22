@@ -8,7 +8,7 @@ class WordForm(forms.ModelForm):
         model = Word
         fields = [
             'word',
-            'pronunciation',
+            # 'pronunciation',
             'definition',
             'tags',
         ]
@@ -16,12 +16,8 @@ class WordForm(forms.ModelForm):
 class RawWordForm(forms.Form):
     word          = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Masukkan sebuah word/frasa"}))
     pronunciation = forms.FileField(
-        widget=forms.ClearableFileInput(
-            attrs={
-                "placeholder": "Masukkan file audio"
-                }
-            ),
-        required=False
+        widget=forms.HiddenInput(), 
+        required=False,
         )
     definition    = forms.CharField(
         widget = forms.Textarea(
@@ -34,7 +30,8 @@ class RawWordForm(forms.Form):
         )
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
-        widget=forms.CheckboxSelectMultiple
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
         )
     user = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)
 
