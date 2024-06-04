@@ -1,199 +1,253 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
+
+<!-- --------- -->
+<!-- Database  -->
+<!-- --------- -->
+{% if page == 'database' %}
 <div class="database">
-    <div class="lside-content">
-        <a href="{% url 'word:tag' %}"><button class="button-word">
-            Tambah tag <i class="fa fa-plus" aria-hidden="true"></i>
-        </button></a>
-        <table>
-        <tbody>
+    <div class="tag-categories">
+        <button onclick="location.href=`{% url 'word:tag' %}`" class="btn-tertiary">
+            {% trans 'add-tag' %} <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        
         {% for tags in tobject %}
-            <tr>
-                <td>
-                    <a href="{% url 'database:database' %}?t={{ tags.name }}">{{ tags.name }}</a>
-                </td>
-                <td>
-                    <a href="{% url 'word:tag-delete' tags.pk %}"><button class="button-word"><i class="fa fa-times" aria-hidden="true"></i></button></a>
-                </td>
-                <td>
-                    <a href="{% url 'word:tag-update' tags.pk %}"><button class="button-word">
-                        <i class="fa fa-repeat" aria-hidden="true"></i>
-                    </button></a>
-                </td>
-            </tr>            
+        <div class="tag-item">
+            <a href="{% url 'database:database' %}?t={{ tags.name }}" class="tag-name">{{ tags.name }}</a>
+            
+            <section class="button-section">
+                <button class="btn-tertiary warning-border" style="width: auto; height: auto; padding: 5px 10px;" onclick="location.href=`{% url 'word:tag-update' tags.pk %}`">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+
+                <button class="btn-tertiary danger-border" style="width: auto; height: auto; padding: 5px 10px;" onclick="location.href=`{% url 'word:tag-delete' tags.pk %}`">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                </button>
+            </section>
+        </div>
         {% endfor %}
-        </tbody>
-        </table>
         <!-- <a href="{% url 'database:database' %}">Reset</a> -->
     </div>
-
     <div class="main-container">
-      {% if page == 'database' %}
-    <div style="display: flex; align-items: center;">
-        <form method="GET" action="{% url 'database:database' %}">
-            <input class="search-db" type="text" name="s"/> <button class="btn-search">Cari</button>
-        </form>
-        <a style="margin-left: auto;" href="{% url 'database:list' %}"><button class="button-word">
-            Laporan {{ count }} <i class="fa fa-flag-o" aria-hidden="true"></i>
-        </button></a>
-    </div>
+        <div class="db-menu">
+            <form class="flex-row center" method="GET" action="{% url 'database:database' %}">
+                <input class="hero-search" placeholder="Kata slang..." type="text" name="s"/> 
+                <button class="btn-primary flex-row center">
+                    {% trans 'search'|capfirst %} <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </form>
+            <div>
+                <button class="btn-tertiary" onclick="location.href=`{% url 'register' %}`">
+                    {% trans 'register-account' %}
+                </button>
+                <button class="btn-tertiary" onclick="location.href=`{% url 'database:list' %}`">
+                    <span class="material-icons">{% trans 'reports'|capfirst %} <i class="fa fa-flag" aria-hidden="true"></i></span> 
+                    {% if count != 0 %}
+                    <span class="btn-badge">{{ count }}</span>
+                    {% endif %}
+                </button>
+            </div>
+        </div>
     
-        <table id="d-table">
-            <thead>
-                <tr>
-                    <th>Nama pengguna</th>
-                    <th>Email</th>
-                    <th>Terakhir masuk</th>
-                    <th>Tanggal Bergabung</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in uobject %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.last_login }}</td>
-                    <td>{{ user.date_joined }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+        <table class="data-table">
+            <caption class="caption-th caption-th-td" style="caption-side:top;">
+                {% trans 'user-table' %}
+            </caption>
+            <tr>
+                <th class="caption-th caption-th-td">{% trans 'username'|capfirst %}</th>
+                <th class="caption-th caption-th-td">Email</th>
+                <th class="caption-th caption-th-td">{% trans 'last-login'|capfirst %}</th>
+                <th class="caption-th caption-th-td">{% trans 'join-date'|capfirst %}</th>
+                <th class="caption-th caption-th-td">{% trans 'status'|capfirst %}</th>
+                <th class="caption-th caption-th-td">{% trans 'action'|capfirst %}</th>
+            </tr>
+            {% for user in uobject %}
+            <tr>
+                <td class="caption-th-td" data-cell="{% trans 'username' %}">{{ user.username }}</td>
+                <td class="caption-th-td" data-cell="{% trans 'email' %}">{{ user.email }}</td>
+                <td class="caption-th-td" data-cell="{% trans 'last-login' %}">{{ user.last_login }}</td>
+                <td class="caption-th-td" data-cell="{% trans 'date joined' %}">{{ user.date_joined }}</td>
+                <td class="caption-th-td" data-cell="{% trans 'status' %}">
+                    {% if user.is_superuser %}
+                        {% trans 'admin' %}
+                    {% else %}
+                        {% trans 'regular-usr' %}
+                    {% endif %}
+                </td>
+                <td class="caption-th-td" data-cell="{% trans 'action' %}">
+                    <div class="button-group">
+                        <button onclick="location.href=`{% url 'delete_usr' user.pk %}`" class="btn-tertiary danger-border">{% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
         </table>
-        <br>
     
-        <table id="d-table">
+        <table class="data-table">
+            <caption class="caption-th caption-th-td" style="caption-side:top;">
+                {% trans 'word-table' %}
+            </caption>
             <thead>
                 <tr>
-                    <th>Word</th>
-                    <th>Definisi</th>
-                    <th>Penulis</th>
-                    <th>Date</th>
-                    <th>Up</th>
-                    <th>Down</th>
-                    <th>Pronunciation</th>
-                    <th>Action</th>
+                    <th class="caption-th caption-th-td">{% trans 'word'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'definition'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'author'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'date'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'likes'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'dislikes'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'visibility'|capfirst %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'action'|capfirst %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for word in wobject %}
                 <tr>
-                    <td>
+                    <td class="caption-th-td" data-cell="{% trans 'word' %}">
                         <a href="{% url 'word:word' word.pk %}">
                         {{ word.word }}
                         </a>
                     </td>
-                    <td>{{ word.definition|linebreaks }}</td>
-                    <td>{{ word.user }}</td>
-                    <td>{{ word.date }}</td>
-                    <td>{{ word.up }}</td>
-                    <td>{{ word.down }}</td>
-                    <td>{{ word.pronunciation }}</td>
-                    <td>
-                        <a href="{% url 'word:delete' word.pk %}"><button class="button-word">Hapus <i class="fa fa-times" aria-hidden="true"></i></button></a>
+                    <td class="caption-th-td" data-cell="{% trans 'definition' %}">{{ word.definition|linebreaks }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'user' %}">{{ word.user }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'date' %}">{{ word.date }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'likes' %}">{{ word.up }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'dislikes' %}">{{ word.down }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'visibility' %}">{{ word.visibility }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'action' %}">
+                        <div class="button-group">
+                            <button class="btn-tertiary" onclick="location.href=`{% url 'word:vulgar' word.pk %}`">
+                                {% if word.visibility == 'Vulgar' %}
+                                    {% trans 'public' %}
+                                {% else %}
+                                    {% trans 'vulgar' %}
+                                {% endif %}
+                            </button>
+                            <button class="btn-tertiary" onclick="location.href=`{% url 'word:hide' word.pk %}`">
+                                {% if word.visibility == 'Hidden' %}
+                                    {% trans 'public' %}
+                                {% else %}
+                                    {% trans 'hide' %}
+                                {% endif %}
+                            </button>
+                            <button class="btn-tertiary danger-border" onclick="location.href=`{% url 'word:delete' word.pk %}`">{% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
-      {% else %}
-        <h2>Word Report</h2>
+    </div>
+</div>
+<!-- ----------- -->
+<!-- Report Page -->
+<!-- ----------- -->
+{% else %}
+<div class="report-page">
+    <div class="main-container">
+        <h3>{% trans 'word-report' %}</h2>
         {% if robject.count != 0 %}
-        <table id="d-table">
+        <table class="data-table">
             <thead>
                 <tr>
-                    <th>Categori</th>
-                    <th>Pengguna</th>
-                    <th>Kata</th>
-                    <th>Tanggal</th>
-                    <th>Action</th>
+                    <th class="caption-th caption-th-td">{% trans 'category' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'user' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'word' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'date' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'action' %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for report in robject %}
                 <tr>
-                    <td><a href="{% url 'database:view' report.pk %}">{{ report.category }}</a></td>
-                    <td><a href="{% url 'user' report.user.pk %}">{{ report.user }}</a></td>
-                    <td><a href="{% url 'word:word' report.word.pk %}">{{ report.word }}</a></td>
-                    <td>{{ report.date }}</td>
-                    <td>
-                        <a href="{% url 'database:done' report.pk %}"><button class="button-word">Selesai</button></a>
-                        <a href="{% url 'database:delete' report.pk %}"><button class="button-word">Hapus</button></a>
+                    <td class="caption-th-td" data-cell="{% trans 'category' %}"><a href="{% url 'database:view' report.pk %}">{{ report.category }}</a></td>
+                    <td class="caption-th-td" data-cell="{% trans 'user' %}"><a href="{% url 'user' report.user.pk %}">{{ report.user }}</a></td>
+                    <td class="caption-th-td" data-cell="{% trans 'word' %}"><a href="{% url 'word:word' report.word.pk %}">{{ report.word }}</a></td>
+                    <td class="caption-th-td" data-cell="{% trans 'date' %}">{{ report.date }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'action' %}">
+                        <div class="button-group">
+                            <button onclick="location.href=`{% url 'database:done' report.pk %}`" class="btn-tertiary success-border">{% trans 'done' %}</button>
+                            <button onclick="location.href=`{% url 'database:delete' report.pk %}`" class="btn-tertiary danger-border">{% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <h3 style="color: red;">Tidak ada laporan!</h3>
+        <h3 style="color: red;">{% trans 'no-report' %}!</h3>
         {% endif %}
         <br>
-
-        <h2>Selesai</h2>
+        <h3>{% trans 'report-done' %}</h3>
         {% if done.count != 0 %}
-        <table id="d-table">
+        <table class="data-table margin-side-15">
             <thead>
                 <tr>
-                    <th>Categori</th>
-                    <th>Pengguna</th>
-                    <th>Kata</th>
-                    <th>Tanggal</th>
-                    <th>Action</th>
+                    <th class="caption-th caption-th-td">{% trans 'category' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'user' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'word' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'date' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'action' %}</th>
                 </tr>
             </thead>
             <tbody>
                 {% for rptdone in done %}
                 <tr>
-                    <td><a href="{% url 'database:view' rptdone.pk %}">{{ rptdone.category }}</a></td>
-                    <td><a href="{% url 'user' rptdone.user.pk %}">{{ rptdone.user }}</a></td>
-                    <td><a href="{% url 'word:word' rptdone.word.pk %}">{{ rptdone.word }}</a></td>
-                    <td>{{ rptdone.date }}</td>
-                    <td>
-                        <a href="{% url 'database:done' rptdone.pk %}"><button class="button-word">Tinjau Kembali</button></a>
-                        <a href="{% url 'database:delete' rptdone.pk %}"><button class="button-word">Hapus</button></a>
+                    <td class="caption-th-td" data-cell="{% trans 'category' %}"><a href="{% url 'database:view' rptdone.pk %}">{{ rptdone.category }}</a></td>
+                    <td class="caption-th-td" data-cell="{% trans 'user' %}"><a href="{% url 'user' rptdone.user.pk %}">{{ rptdone.user }}</a></td>
+                    <td class="caption-th-td" data-cell="{% trans 'word' %}"><a href="{% url 'word:word' rptdone.word.pk %}">{{ rptdone.word }}</a></td>
+                    <td class="caption-th-td" data-cell="{% trans 'date' %}">{{ rptdone.date }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'action' %}">
+                        <div class="button-group">
+                            <button onclick="location.href=`{% url 'database:done' rptdone.pk %}`" class="btn-tertiary warning-border">{% trans 'review-again' %}</button>
+                            <button onclick="location.href=`{% url 'database:delete' rptdone.pk %}`" class="btn-tertiary danger-border">{% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         {% else %}
-        <h3 style="color: red;">Tidak ada laporan yang selesai</h3>
+        <h3 style="color: red;">{% trans 'no-report-completed' %}!</h3>
         {% endif %}
         <br>
-           
-        <h2>Kata-kata yang disensor</h2>
-         <a href="{% url 'database:censor-create' %}"><button class="button-word">
-            Tambah Kata <i class="fa fa-plus" aria-hidden="true"></i>
-        </button></a>
-            <table id="d-table">
-                <thead>
-                    <tr>
-                        <th>Kata</th>
-                        <th>Tanggal</th>
-                        <th>Despripsi</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for csp in censored %}
-                    <tr>
-                        <td>
-                            <a href="{% url 'database:censor-edit' csp.pk %}">
-                            {{ csp.name }}
-                            </a>
-                        </td>
-                        <td>{{ csp.date }}</td>
-                        <td>{{ csp.description|linebreaks }}</td>
-                        <td>
-                            <a href="{% url 'database:censor-delete' csp.pk %}">
-                                <button class="button-word">Hapus</button>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-      {% endif %}
+
+        <div class="flex-row space-between margin-5">
+            <h3>{% trans 'censor-words' %}</h3>
+            <button class="btn-tertiary" onclick="location.href=`{% url 'database:censor-create' %}`">
+                {% trans 'add-word' %} <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+        </div>
+        <table class="data-table margin-side-15">
+            <thead>
+                <tr>
+                    <th class="caption-th caption-th-td">{% trans 'word' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'date' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'description' %}</th>
+                    <th class="caption-th caption-th-td">{% trans 'action' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for csp in censored %}
+                <tr>
+                    <td class="caption-th-td" data-cell="{% trans 'word' %}">
+                        <a href="{% url 'database:censor-edit' csp.pk %}">
+                            {{ csp.name }} <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    <td class="caption-th-td" data-cell="{% trans 'date' %}">{{ csp.date }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'description' %}">{{ csp.description|linebreaks }}</td>
+                    <td class="caption-th-td" data-cell="{% trans 'action' %}">
+                        <div class="button-group">
+                            <button onclick="location.href=`{% url 'database:censor-delete' csp.pk %}`" class="btn-tertiary danger-border">{% trans 'delete' %}  <i class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
+{% endif %}
 {% endblock %}

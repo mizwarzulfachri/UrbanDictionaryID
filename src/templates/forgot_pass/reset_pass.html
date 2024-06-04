@@ -1,40 +1,46 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
-    <div class="form">
-        {% if 'set-password' in request.path %}
-            <form method="POST" action="">
-                {% csrf_token %}
-                <div class="form-header">
-                    <header>Ubah Kata Sandi</header>
-                </div>
-        
-                <ul class="messages">
-                    {% if messages %}
-                        {% for message in messages %}
-                            <p>{{ message }}</p>
-                        {% endfor %}
-                    {% endif %}
-                </ul>
-            
-                {% render_field form.new_password1 placeholder="Kata Sandi Baru" class+="input-box" %} <br>
-                {% render_field form.new_password2 placeholder="Kata Sandi Konfirmasi" class+="input-box" %}
-        
-                <div class="input-submit">
-                    <input type="submit" class="btn-submit" value="Ubah Kata Sandi"/>
-                </div>
-        
-            </form>
-        {% else %}
+    {% if 'set-password' in request.path %}
+        <form class="form" method="POST" action="">
+            {% csrf_token %}
             <div class="form-header">
-                <header>Reset kata sandi gagal</header>
+                <header>{% trans 'pass-header' %}</header>
             </div>
-
-            <p>
-                Link untuk reset kata sandi tidak valid, mungkin karena sudah pernah digunakan. Silakan meminta pengaturan ulang kata sandi baru.
-            </p>
-        {% endif %}
+    
+            {% if form.errors %}
+            <ul class="messages">
+                {% for field, errors in form.errors.items %}
+                    {% for message in errors %}
+                        {{ message }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        
+            {% render_field form.new_password1 placeholder=form.new_password1.label class+="input-box" %}
+            {% render_field form.new_password2 placeholder=form.new_password2.label class+="input-box" %}
+    
+            <div class="input-submit margin-top-10">
+                <input type="submit" class="btn-primary" value="{% trans 'pass-submit' %}"/>
+            </div>
+    
+        </form>
+    {% else %}
+    <div class="form">
+        <div class="form-header">
+            <header>{% trans 'pfail-header' %}</header>
+        </div>
+        <p>
+            {% trans 'pfail-message' %}
+        </p>
+        <div class="input-submit">
+            <button onclick="location.href=`{% url 'password_reset' %}`" class="btn-primary">{% trans 'forgot-pass' %}</button>
+        </div>
     </div>
+    {% endif %}
+</div>
 {% endblock %}

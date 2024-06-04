@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -7,6 +7,8 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.db.models import Q
+from django.db.models import Count
+from datetime import datetime, timedelta
 
 # App models
 from word.models import Word, Tag
@@ -23,36 +25,40 @@ def homepage(request, *args, **kwargs):
     q = request.GET.get('') if request.GET.get('') != None else ''
     wordlist = Word.objects.filter(
         Q(word__icontains=q) 
-        ).exclude(tags__name='Vulgar').order_by('-up', 'down', '?')
+        ).exclude(Q(visibility='Vulgar') | Q(visibility='Hidden')).order_by('-up', 'down', '?')
 
     # Search
     if request.GET.get('s') != None:
         q = request.GET.get('s')
         wordlist = Word.objects.filter(
             Q(word__istartswith=q) 
-            ).order_by('-up', 'down')
+            ).exclude(visibility='Hidden').order_by('-up', 'down')
     
     # Search start with
     if request.GET.get('b') != None:
         q = request.GET.get('b') 
-        wordlist = Word.objects.filter(Q(word__istartswith=q)).order_by('word', '-up')
+        wordlist = Word.objects.filter(
+            Q(word__istartswith=q)
+            ).exclude(Q(visibility='Vulgar') | Q(visibility='Hidden')).order_by('word', '-up')
 
     # Search by tags
     if request.GET.get('q') != None: 
         q = request.GET.get('q')  
-        wordlist = Word.objects.filter(Q(tags__name__icontains=q)).order_by('-up', 'down', '?')
+        wordlist = Word.objects.filter(
+            Q(tags__name__icontains=q)
+            ).exclude(Q(visibility='Vulgar') | Q(visibility='Hidden')).order_by('-up', 'down', '?')
 
     # Search by ASCII
     if request.GET.get('a') != None: 
         wordlist = Word.objects.exclude(
-            tags__name='Vulgar'
+            Q(visibility='Vulgar') | Q(visibility='Hidden')
         ).order_by('word')
 
     # Search by recent
     if request.GET.get('n') != None: 
         q = request.GET.get('n')  
         wordlist = Word.objects.exclude(
-            tags__name='Vulgar'
+            Q(visibility='Vulgar') | Q(visibility='Hidden')
         ).order_by('-date')
 
     # Search by user 
@@ -60,11 +66,21 @@ def homepage(request, *args, **kwargs):
     #     q = request.GET.get('u')  
     #     wordlist = Word.objects.filter(Q(user__username__icontains=q)).order_by('-up', '?')
 
-    queryset = Tag.objects.all().order_by('name').exclude(name='Vulgar')
+    # Tags Order
+    recent = datetime.now() - timedelta(days=7)
+    wordtaglst = Word.objects.filter(date__gte=recent)
+    
+    tags_count = Tag.objects.annotate(word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent)))
+    queryset = tags_count.order_by('-word_count').exclude(name='Vulgar')
+    
+    # for tag in tags_count:
+    #     print(f"Tag: {tag.name}, Word Count: {tag.word_count}")
+    # queryset = Tag.objects.all().order_by('name').exclude(name='Vulgar') # Base tag query
 
     context = {
         "object_list": wordlist,
         "filter": queryset,
+        "filter_count": tags_count,
         "query": q,
         "page": page,
     }
@@ -86,14 +102,14 @@ def login_pg(request):
             login(request, user) 
             return redirect('home')   
         except:
-            messages.error(request, 'Nama user atau password salah')
+            messages.error(request, 'Nama user atau kata sandi salah')
 
     context = {'page': page,}
     return render(request, 'login_register.html', context)
 
 def logout_pg(request):
     logout(request)
-    return redirect('home')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def register_pg(request):
     page = 'register'
@@ -104,6 +120,15 @@ def register_pg(request):
         if form.is_valid():
             user = form.save()
             user.save()
+
+            if 'Admin' in request.POST.getlist('checked'):
+                user.is_superuser = True
+                user.save()
+                print('user is an admin')
+            
+            if user.is_superuser:
+                return redirect('database:database')
+            
             login(request, user)
             return redirect('home')
         else:
@@ -115,26 +140,60 @@ def register_pg(request):
     }
     return render(request, 'login_register.html', context)
 
+def del_usr(request, pk):
+    page = 'user'
+    user = get_object_or_404(User, pk=pk)
+
+    if not request.user.is_superuser:
+        return HttpResponse('<h1>Anda bukan admin</h1>')
+
+    if request.method == 'POST':
+        user.delete()
+        return redirect('database:database')
+
+    context = {
+        "object": user,
+        "page": page,
+    }
+    return render(request, "database/report_delete.html", context)
+    
+
 def user_pg(request, pk):
     page = 'user'
 
     user = get_object_or_404(User, id=pk)
-    wordlist = Word.objects.filter(Q(user__username__icontains=user.username)).order_by('-up')
+    wordlist = Word.objects.filter(
+        Q(user__username__icontains=user.username)
+        ).exclude(
+            Q(visibility='Vulgar') | Q(visibility='Hidden')
+            ).order_by('-up')
     word_count = wordlist.count()
 
-    queryset = Tag.objects.all().order_by('name').exclude(name='Vulgar')
+    if user == request.user:
+        wordlist = Word.objects.filter(Q(user__username__icontains=user.username)).order_by('-up')
+
+    # Tags Order
+    recent = datetime.now() - timedelta(days=7)
+    wordtaglst = Word.objects.filter(date__gte=recent)
+    
+    tags_count = Tag.objects.annotate(word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent)))
+    queryset = tags_count.order_by('-word_count').exclude(name='Vulgar')
+    
+    # queryset = Tag.objects.all().order_by('name').exclude(name='Vulgar')
 
     context = {
         'user': user,
         'object_list': wordlist,
-        'filter': queryset,
+        "filter": queryset,
+        "filter_count": tags_count,
         'count': word_count,
         'page': page,
     }
     return render(request, 'homepage.html', context)
 
-def about_pg(request, *args, **kwargs):
-    return render(request, "about.html")
+# About Page 
+# def about_pg(request, *args, **kwargs):
+#     return render(request, "about.html")
 
 # Forgot Password 
 class PasswordsChangeView(PasswordChangeView):

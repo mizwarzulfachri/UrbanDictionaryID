@@ -1,0 +1,550 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-15 08:50+0700\n"
+"PO-Revision-Date: 2024-05-24 12:56+0000\n"
+"Last-Translator:   <hackersrepel@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.0\n"
+
+#: UrbanDictionary/settings.py:133
+msgid "English"
+msgstr "english"
+
+#: UrbanDictionary/settings.py:134
+msgid "Indonesian"
+msgstr "indonesian"
+
+#: database/models.py:12
+msgid "Vulgar"
+msgstr "vulgar"
+
+#: database/models.py:13
+msgid "Spam"
+msgstr "spam"
+
+#: database/models.py:16
+msgid "Selesai"
+msgstr "done"
+
+#: database/models.py:17
+msgid "Tinjau"
+msgstr "review"
+
+#: database/models.py:23 database/templates/database/database.html:155
+#: database/templates/database/database.html:188
+msgid "category"
+msgstr "category"
+
+#: database/models.py:25 database/models.py:41
+#: database/templates/database/database.html:228
+msgid "description"
+msgstr "description"
+
+#: database/models.py:27 database/models.py:43
+#: database/templates/database/database.html:98
+#: database/templates/database/database.html:158
+#: database/templates/database/database.html:191
+#: database/templates/database/database.html:227 word/models.py:23
+msgid "date"
+msgstr "date"
+
+#: database/models.py:29
+msgid "option"
+msgstr "option"
+
+#: database/models.py:32 templates/homepage.html:111
+#: templates/homepage.html:239 word/templates/word/word_detail.html:52
+msgid "report"
+msgstr "report"
+
+#: database/models.py:33 database/templates/database/database.html:49
+msgid "reports"
+msgstr "reports"
+
+#: database/models.py:39 word/models.py:58 word/models.py:76
+msgid "name"
+msgstr "name"
+
+#: database/models.py:46
+msgid "censorship"
+msgstr "censorship"
+
+#: database/models.py:47
+msgid "censorships"
+msgstr "censorships"
+
+#: database/templates/database/database.html:13
+msgid "add-tag"
+msgstr "Add Tags"
+
+#: database/templates/database/database.html:41 templates/homepage.html:152
+#: templates/navbar.html:13
+msgid "search"
+msgstr "search"
+
+#: database/templates/database/database.html:46
+msgid "register-account"
+msgstr "Register an Account"
+
+#: database/templates/database/database.html:59
+msgid "user-table"
+msgstr "User Table"
+
+#: database/templates/database/database.html:62
+#: templates/login_register.html:23
+msgid "username"
+msgstr "Username"
+
+#: database/templates/database/database.html:64 templates/homepage.html:47
+msgid "last-login"
+msgstr "Last login "
+
+#: database/templates/database/database.html:65 templates/homepage.html:45
+msgid "join-date"
+msgstr "Joined on "
+
+#: database/templates/database/database.html:66
+msgid "status"
+msgstr "Status"
+
+#: database/templates/database/database.html:67
+#: database/templates/database/database.html:102
+#: database/templates/database/database.html:159
+#: database/templates/database/database.html:192
+#: database/templates/database/database.html:229
+msgid "action"
+msgstr "Action"
+
+#: database/templates/database/database.html:77
+msgid "admin"
+msgstr "Admin"
+
+#: database/templates/database/database.html:79
+msgid "regular-usr"
+msgstr "Regular User"
+
+#: database/templates/database/database.html:83
+#: database/templates/database/database.html:135
+#: database/templates/database/database.html:172
+#: database/templates/database/database.html:205
+#: database/templates/database/database.html:244
+#: database/templates/database/report.html:42
+#: database/templates/database/report_delete.html:11
+#: database/templates/database/report_delete.html:16
+#: database/templates/database/report_delete.html:21
+#: templates/homepage.html:107 word/templates/word/word_delete.html:10
+#: word/templates/word/word_delete.html:15
+#: word/templates/word/word_detail.html:48
+msgid "delete"
+msgstr "Delete"
+
+#: database/templates/database/database.html:91
+msgid "word-table"
+msgstr "Word Table"
+
+#: database/templates/database/database.html:95
+#: database/templates/database/database.html:157
+#: database/templates/database/database.html:190
+#: database/templates/database/database.html:226 word/models.py:19
+#: word/models.py:32
+msgid "word"
+msgstr "Word"
+
+#: database/templates/database/database.html:96 templates/homepage.html:46
+#: word/models.py:20
+msgid "definition"
+msgstr "definition"
+
+#: database/templates/database/database.html:97
+msgid "author"
+msgstr "Author"
+
+#: database/templates/database/database.html:99
+msgid "likes"
+msgstr "Upvote"
+
+#: database/templates/database/database.html:100
+msgid "dislikes"
+msgstr "Downvote"
+
+#: database/templates/database/database.html:101 word/models.py:25
+msgid "visibility"
+msgstr "visibility"
+
+#: database/templates/database/database.html:123
+#: database/templates/database/database.html:130
+#: database/templates/database/report.html:19
+#: database/templates/database/report.html:26
+msgid "public"
+msgstr "Public"
+
+#: database/templates/database/database.html:125
+#: database/templates/database/report.html:21
+msgid "vulgar"
+msgstr "Vulgar"
+
+#: database/templates/database/database.html:132
+#: database/templates/database/report.html:28
+msgid "hide"
+msgstr "Hide"
+
+#: database/templates/database/database.html:150
+msgid "word-report"
+msgstr "Word Reports"
+
+#: database/templates/database/database.html:156
+#: database/templates/database/database.html:189
+msgid "user"
+msgstr "User"
+
+#: database/templates/database/database.html:171
+#: database/templates/database/report.html:39
+msgid "done"
+msgstr "Done"
+
+#: database/templates/database/database.html:180
+msgid "no-report"
+msgstr "There are no reports"
+
+#: database/templates/database/database.html:183
+msgid "report-done"
+msgstr "Report Done"
+
+#: database/templates/database/database.html:204
+#: database/templates/database/report.html:36
+msgid "review-again"
+msgstr "Review again"
+
+#: database/templates/database/database.html:213
+msgid "no-report-completed"
+msgstr "There are no reports that are done"
+
+#: database/templates/database/database.html:218
+msgid "censor-words"
+msgstr "Censored Words"
+
+#: database/templates/database/database.html:220
+msgid "add-word"
+msgstr "Add Words"
+
+#: database/templates/database/report.html:6
+msgid "from-usr"
+msgstr "From user"
+
+#: database/templates/database/report.html:8
+#| msgid "hero-paragraph-1"
+msgid "report-paragraph-1"
+msgstr "The definition for this word"
+
+#: database/templates/database/report.html:8
+#| msgid "hero-paragraph-2"
+msgid "report-paragraph-2"
+msgstr "is considered as a"
+
+#: database/templates/database/report.html:8
+#| msgid "hero-paragraph-3"
+msgid "report-paragraph-3"
+msgstr "by the user that was just mentioned..."
+
+#: database/templates/database/report.html:10
+msgid "reason"
+msgstr "Reason being..."
+
+#: database/templates/database/report.html:46
+msgid "return"
+msgstr "Return"
+
+#: database/templates/database/report_delete.html:9
+msgid "del-report-header-1"
+msgstr "Are you sure you want to delete this report from"
+
+#: database/templates/database/report_delete.html:9
+msgid "del-report-header-2"
+msgstr "for this word "
+
+#: database/templates/database/report_delete.html:11
+#: database/templates/database/report_delete.html:16
+#: database/templates/database/report_delete.html:21
+#: word/templates/word/word_delete.html:10
+#: word/templates/word/word_delete.html:15
+msgid "cancel"
+msgstr "Cancel"
+
+#: database/templates/database/report_delete.html:14
+msgid "del-user-header"
+msgstr "Are you sure you want to delete user"
+
+#: database/templates/database/report_delete.html:19
+#: word/templates/word/word_delete.html:8
+#: word/templates/word/word_delete.html:13
+msgid "del-header"
+msgstr "Are you sure you want to delete"
+
+#: database/templates/database/report_form.html:11
+msgid "report-head"
+msgstr "Report this word"
+
+#: database/templates/database/report_form.html:27
+#: database/templates/database/report_form.html:51
+#: database/templates/database/report_form.html:75
+#: word/templates/word/word_form.html:31 word/templates/word/word_form.html:46
+#: word/templates/word/word_form.html:61
+msgid "submit"
+msgstr "Submit"
+
+#: database/templates/database/report_form.html:35
+msgid "censor-head"
+msgstr "Words that will be censored "
+
+#: database/templates/database/report_form.html:59
+msgid "censor-edit-head"
+msgstr "Edit words that will be censored"
+
+#: templates/forgot_pass/change_password.html:10
+#: templates/forgot_pass/reset_pass.html:11
+msgid "pass-header"
+msgstr "Password Reset"
+
+#: templates/forgot_pass/change_password.html:26
+#: templates/forgot_pass/reset_pass.html:28
+msgid "pass-submit"
+msgstr "Change password"
+
+#: templates/forgot_pass/complete_pass.html:8
+msgid "pcompl-header"
+msgstr "Password Reset Completed"
+
+#: templates/forgot_pass/complete_pass.html:12
+msgid "pcompl-message"
+msgstr "Your password has been resetted. You can continue and log in now."
+
+#: templates/forgot_pass/complete_pass.html:15 templates/homepage.html:158
+#: templates/login_register.html:12 templates/login_register.html:27
+#: templates/navbar.html:63
+msgid "Login"
+msgstr "Login"
+
+#: templates/forgot_pass/reset_pass.html:35
+msgid "pfail-header"
+msgstr "Password Reset Failed"
+
+#: templates/forgot_pass/reset_pass.html:38
+msgid "pfail-message"
+msgstr ""
+"The link to reset your password is invalid, perhaps it has already been "
+"used. Please request a new password reset link."
+
+#: templates/forgot_pass/reset_pass.html:41 templates/login_register.html:31
+msgid "forgot-pass"
+msgstr "Forgot password?"
+
+#: templates/forgot_pass/sent_email.html:8
+msgid "pemail-header"
+msgstr "Sent Link To Reset Password"
+
+#: templates/forgot_pass/sent_email.html:12
+msgid "pemail-message"
+msgstr ""
+"An email has been sent to change your password, if there is an account with "
+"the email you have just entered. You will receive it soon. If you do not "
+"receive an email, please ensure you have entered the correct email address, "
+"and check your spam folder."
+
+#: templates/homepage.html:12
+msgid "list-tag"
+msgstr "List of Tags"
+
+#: templates/homepage.html:46
+msgid "has-created"
+msgstr "has created "
+
+#: templates/homepage.html:54 templates/homepage.html:191
+msgid "word-categories"
+msgstr "Word Categories"
+
+#: templates/homepage.html:84 templates/homepage.html:221
+#: word/templates/word/word_detail.html:16
+msgid "by"
+msgstr "by"
+
+#: templates/homepage.html:104 word/templates/word/word_detail.html:45
+msgid "edit"
+msgstr "Edit"
+
+#: templates/homepage.html:136
+msgid "hero-header"
+msgstr "About SlangID"
+
+#: templates/homepage.html:139 templates/homepage.html:141
+msgid "first"
+msgstr "The first"
+
+#: templates/homepage.html:139 templates/homepage.html:141
+msgid "hero-paragraph-1"
+msgstr "slang dictionary website"
+
+#: templates/homepage.html:143
+msgid "hero-paragraph-2"
+msgstr "in Indonesia!"
+
+#: templates/homepage.html:144
+msgid "hero-paragraph-3"
+msgstr "This dictionary is written by"
+
+#: templates/homepage.html:144
+msgid "you"
+msgstr "you"
+
+#: templates/homepage.html:144
+msgid "hero-paragraph-4"
+msgstr "Share words now by registering an account "
+
+#: templates/homepage.html:145
+msgid "hero-paragraph-5"
+msgstr "or start"
+
+#: templates/homepage.html:145
+msgid "browsing"
+msgstr "browsing"
+
+#: templates/homepage.html:145
+msgid "hero-paragraph-6"
+msgstr "slangs..."
+
+#: templates/homepage.html:150
+msgid "hero-search"
+msgstr "Search for slang..."
+
+#: templates/homepage.html:155 templates/navbar.html:61
+msgid "add-definition"
+msgstr "Create Definition"
+
+#: templates/homepage.html:157 templates/login_register.html:38
+#: templates/login_register.html:70
+msgid "Register"
+msgstr "Register"
+
+#: templates/homepage.html:172
+msgid "popular-topic"
+msgstr "Popular Topics"
+
+#: templates/homepage.html:180
+msgid "or"
+msgstr "or..."
+
+#: templates/homepage.html:182
+msgid "browse-tag"
+msgstr "Browse All Tags"
+
+#: templates/login_register.html:24
+msgid "password1"
+msgstr "Password"
+
+#: templates/login_register.html:58
+msgid "admin-usr"
+msgstr "Admin user"
+
+#: templates/login_register.html:64
+msgid "pass-condition-1"
+msgstr "Password must have 8 characters or more."
+
+#: templates/login_register.html:67
+msgid "pass-condition-2"
+msgstr "Passwords cannot be only numeric."
+
+#: templates/navbar.html:22
+msgid "browse"
+msgstr "browse"
+
+#: templates/navbar.html:53
+msgid "new"
+msgstr "new"
+
+#: templates/navbar.html:74
+msgid "usr-page"
+msgstr "User Page"
+
+#: templates/navbar.html:78
+msgid "adm-page"
+msgstr "Administration"
+
+#: templates/navbar.html:82
+msgid "Logout"
+msgstr "Logout"
+
+#: word/models.py:21
+msgid "up"
+msgstr "up"
+
+#: word/models.py:22
+msgid "down"
+msgstr "down"
+
+#: word/models.py:24
+msgid "updated"
+msgstr "updated"
+
+#: word/models.py:33
+msgid "words"
+msgstr "Words"
+
+#: word/models.py:61
+msgid "tag"
+msgstr "Tag"
+
+#: word/models.py:62 word/templates/word/word_detail.html:20
+msgid "tags"
+msgstr "Tags"
+
+#: word/models.py:77
+msgid "pronunciation"
+msgstr "pronunciation"
+
+#: word/models.py:80
+msgid "pronounce"
+msgstr "Pronunce"
+
+#: word/models.py:81
+msgid "pronounces"
+msgstr "Pronunces"
+
+#: word/templates/word/word_detail.html:7
+msgid "word-header"
+msgstr "Word Definition"
+
+#: word/templates/word/word_detail.html:15
+msgid "rating"
+msgstr "Rating"
+
+#: word/templates/word/word_detail.html:16
+msgid "created-date"
+msgstr "Date created"
+
+#: word/templates/word/word_form.html:14
+msgid "word-form-head"
+msgstr "Word Form"
+
+#: word/templates/word/word_form.html:41
+msgid "tag-form-head"
+msgstr "Tag Form"
+
+#: word/templates/word/word_form.html:56
+msgid "tag-fedit-head"
+msgstr "Edit Tag Form"
+
+#, fuzzy
+#~ msgid "register"
+#~ msgstr "Register"

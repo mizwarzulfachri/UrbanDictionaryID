@@ -1,73 +1,74 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block content %}
 
 <div class="container">
     {% if page == 'login' %}
-    <div class="form">
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="form-header">
-                <header>Login</header>
-            </div>
+    <form class="form" method="POST" action="">
+        {% csrf_token %}
+        <div class="form-header">
+            <header>{% trans 'Login' %}</header>
+        </div>
 
-            <ul class="messages">
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            </ul>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <input type="text" class="input-box" name="username" placeholder="{% trans 'username' %}"/>
+        <input type="password" class="input-box" name="password" placeholder="{% trans 'password1' %}"/>
 
-            <input type="text" class="input-box" name="username" placeholder="Nama"/>
-            <br>
-            <input type="password" class="input-box" name="password" placeholder="Kata sandi"/>
-            <br>
+        <div class="input-submit margin-top-10">
+            <input type="submit" class="btn-primary" value="{% trans 'Login' %}"/>
+        </div>
+        <br>
 
-            <div class="input-submit">
-                <input type="submit" class="btn-submit" value="Masuk"/>
-            </div>
-            <br>
-
-            <a href="{% url 'password_reset' %}">Lupa kata sandi?</a>
-
-        </form>
-    </div>
+        <a href="{% url 'password_reset' %}">{% trans 'forgot-pass' %}?</a>
+    </form>
 
     {% else %}
-    <div class="form">
-        <form method="POST" action="">
-            {% csrf_token %}
-            <div class="form-header">
-                <header>Daftar Akun Baru</header>
-            </div>
-            
+    <form class="form" method="POST" action="">
+        {% csrf_token %}
+        <div class="form-header">
+            <header>{% trans 'Register' %}</header>
+        </div>
+        
+        {% if form.errors %}
             <ul class="messages">
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
+                {% for field, errors in form.errors.items %}
+                    {% for message in errors %}
+                        {{ message }}<br>
                     {% endfor %}
-                {% endif %}
+                {% endfor %}
             </ul>
-            
-            {% render_field form.username placeholder="Nama pengguna" class+="input-box" %}<br>
-            {% render_field form.email placeholder="Email" class+="input-box" %}<br>
-            {% render_field form.password1 placeholder="Kata sandi" class+="input-box" %}<br>
-            {% render_field form.password2 placeholder="Kata sandi konfirmasi" class+="input-box" %}
-            
-            <ul>
-                <li>
-                    Kata sandi harus memiliki 8 karakter atau lebih.
-                </li>
-                <li>
-                    Kata sandi tidak bisa hanya numerik.
-                </li>
-            </ul>
-
-            <input type="submit" class="btn-submit" value="Selesai"/>
-        </form>
-    </div>
+        {% endif %}
+        
+        {% render_field form.username class+="input-box" placeholder=form.username.label %}
+        {% render_field form.email class+="input-box" placeholder=form.email.label %}
+        {% render_field form.password1 class+="input-box" placeholder=form.password1.label %}
+        {% render_field form.password2 class+="input-box" placeholder=form.password2.label %}
+        {% if request.user.is_superuser %}
+        <div class="flex-row">
+            <input class="checkbox" type="checkbox" id="admin" value="Admin" name="checked">
+            <label for="admin">{% trans 'admin-usr' %}</label>
+        </div>
+        {% endif %}
+        
+        <ul>
+            <li>
+                {% trans 'pass-condition-1' %}
+            </li>
+            <li>
+                {% trans 'pass-condition-2' %}
+            </li>
+        </ul>
+        <input type="submit" class="btn-primary" value="{% trans 'Register' %}"/>
+    </form>
     {% endif %}
 </div>
 {% endblock %}

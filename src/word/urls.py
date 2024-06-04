@@ -9,6 +9,8 @@ urlpatterns = [
     path('speech/<int:pk>/', text_to_speech, name='speech'),
     path('up/<int:word_id>/', up, name='upvotes'),
     path('down/<int:word_id>', down, name='downvotes'),
+    path('vulgar/<int:wrd_id>', vulgar, name='vulgar'),
+    path('hidden/<int:wrd_id>', hide, name='hide'),
 
     # Tag path
     path('tag', tag_create, name='tag'),

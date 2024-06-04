@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block content %}
 
@@ -9,13 +10,25 @@
     <form action="." method="POST" enctype="multipart/form-data"> 
         <div class="word-submit">
         {% csrf_token %}
-        <header>Formulir Kata</header>
+        <div class="form-header">
+            <header>{% trans 'word-form-head' %}</header>
+        </div>
 
-        {% render_field form.word placeholder="Word" class+="input-box" %}<br>
-        {% render_field form.definition placeholder="Definition" class+="input-description" %}<br>
-        {% render_field form.tags %}
+        {% if form.errors %}
+            <ul class="messages">
+                {% for field, errors in form.errors.items %}
+                    {% for message in errors %}
+                        {{ message }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
 
-        <input type="submit" value="save" class="btn-submit"/>
+        {% render_field form.word placeholder=form.word.label class+="input-box" %}
+        {% render_field form.definition placeholder=form.definition.label class+="input-description" %}
+        {% render_field form.tags class+="mscroll checkbox margin-5" %}<br>
+
+        <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
         </div>
     </form>
 
@@ -24,11 +37,13 @@
     <form action="{% url 'word:tag' %}" method="POST">
         <div class="word-submit">
         {% csrf_token %}
-        <header>Formulir Tag</header>
+        <div class="form-header">
+            <header>{% trans 'tag-form-head' %}</header>
+        </div>
 
-        {% render_field form.name placeholder="Tag" class+="input-box" %}
+        {% render_field form.name placeholder=form.name.label class+="input-box" %}<br>
 
-        <input type="submit" value="save" class="btn-submit"/>
+        <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
         </div>
     </form>
 
@@ -37,11 +52,13 @@
     <form action="." method="POST"> 
         <div class="word-submit">
         {% csrf_token %}
-        <header>Formulir Sunting</header>
+        <div class="form-header">
+            <header>{% trans 'tag-fedit-head' %}</header>
+        </div>
 
-        {% render_field form.name placeholder="Tag" class+="input-box" %}
+        {% render_field form.name placeholder=form.name.label class+="input-box" %}<br>
 
-        <input type="submit" value="save" class="btn-submit"/>
+        <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
         </div>
     </form>
 </div>

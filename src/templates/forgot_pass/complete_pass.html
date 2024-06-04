@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <div class="container">
     <div class="form">
         <div class="form-header">
-            <header>Reset kata sandi selesai</header>
+            <header>{% trans 'pcompl-header' %}</header>
         </div>
 
         <p>
-            Kata sandi Anda sudah digantikan. Anda dapat melanjutkan dan masuk sekarang.
+            {% trans 'pcompl-message' %}
         </p>
-        <a href="{% url 'login' %}">
-            <button class="btn-submit">Login</button>
-        </a>
+        <div class="input-submit">
+            <button onclick="location.href=`{% url 'login' %}`" class="btn-primary">{% trans 'Login' %}</button>
+        </div>
     </div>
 {% endblock %}

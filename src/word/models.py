@@ -1,27 +1,36 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
 class Word(models.Model):
+    lst_visible = [
+        ("Public", "Public"),
+        ("Hidden", "Hidden"),
+        ("Vulgar", "Vulgar"),
+    ]
+
     # 1 to many relationship
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # Attributes of the model
-    word = models.CharField(max_length=120)
-    definition = models.TextField(blank=False, null=False)
-    up = models.IntegerField(default=0)
-    down = models.IntegerField(default=0)
-    date = models.DateField(auto_now=False, auto_now_add=True)
-    updated = models.DateField(auto_now=True)
+    word = models.CharField(_('word'), max_length=120)
+    definition = models.TextField(_('definition'), blank=False, null=False)
+    up = models.IntegerField(_('up'), default=0)
+    down = models.IntegerField(_('down'), default=0)
+    date = models.DateField(_('date'), auto_now=False, auto_now_add=True)
+    updated = models.DateField(_('updated'), auto_now=True)
+    visibility = models.CharField(_('visibility'), max_length=8, choices=lst_visible, default="Public")
 
     # Tags for searching and label
     pronunciation = models.ForeignKey('Pronounce', blank=True, null=True, on_delete=models.PROTECT, related_name="word_pronunciation")
     tags = models.ManyToManyField('Tag', blank=True, related_name="word_tag")
 
     class Meta:
-        db_table='Word'
+        verbose_name = _('word')
+        verbose_name_plural = _('words')
 
     def __str__(self):
         return self.word
@@ -46,7 +55,11 @@ class Word(models.Model):
         # f"/word/{self.id}/" # Hardcode ver.
 
 class Tag(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(_('name'), max_length=50)
+
+    class Meta:
+        verbose_name = _('tag')
+        verbose_name_plural = _('tags')
 
     def __str__(self):
         return self.name
@@ -60,8 +73,12 @@ class Downvotes(models.Model):
     word = models.ForeignKey(Word, models.CASCADE, related_name="word_down")
 
 class Pronounce(models.Model):
-    name = models.CharField(max_length=120)
-    pronunciation = models.FileField(blank=True, null=True, upload_to='pronunciation/')
+    name = models.CharField(_('name'), max_length=120)
+    pronunciation = models.FileField(_('pronunciation'), blank=True, null=True, upload_to='pronunciation/')
+
+    class Meta:
+        verbose_name = _('pronounce')
+        verbose_name_plural = _('pronounces')
 
     def __str__(self):
         return self.name

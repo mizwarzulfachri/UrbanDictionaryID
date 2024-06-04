@@ -1,89 +1,119 @@
+{% load i18n %}
 {% load static %}
 
-<nav class="navbar navbar-default">
-    <ul class="navbar-list">
-        <li>
-            <a href="/" class="navbar_logo">
-                <img src="{% static 'images/Urban-ID.svg' %}" width="145" height="64"/>
-            </a>
-        </li>
-        <li class="dropdown">
-            <button onclick="dropFunc()", class="dropBtn">Browse
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div id="menu" class="ddcontent">
-                <ul>
-                    <li>
-                        <a href="{% url 'home' %}?b=a">a</a>
-                        <a href="{% url 'home' %}?b=b">b</a>
-                        <a href="{% url 'home' %}?b=c">c</a>
-                        <a href="{% url 'home' %}?b=d">d</a>
-                        <a href="{% url 'home' %}?b=e">e</a>
-                        <a href="{% url 'home' %}?b=f">f</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}?b=g">g</a>
-                        <a href="{% url 'home' %}?b=h">h</a>
-                        <a href="{% url 'home' %}?b=i">i</a>
-                        <a href="{% url 'home' %}?b=j">j</a>
-                        <a href="{% url 'home' %}?b=k">k</a>
-                        <a href="{% url 'home' %}?b=l">l</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}?b=m">m</a>
-                        <a href="{% url 'home' %}?b=n">n</a>
-                        <a href="{% url 'home' %}?b=o">o</a>
-                        <a href="{% url 'home' %}?b=p">p</a>
-                        <a href="{% url 'home' %}?b=q">q</a>
-                        <a href="{% url 'home' %}?b=r">r</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}?b=s">s</a>
-                        <a href="{% url 'home' %}?b=t">t</a>
-                        <a href="{% url 'home' %}?b=u">u</a>
-                        <a href="{% url 'home' %}?b=v">v</a>
-                        <a href="{% url 'home' %}?b=w">w</a>
-                        <a href="{% url 'home' %}?b=x">x</a>
-                    </li>
-                    <li>
-                        <a href="{% url 'home' %}?b=y">y</a>
-                        <a href="{% url 'home' %}?b=z">z</a>
-                        <a href="{% url 'home' %}?a=">#</a>
-                        <a href="{% url 'home' %}?n=">new</a>
-                    </li>
-                </ul>
-                
-            </div>
-        </li>
-        {% if request.user.is_superuser %}
-        <li><a href="{% url 'database:database' %}" style="color: #402E32;"><button class="btn-nav">Admin</button></a></li>
+<nav>
+  <ul class="navbar navbar-list">
+    <li>
+      <a href="/" class="navbar_logo">
+        <img src="{% static 'images/Urban-ID.svg' %}" width="145" height="64"/>
+      </a>
+    </li>
+
+    <input type="checkbox" id="check">
+    <span class="hamburger-menu">
+      <li>
+        <div class="dropdown">
+          <button onclick="dropFunc()", class="btn-secondary flex-row center">
+            {% trans 'browse'|capfirst %}
+            <div class="caret" id="dd"></div>
+          </button>
+          <div id="menu" class="ddcontent">
+            <a href="{% url 'home' %}?b=a">a</a>
+            <a href="{% url 'home' %}?b=b">b</a>
+            <a href="{% url 'home' %}?b=c">c</a>
+            <a href="{% url 'home' %}?b=d">d</a>
+            <a href="{% url 'home' %}?b=e">e</a>
+            <a href="{% url 'home' %}?b=f">f</a>
+            <a href="{% url 'home' %}?b=g">g</a>
+            <a href="{% url 'home' %}?b=h">h</a>
+            <a href="{% url 'home' %}?b=i">i</a>
+            <a href="{% url 'home' %}?b=j">j</a>
+            <a href="{% url 'home' %}?b=k">k</a>
+            <a href="{% url 'home' %}?b=l">l</a>
+            <a href="{% url 'home' %}?b=m">m</a>
+            <a href="{% url 'home' %}?b=n">n</a>
+            <a href="{% url 'home' %}?b=o">o</a>
+            <a href="{% url 'home' %}?b=p">p</a>
+            <a href="{% url 'home' %}?b=q">q</a>
+            <a href="{% url 'home' %}?b=r">r</a>
+            <a href="{% url 'home' %}?b=s">s</a>
+            <a href="{% url 'home' %}?b=t">t</a>
+            <a href="{% url 'home' %}?b=u">u</a>
+            <a href="{% url 'home' %}?b=v">v</a>
+            <a href="{% url 'home' %}?b=w">w</a>
+            <a href="{% url 'home' %}?b=x">x</a>
+            <a href="{% url 'home' %}?b=y">y</a>
+            <a href="{% url 'home' %}?b=z">z</a>
+            <a href="{% url 'home' %}?a=">#</a>
+            <a href="{% url 'home' %}?n=">{% trans 'new' %}</a>
+          </div>
+        </div>
+      </li>
+
+        <!-- {% if request.user.is_superuser %}
+        <button onclick="location.href=`{% url 'database:database' %}`" class="btn-secondary">Admin</button>
+        {% endif %} -->
+      <li>
+        {% if request.user.is_authenticated %}
+        <button onclick="location.href=`{% url 'word:create' %}`" class="btn-secondary">{% trans 'add-definition' %}</button>
+        {% else %}
+        <button onclick="location.href=`{% url 'login' %}`" class="btn-secondary">{% trans 'Login' %} <i class="fa fa-sign-in" aria-hidden="true"></i></button>
         {% endif %}
-        <li>
-            <form method="GET" action="{% url 'home' %}">
-                <input type="text" name="s" class="search-form"/> 
-                <button class="btn-search">Cari</button>
-            </form>
-        </li>
-        <li><a href="{% url 'about' %}" style="color: #402E32;"><button class="btn-nav">Mengenai Kamus</button></a></li>
-    </ul>
+      </li>
+      <li>
+        {% if request.user.is_authenticated %}
+        <div class="dropdown" id="drops"> 
+          <button id="user-menu" class="btn-secondary flex-row center" onclick="userMenu()">
+            <span>{{request.user.username}}</span>
+            <div class="caret" id="caret"></div>
+          </button>  
+          <ul class="menu" id="u-menu">
+            <li class="flex-row center" onclick="window.location.href=`{% url 'user' request.user.pk %}`">
+              {% trans 'usr-page' %} <i class="fa fa-user-o" aria-hidden="true"></i>
+            </li>
+            {% if request.user.is_superuser %}
+            <li class="flex-row center" onclick="window.location.href=`{% url 'database:database' %}`">
+              {% trans 'adm-page' %} <i class="fa fa-lock" aria-hidden="true"></i>
+            </li>
+            {% endif %}
+            <li class="flex-row center" onclick="window.location.href=`{% url 'logout' %}`">
+              {% trans 'Logout' %} <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </li>
+          </ul>
+        </div>
+        {% endif %}
+      </li>
+      <li>
+        <form class="laguage-form" id="languageForm" method="POST" action="{% url 'set_language' %}">
+          {% csrf_token %}
+          <select class="btn-secondary laguage-select" style="padding: .5rem 5px;" name="language" id="language" onchange="changeLanguage(this.value)">
+            <!-- <span class="ID">ID</span>
+            <input type="checkbox" class="check">
+            <span class="EN">EN</span> -->
+
+            {% for lang_code, lang_name in LANGUAGES %}
+              {% if lang_code == LANGUAGE_CODE %}
+                <option value="{{ lang_code }}" selected>{{ lang_code|upper }}</option>
+              {% else %}
+                <option value="{{ lang_code }}">{{ lang_code|upper  }}</option>
+              {% endif %}
+            {% endfor %}
+          </select>
+       </form>
+      </li>
+      <label for="check" class="close-hamburger"><i class="fa fa-times" aria-hidden="true"></i></label>
+    </span>
+    <!-- <li>
+      <button onclick="location.href=`{ - % url 'about' % - }`" class="btn-nav">Mengenai Kamus</button>
+    </li> -->
+
+    <form class="flex-row center" style="width: 80%; max-width: 600px; flex: 1;" method="GET" action="{% url 'home' %}">
+      <input type="text" name="s" class="search-form" placeholder="{% trans 'search'|capfirst %}" style="font-family:Arial, FontAwesome"/> 
+      <button class="btn-primary flex-row">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </button>
+    </form>
+    
+    <label for="check" class="open-hamburger"><i class="fa fa-bars" aria-hidden="true"></i></label>
+  </ul>
 </nav>
-
-<script>
-function dropFunc() {
-  document.getElementById("menu").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropBtn')) {
-    var dropdowns = document.getElementsByClassName("ddcontent");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>

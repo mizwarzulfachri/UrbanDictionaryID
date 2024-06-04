@@ -1,17 +1,18 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
 <form class="word-submit" action='' method="POST">
     {% csrf_token %}
     {% if page == 'tag' %}
-    <header>Apakah betul mau dihapus {{ object.name }}?</header><br>
-    <div style="flex-direction: row;">    
-        <input class="btn-submit" type="submit" value="Betul"> <a class="btn-submit" href="{% url 'database:database' %}">Batal</a>
+    <header>{% trans 'del-header' %} {{ object.name }}?</header>
+    <div class="flex-row">    
+        <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}">{% trans 'cancel' %}</a>
     </div>
     {% else %}
-    <h1>Apakah betul mau dihapus {{ object.word }}?</h1>
-    <div style="flex-direction: row;">
-        <input class="btn-submit" type="submit" value="Betul"> <a class="btn-submit" href="{% url 'word:word' object.pk %}">Batal</a>
+    <header>{% trans 'del-header' %} {{ object.word }}?</header>
+    <div class="flex-row">
+        <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'word:word' object.pk %}">{% trans 'cancel' %}</a>
     </div>
     {% endif %}
 </form>

@@ -1,18 +1,66 @@
+/* ===================================
+--------------------------------------
+  UrbanDictinary - Slang Website Script
+  Version: 1.0
+--------------------------------------
+======================================*/
+
+
+/* Contents of Javascript
+ * 1
+ *
+ * 
+ */
+
+// Dropdown Function
 function dropFunc() {
     document.getElementById("menu").classList.toggle("show");
+    document.getElementById("dd").classList.toggle("caret-rotate");
 }
 
-window.onclick = function(event) {
-    if (!event.target.matches('.dropBtn')){
-        var dropdowns = document.getElementsByClassName('ddcontent');
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')){
-                openDropdown.classListremove('show');
-            }
-        }
-    }
+// window.onclick = function(event) {
+//     if (!event.target.matches('.dropBtn')){
+//         var dropdowns = document.getElementsByClassName('ddcontent');
+//         var i;
+//         for (i = 0; i < dropdowns.length; i++) {
+//             var openDropdown = dropdowns[i];
+//             if (openDropdown.classList.contains('show')){
+//                 openDropdown.classListremove('show');
+//             }
+//         }
+//     }
+// }
+
+// User Dropdown
+function userMenu() {
+    document.getElementById("u-menu").classList.toggle("show");
+    document.getElementById("caret").classList.toggle("caret-rotate");
+}
+
+// const dropdowns = document.getElementById("drops");
+
+// dropdowns.forEach(dropdown => {
+//     const select = dropdown.getElementById('user-menu');
+//     const caret = dropdown.querySelector('.caret');
+//     const menu = dropdown.querySelector('.menu');
+//     const items = dropdown.querySelector('.menu li');
+
+//     select.addEventListener('click', () => {
+//         caret.classList.toggle('caret-rotate');
+//         menu.classList.toggle('show');
+//     });
+    
+//     items.forEach(item => {
+//         item.addEventListener('click', () => {
+//             caret.classList.remove('caret-rotate');
+//             menu.classList.remove('show');
+//         });
+//     });
+// });
+
+// Toggle Popup
+function togglePopUp() {
+    document.getElementById("List-Tags").classList.toggle("active");
 }
 
 // Up and Down votes
@@ -37,6 +85,13 @@ function toggleN() {
     }
 }
 
+// Play sounds
+function playSound(soundSrc) {
+    let audioPlayer = new Audio(soundSrc);
+    audioPlayer.play();
+    console.log('played ' + soundSrc);
+}
+
 // Rating
 document.addEventListener("DOMContentLoaded", function() {
     const ratingDivs = document.querySelectorAll('.rating');
@@ -57,15 +112,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function handleStarClick(starIndex, ratingDiv) {
-        const stars = ratingDiv.querySelectorAll('.star');
-        stars.forEach((star, index) => {
-            star.classList.toggle('checked', index < starIndex);
-        });
+    // Clickable stars
+    // function handleStarClick(starIndex, ratingDiv) {
+    //     const stars = ratingDiv.querySelectorAll('.star');
+    //     stars.forEach((star, index) => {
+    //         star.classList.toggle('checked', index < starIndex);
+    //     });
 
-        // Update the rating value (you may want to send it to the server)
-        ratingDiv.setAttribute('data-rating', starIndex);
-    }
+    //     // Update the rating value 
+    //     ratingDiv.setAttribute('data-rating', starIndex);
+    // }
 });
 
 // let stars = document.getElementsByClassName("star");
@@ -89,3 +145,10 @@ document.addEventListener("DOMContentLoaded", function() {
 //         stars[i].className = "star " + cls;
 //     }
 // }
+
+// Change Language
+function changeLanguage(languageCode) {
+    const form = document.getElementById('languageForm');
+    form.elements.language.value = languageCode;
+    form.submit();
+}

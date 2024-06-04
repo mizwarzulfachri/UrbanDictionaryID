@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+from parler.forms import TranslatableModelForm
 
 from .models import Report, Censorship
 from word.models import Word
 
-class ReportForm(forms.ModelForm):
+class ReportForm(TranslatableModelForm):
     class Meta:
         model = Report
         fields = [
@@ -40,7 +41,7 @@ class RawReportForm(forms.Form):
         )
     )
 
-class CensorshipForm(forms.ModelForm):
+class CensorshipForm(TranslatableModelForm):
     class Meta:
         model = Censorship
         fields = [

@@ -14,15 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
+from django.conf.urls.i18n import i18n_patterns, set_language
 
 from django.contrib.auth import views as auth_views
 
 from pages.views import *
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
+    path('i18n/', set_language, name='set_language'),
+    path('rosetta/', include('rosetta.urls')),
     path('word/', include('word.urls')),
     path('database/', include('database.urls')),
 
@@ -54,6 +59,10 @@ urlpatterns = [
     path('login/', login_pg, name='login'),
     path('logout/', logout_pg, name='logout'),
     path('register/', register_pg, name='register'),
+    path('user_del/<int:pk>', del_usr, name='delete_usr'),
     path('user/<int:pk>/', user_pg, name='user'),
-    path('about/', about_pg, name='about'),
-]
+    # path('about/', about_pg, name='about'),
+)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

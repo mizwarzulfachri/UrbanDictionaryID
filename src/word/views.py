@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from django.core.files.base import ContentFile
 from django.http import Http404, HttpResponse, HttpResponseRedirect, JsonResponse
 from difflib import SequenceMatcher
@@ -12,6 +13,7 @@ from .models import Word, Tag, Upvotes, Downvotes, Pronounce
 from database.models import Censorship
 
 import os
+from io import BytesIO
 import pyttsx3 # Text to speech API
 from gtts import gTTS # Google Text To Speech only works when the audio is saved!
 from pygame import mixer
@@ -34,7 +36,7 @@ def word_create(request):
             'user': request.user,
         }
 
-        form = RawWordForm(form_data, request.FILES)
+        form = RawWordForm(form_data)
         if form.is_valid(): 
             # Pronounce 
             try:
@@ -43,19 +45,17 @@ def word_create(request):
             except Http404:
                 obj = gTTS(text=form.cleaned_data['word'], lang='id', slow=False)
 
-                file_name = "src/media/" + form.cleaned_data['word'] + ".mp3"
-                obj.save(file_name)
+                mp3_fp = BytesIO()
+                obj.write_to_fp(mp3_fp)
 
-                p = Pronounce(name = (form.cleaned_data['word']).lower())
+                mp3_fp.seek(0)
+                pronunciation_file = ContentFile(mp3_fp.read(), name=form.cleaned_data['word'] + ".mp3")
 
-                with open(file_name, 'rb') as f:
-                    file_content = f.read()
-
-                p.pronunciation.save(file_name, ContentFile(file_content))
+                p = Pronounce(name=form.cleaned_data['word'].lower(), pronunciation=pronunciation_file)
                 p.save()
-                
+
+                print(f"Successfully saved {form.cleaned_data['word']}.mp3 to {settings.MEDIA_ROOT}")          
                 print(form.cleaned_data['word'] + " has been successfully created")
-                os.remove(file_name)
 
             # Word save 
             w = Word(
@@ -64,21 +64,33 @@ def word_create(request):
                 definition = form.cleaned_data['definition'],
                 user = form.cleaned_data['user'],
             )
-
             w.save()
-            tags = form.cleaned_data['tags'],
+
+            tags = form.cleaned_data['tags']
             w.tags.set(request.POST.getlist('tags'))
+
+            tag_selected =[tag.name for tag in tags]
+            print("Tag :", tag_selected)
             
+            if 'Vulgar' in [tag.name for tag in tags]:
+                w.visibility = 'Vulgar'
+                w.save()
+
+                print(w.word + ' is labelled as Vulgar')
+                return redirect('home')
+
             wrd = form.cleaned_data['word']
             censored_words = Censorship.objects.values_list('name', flat=True)
 
-             # Word censorship checks
+            # Word censorship checks
             for cword in censored_words:
                 if censor_word(wrd.lower(), cword.lower()):
-                    tag_selected = Tag.objects.get(name='Vulgar')
-                    w.tags.set([tag_selected])
+                    w.visibility = 'Vulgar'
+                    w.save()
+
                     print(wrd + ' is found in the censorship database')
                     break
+            
             return redirect('home')
         else:
             print(form.cleaned_data)
@@ -112,6 +124,7 @@ def word_edit(request, srch_id):
     form = WordForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
+        return redirect('word:word', srch_id)
 
     context = {
         "form": form,
@@ -180,8 +193,47 @@ def down(request, word_id):
     word.save()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-# Word Pronunciation
+# Visibility
+@login_required(login_url='login')
+def vulgar(request, wrd_id):
+    wrd = get_object_or_404(Word, pk=wrd_id)
 
+    if not request.user.is_superuser:
+        return HttpResponse('<h1>404</h1>')
+
+    if wrd.visibility == 'Vulgar':
+        wrd.visibility = 'Public'
+        wrd.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    wrd.visibility = 'Vulgar'
+    wrd.save()
+    print(wrd.word + ' is Hidden!')
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+@login_required(login_url='login')
+def hide(request, wrd_id):
+    wrd = get_object_or_404(Word, pk=wrd_id)
+
+    if not request.user.is_superuser:
+        return HttpResponse('<h1>404</h1>')
+
+    if wrd.visibility == 'Hidden':
+        wrd.visibility = 'Public'
+        wrd.save()
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    wrd.visibility = 'Hidden'
+    wrd.save()
+    print(wrd.word + ' is Hidden!')
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+# Word Pronunciation
+# Replaced by javascript
 def text_to_speech(request, pk):
     wrd = get_object_or_404(Word, pk=pk)
     
@@ -194,12 +246,13 @@ def text_to_speech(request, pk):
         mixer.music.play()
 
     print(f"{wrd.word} has been pronounced")
+    print(f"{wrd.pronunciation.pronunciation} is the source audio!")
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect('word:word', pk)
 
 # CRUD for tags
 # Only accessible to the admin
-
+@login_required(login_url='login')
 def tag_create(request):
     page = 'tag'
     inform = RawTagForm()
@@ -223,6 +276,7 @@ def tag_create(request):
     }
     return render(request, 'word/word_form.html', context)
 
+@login_required(login_url='login')
 def tag_edit(request, tag_id):
     page = 'edit'
     try: 
@@ -233,6 +287,7 @@ def tag_edit(request, tag_id):
     form = TagForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
+        return redirect('database:database')
 
     context = {
         "form": form,
@@ -240,6 +295,7 @@ def tag_edit(request, tag_id):
     }
     return render(request, "word/word_form.html", context)
 
+@login_required(login_url='login')
 def tag_delete(request, tag_id):
     page = 'tag'
     tag = get_object_or_404(Tag, pk=tag_id)

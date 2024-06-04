@@ -1,16 +1,49 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-<div class="word-submit">
-    <header>Dari user - {{ report.user }},</header>
+<div class="section">
+    <header>{% trans 'from-usr' %} - {{ report.user }},</header>
     <p>
-        Definisi untuk kata {{ report.word }} dianggap {{ report.category }} oleh user tersebut...
+        {% trans 'report-paragraph-1' %} <a href="{% url 'word:word' report.word.pk %}">{{ report.word }}</a> {% trans 'report-paragraph-2' %} {{ report.category }} {% trans 'report-paragraph-3' %}
         <br>
-        Alasannya... 
+        {% trans 'reason' %} 
     </p>
-    <p>
+    <p class="scroll">
         {{ report.description }} 
     </p>
-    <a href="{% url 'database:list' %}"><button class="btn-submit">Kembali</button></a>
+    <section class="space-between">
+        <div class="margin-5">
+            <button class="btn-tertiary" onclick="location.href=`{% url 'word:vulgar' report.word.pk %}`">
+                {% if report.word.visibility == 'Vulgar' %}
+                    {% trans 'public' %}
+                {% else %}
+                    {% trans 'vulgar' %}
+                {% endif %}
+            </button>
+            <button class="btn-tertiary" onclick="location.href=`{% url 'word:hide' report.word.pk %}`">
+                {% if report.word.visibility == 'Hidden' %}
+                    {% trans 'public' %}
+                {% else %}
+                    {% trans 'hide' %}
+                {% endif %}
+            </button>
+        </div>
+
+        <div class="margin-5">
+            {% if report.option == 'Selesai' %}
+            <button onclick="location.href=`{% url 'database:done' report.pk %}`" class="btn-tertiary warning-border">  
+                {% trans 'review-again' %}
+            {% else %}
+            <button onclick="location.href=`{% url 'database:done' report.pk %}`" class="btn-tertiary success-border">  
+                {% trans 'done' %}
+            {% endif %}
+            </button>
+            <button onclick="location.href=`{% url 'database:delete' report.pk %}`" class="btn-tertiary danger-border">{% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </section>
+    <div class="flex-row jus-center">
+        <button class="btn-tertiary" onclick="location.href=`{% url 'database:list' %}`">{% trans 'return' %} <i class="fa fa-reply" aria-hidden="true"></i></button>
+    </div>
 </div>
 {% endblock %}

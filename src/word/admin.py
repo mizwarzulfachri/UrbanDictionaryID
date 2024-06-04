@@ -4,13 +4,13 @@ from django.contrib import admin
 from .models import Word, Tag, Pronounce
 
 class WordAdmin(admin.ModelAdmin):
-    list_display = ['word', 'user', 'date', 'up', 'down', 'pronunciation']
+    list_display = ['word', 'user', 'date', 'up', 'down', 'visibility']
     search_fields = ['word', 'user', 'tags']
     list_filter = ['tags']
     list_per_page = 20
 
 class PronounceAdmin(admin.ModelAdmin):
-    list_display = ['name', 'pronunciation']
+    list_display = ['name', 'visibility']
     search_fields = ['name']
     list_per_page = 20
 

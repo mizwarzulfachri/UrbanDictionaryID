@@ -1,40 +1,78 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load i18n %}
 
 {% block content %}
 {% if page == 'form' %}
 <!-- Report Create & Edit -->
-<form action="." method="POST" enctype="multipart/form-data"> 
-    <div class="word-submit">
-        {% csrf_token %}
-        <header>Lapor Kata {{ word.word|title }}</header>
-        {% render_field form.category type="checkbox" class+="input-box" %}
-        {% render_field form.description placeholder="Despripsi" class+="input-description" %}<br>
-
-        <input type="submit" value="save" class="btn-submit"/>
+<form class="word-submit" action="." method="POST" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    <div class="form-header">
+        <header>{% trans 'report-head' %} {{ word.word|title }}</header>
     </div>
+    
+    {% if form.errors %}
+        <ul class="messages">
+            {% for field, errors in form.errors.items %}
+                {% for message in errors %}
+                    {{ message }}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% render_field form.category type="checkbox" class+="input-box" %}
+    {% render_field form.description placeholder=form.description.label class+="input-description" %}<br>
+
+    <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
 </form>
 
 {% elif page == 'censorship' %}
 <!-- Censorship Create -->
 <form class="word-submit" action="{% url 'database:censor-create' %}" method="POST">
     {% csrf_token %}
-    <header>Kata yang akan disensor</header>
-    {% render_field form.name placeholder="Kata disensor" class+="input-box" %}
-    {% render_field form.description placeholder="Deskripsi kata" class+="input-description" %}
+    <div class="form-header">
+        <header>{% trans 'censor-head' %}</header>
+    </div>
 
-    <input type="submit" value="save" class="btn-submit"/>
+    {% if form.errors %}
+        <ul class="messages">
+            {% for field, errors in form.errors.items %}
+                {% for message in errors %}
+                    {{ message }}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% render_field form.name placeholder=form.name.label class+="input-box" %}
+    {% render_field form.description placeholder=form.description.label class+="input-description" %}<br>
+
+    <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
 </form>
 
 {% else %}
 <!-- Censorship Edit -->
 <form class="word-submit" action="." method="POST">
     {% csrf_token %}
-    <header>Kata yang akan disensor</header>
-    {% render_field form.name placeholder="Kata disensor" class+="input-box" %}
-    {% render_field form.description placeholder="Deskripsi kata" class+="input-description" %}
+    <div class="form-header">
+        <header>{% trans 'censor-edit-head' %}</header>
+    </div>
+    
+    {% if form.errors %}
+        <ul class="messages">
+            {% for field, errors in form.errors.items %}
+                {% for message in errors %}
+                    {{ message }}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    {% render_field form.name placeholder=form.name.label class+="input-box" %}
+    {% render_field form.description placeholder=form.description.label class+="input-description" %}<br>
 
-    <input type="submit" value="save" class="btn-submit"/>
+    <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
 </form>
 {% endif %}
 {% endblock %}

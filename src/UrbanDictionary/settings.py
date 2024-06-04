@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-x7i176plw=g+qw$dsm4n6!p0$)ly66xn@(ptfpydhub5ad9xkv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] # ['34.34.218.109']
 
 
 # Application definition
@@ -47,6 +48,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'widget_tweaks',
+    'rosetta',
+    'parler',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
@@ -55,6 +58,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -67,7 +71,7 @@ ROOT_URLCONF = 'UrbanDictionary.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Path(BASE_DIR, "templates")],
+        'DIRS': [Path(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -120,7 +125,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+# http://www.i18nguy.com/unicode/language-identifiers.html
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('id', _('Indonesian')),
+    # ('hi', 'Hindi'),
+]
+
+PARLER_LANGUAGES = {
+    None : (
+        {'code': 'en'},
+        {'code': 'id'},
+    ),
+    'default': {
+        'fallbacks': ['id'],
+        'hide_untranslated': False,
+    }
+}
 
 TIME_ZONE = 'UTC'
 
@@ -132,10 +156,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
+]
+
+LOCALE_PATHS = [
+    Path(BASE_DIR, 'locale')
 ]
 
 # Default primary key field type
@@ -146,13 +174,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Media folder directory (mp3 focused for pronunciation)
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = Path(BASE_DIR, "media")
+MEDIA_ROOT = Path(BASE_DIR, 'media')
 
 # Email to change password
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_POST = 587
+EMAIL_POST = 587 # <-- Change this to PORT in a server, POST locally
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER ='udindonesiaconfirmation@gmail.com'
 EMAIL_HOST_PASSWORD ='vdyg axfa ekup xywc'
