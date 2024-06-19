@@ -172,7 +172,7 @@
           <h4><i class="fa fa-bolt" aria-hidden="true"></i> {% trans 'popular-topic' %}</h4><br>
           <div class="tag-horizontal" id="Shortcut">
             {% for tags in filter|slice:"5" %}
-              <button onclick="location.href=`{% url 'home' %}?q={{ tags.name }}`" class="btn-primary">
+              <button onclick="location.href=`{% url 'home' %}?q={{ tags.tags__translations__name }}`" class="btn-primary">
                 <span>{{ tags.name }}</span>
                 <span class="btn-badge">{{ tags.word_count }}</span>
               </button>

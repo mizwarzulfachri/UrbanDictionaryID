@@ -4,7 +4,7 @@ from parler.admin import TranslatableAdmin
 # Register your models here.
 from .models import Report, Censorship
 
-class ReportAdmin(TranslatableAdmin):
+class ReportAdmin(admin.ModelAdmin):
     list_display = ['category', 'user', 'word', 'description', 'date']
     search_fields = ['category', 'user', 'word']
     list_filter = ['category']

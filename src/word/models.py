@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from parler.models import TranslatableModel, TranslatedFields
 
 # Create your models here.
 
@@ -54,8 +55,10 @@ class Word(models.Model):
         return reverse("word:word", kwargs={"wrd_id": self.id}) # Dynamic ver.
         # f"/word/{self.id}/" # Hardcode ver.
 
-class Tag(models.Model):
-    name = models.CharField(_('name'), max_length=50)
+class Tag(TranslatableModel):
+    translations = TranslatedFields(
+        name = models.CharField(_('name'), max_length=50),
+    )
 
     class Meta:
         verbose_name = _('tag')

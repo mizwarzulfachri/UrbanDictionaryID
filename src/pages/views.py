@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from django.db.models import Q
 from django.db.models import Count
 from datetime import datetime, timedelta
@@ -45,7 +46,7 @@ def homepage(request, *args, **kwargs):
     if request.GET.get('q') != None: 
         q = request.GET.get('q')  
         wordlist = Word.objects.filter(
-            Q(tags__name__icontains=q)
+            Q(tags__translations__name__icontains=q)
             ).exclude(Q(visibility='Vulgar') | Q(visibility='Hidden')).order_by('-up', 'down', '?')
 
     # Search by ASCII
@@ -70,8 +71,10 @@ def homepage(request, *args, **kwargs):
     recent = datetime.now() - timedelta(days=7)
     wordtaglst = Word.objects.filter(date__gte=recent)
     
-    tags_count = Tag.objects.annotate(word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent)))
-    queryset = tags_count.order_by('-word_count').exclude(name='Vulgar')
+    tags_count = Tag.objects.annotate(
+        word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent))
+        )
+    queryset = tags_count.order_by('-word_count').exclude(translations__name='Vulgar')
     
     # for tag in tags_count:
     #     print(f"Tag: {tag.name}, Word Count: {tag.word_count}")
@@ -102,7 +105,7 @@ def login_pg(request):
             login(request, user) 
             return redirect('home')   
         except:
-            messages.error(request, 'Nama user atau kata sandi salah')
+            messages.error(request, _('Nama user atau kata sandi salah'))
 
     context = {'page': page,}
     return render(request, 'login_register.html', context)
@@ -132,7 +135,7 @@ def register_pg(request):
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Error saat mendaftarkan user')
+            messages.error(request, _('Error saat mendaftarkan user'))
 
     context = {
         'page': page,
@@ -177,7 +180,7 @@ def user_pg(request, pk):
     wordtaglst = Word.objects.filter(date__gte=recent)
     
     tags_count = Tag.objects.annotate(word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent)))
-    queryset = tags_count.order_by('-word_count').exclude(name='Vulgar')
+    queryset = tags_count.order_by('-word_count').exclude(translations__name='Vulgar')
     
     # queryset = Tag.objects.all().order_by('name').exclude(name='Vulgar')
 

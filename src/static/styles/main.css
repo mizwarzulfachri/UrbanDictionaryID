@@ -954,9 +954,15 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     margin-bottom: 10px;
 }
 
+.popup-body {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 .popup-body button{
     margin: 5px;
 }
+
 /*----------------------------------------*/
 /* End of Popup Box
 /*----------------------------------------*/

@@ -66,9 +66,9 @@
             {% for user in uobject %}
             <tr>
                 <td class="caption-th-td" data-cell="{% trans 'username' %}">{{ user.username }}</td>
-                <td class="caption-th-td" data-cell="{% trans 'email' %}">{{ user.email }}</td>
+                <td class="caption-th-td" data-cell="email">{{ user.email }}</td>
                 <td class="caption-th-td" data-cell="{% trans 'last-login' %}">{{ user.last_login }}</td>
-                <td class="caption-th-td" data-cell="{% trans 'date joined' %}">{{ user.date_joined }}</td>
+                <td class="caption-th-td" data-cell="{% trans 'join-date' %}">{{ user.date_joined }}</td>
                 <td class="caption-th-td" data-cell="{% trans 'status' %}">
                     {% if user.is_superuser %}
                         {% trans 'admin' %}

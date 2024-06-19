@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect
+from django.utils.translation import get_language
 from parler.utils import get_active_language_choices
 
 from .forms import ReportForm, RawReportForm, CensorshipForm, RawCensorshipForm
@@ -24,9 +25,12 @@ def database_pg(request, *args, **kwargs):
 
     user = get_user_model()
     userlist = user.objects.all().order_by('-date_joined')
+    current_language = get_language()
 
     wordlist = Word.objects.all().order_by('word')
-    taglist = Tag.objects.all().order_by('name')
+    taglist = Tag.objects.active_translations(current_language).order_by(
+        'translations__name'
+        ).filter(Q(translations__language_code__icontains=current_language))
     reportlist = Report.objects.filter(Q(option__icontains="Tinjau"))
     countrpt = reportlist.count()
 
@@ -43,7 +47,7 @@ def database_pg(request, *args, **kwargs):
 
     if request.GET.get('t') != None: 
         q = request.GET.get('t')
-        wordlist = Word.objects.filter(Q(tags__name__icontains=q)).order_by('word', '-up',)
+        wordlist = Word.objects.filter(Q(tags__translations__name__icontains=q)).order_by('word', '-up',)
 
         userlist = set()
         for word in wordlist:

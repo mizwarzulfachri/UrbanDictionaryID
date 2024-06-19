@@ -43,6 +43,9 @@
 
         {% render_field form.name placeholder=form.name.label class+="input-box" %}<br>
 
+        <ul>
+            {% trans 'tags-condition' %}
+        </ul>
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
         </div>
     </form>
@@ -57,7 +60,10 @@
         </div>
 
         {% render_field form.name placeholder=form.name.label class+="input-box" %}<br>
-
+        
+        <ul>
+            {% trans 'tags-condition' %}
+        </ul>
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
         </div>
     </form>

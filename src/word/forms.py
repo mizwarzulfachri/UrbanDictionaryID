@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from parler.forms import TranslatableModelForm
 
 from .models import Word, Tag
 
@@ -35,7 +36,7 @@ class RawWordForm(forms.Form):
         )
     user = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)
 
-class TagForm(forms.ModelForm):
+class TagForm(TranslatableModelForm):
     class Meta:
         model = Tag
         fields = [

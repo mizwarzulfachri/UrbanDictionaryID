@@ -7,7 +7,7 @@ from word.models import Word
 
 # Create your models here.
 
-class Report(TranslatableModel):
+class Report(models.Model):
     Choice = [
         ("Vulgar", _("Vulgar")),
         ("Spam", _("Spam")),
@@ -21,9 +21,7 @@ class Report(TranslatableModel):
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
 
     category = models.CharField(_('category'), max_length=8, choices=Choice)
-    translations = TranslatedFields(
-        description = models.TextField(_('description'), blank=False, null=False)
-    )
+    description = models.TextField(_('description'), blank=False, null=False)
     date = models.DateField(_('date'), auto_now=False, auto_now_add=True)
 
     option = models.CharField(_('option'), max_length=8, choices=Options, default="Tinjau")

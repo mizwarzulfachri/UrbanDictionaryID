@@ -5,7 +5,7 @@ from parler.forms import TranslatableModelForm
 from .models import Report, Censorship
 from word.models import Word
 
-class ReportForm(TranslatableModelForm):
+class ReportForm(forms.ModelForm):
     class Meta:
         model = Report
         fields = [
