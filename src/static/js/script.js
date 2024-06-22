@@ -63,6 +63,17 @@ function togglePopUp() {
     document.getElementById("List-Tags").classList.toggle("active");
 }
 
+// Loader
+window.addEventListener("load", () => {
+    const loader = document.querySelector(".loader");
+
+    loader.classList.add("loader-hidden");
+
+    loader.addEventListener("transitionend", () => {
+        document.body.removeChild("loader");
+    })
+})
+
 // Up and Down votes
 var positive = document.getElementById('positive');
 var negative = document.getElementById('negative');

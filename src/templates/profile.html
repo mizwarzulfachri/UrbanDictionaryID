@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+    <form class="form" method="POST" action="">
+        {% csrf_token %}
+        <div class="form-header">
+            <header>{% trans 'profile-page' %}</header>
+        </div>
+
+        {{ form.as_p }}
+
+        <div class="input-submit margin-top-10">
+            <input type="submit" class="btn-primary" value="{% trans 'submit' %}"/>
+        </div>
+    </form>
+</div>
+
+<div class="loader"></div>
+{% endblock %}

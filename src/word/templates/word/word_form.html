@@ -26,7 +26,7 @@
 
         {% render_field form.word placeholder=form.word.label class+="input-box" %}
         {% render_field form.definition placeholder=form.definition.label class+="input-description" %}
-        {% render_field form.tags class+="mscroll checkbox margin-5" %}<br>
+        {% render_field form.tags class+="mscroll margin-5" type+="checkbox" %}<br>
 
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
         </div>
@@ -69,4 +69,6 @@
     </form>
 </div>
 {% endif %}
+
+<div class="loader"></div>
 {% endblock %}

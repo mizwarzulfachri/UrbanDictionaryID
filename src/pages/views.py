@@ -3,21 +3,25 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 from django.db.models import Q
 from django.db.models import Count
+from django.views import generic
 from datetime import datetime, timedelta
 
 # App models
 from word.models import Word, Tag
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, EditProfileForm
 
 # Import
 import random
 import pyttsx3
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 def homepage(request, *args, **kwargs):
@@ -112,7 +116,7 @@ def login_pg(request):
 
 def logout_pg(request):
     logout(request)
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return redirect('home')
 
 def register_pg(request):
     page = 'register'
@@ -194,11 +198,28 @@ def user_pg(request, pk):
     }
     return render(request, 'homepage.html', context)
 
+# Edit user profile 
+class UserEditView(generic.UpdateView):
+    form_class = EditProfileForm
+    template_name = 'profile.html'
+    
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        success_url = reverse_lazy('user', kwargs={'pk': self.request.user.pk})
+        logger.debug(f'Success URL: {success_url}')
+        return success_url
+
 # About Page 
 # def about_pg(request, *args, **kwargs):
 #     return render(request, "about.html")
 
-# Forgot Password 
-class PasswordsChangeView(PasswordChangeView):
+# Change Password
+class ChangePasswordView(PasswordChangeView):
     form_class = PasswordChangeForm
-    success_url = reverse_lazy('home')
+    
+    def get_success_url(self):
+        success_url = reverse_lazy('user', kwargs={'pk': self.request.user.pk})
+        logger.debug(f'Success URL: {success_url}')
+        return success_url

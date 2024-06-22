@@ -36,7 +36,7 @@ urlpatterns = i18n_patterns(
     
     # Forgot Password Paths
     path('reset_password/', auth_views.PasswordResetView.as_view(
-            template_name='forgot_pass/change_password.html',
+            template_name='forgot_pass/request_password_change_password.html',
             success_url=reverse_lazy('password_reset_done'),
         ), 
         name="password_reset"
@@ -54,12 +54,16 @@ urlpatterns = i18n_patterns(
         name="password_reset_complete"
     ), #4
 
+    # Change password
+    path('<int:pk>/password/', ChangePasswordView.as_view(template_name='forgot_pass/change_password.html',), name="password_change"),
+
     # Pages path
     path('', homepage, name='home'),
     path('login/', login_pg, name='login'),
     path('logout/', logout_pg, name='logout'),
     path('register/', register_pg, name='register'),
-    path('user_del/<int:pk>', del_usr, name='delete_usr'),
+    path('user_del/<int:pk>/', del_usr, name='delete_usr'),
+    path('user-edit/', UserEditView.as_view(), name=('edit_usr')),
     path('user/<int:pk>/', user_pg, name='user'),
     # path('about/', about_pg, name='about'),
 )

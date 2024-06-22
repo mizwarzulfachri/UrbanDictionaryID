@@ -45,6 +45,10 @@
           <p>{% trans 'join-date' %} {{ user.date_joined }}</p>
           <p>{{ user.username }} {% trans 'has-created' %} {{ count }} {% trans 'definition' %}</p>
           <p>{% trans 'last-login' %} {{ user.last_login }}</p>
+          
+          {% if request.user.id == user.id %}
+            <p>{% trans 'to-edit-profile' %} <a href="{% url 'edit_usr' %}">{% trans 'click-me' %}</a>!</p>
+          {% endif %}
         </div>
       </div>
 
@@ -177,7 +181,7 @@
                 <span class="btn-badge">{{ tags.word_count }}</span>
               </button>
             {% endfor %}
-            <h5>{% trans 'or' %}</h5>
+            <h5>{% trans 'or' %}...</h5>
             <button onclick="togglePopUp()" class="btn btn-primary">
               {% trans 'browse-tag' %}
             </button>
@@ -266,5 +270,6 @@
   </div> -->
 </div>
 
-<div class="bottom-bar">®2023</div>  
+<div class="bottom-bar">®2023</div>
+<div class="loader"></div>
 {% endblock %}
