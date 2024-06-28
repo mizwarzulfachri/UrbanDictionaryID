@@ -60,8 +60,8 @@
         <button onclick="location.href=`{% url 'login' %}`" class="btn-secondary">{% trans 'Login' %} <i class="fa fa-sign-in" aria-hidden="true"></i></button>
         {% endif %}
       </li>
+      {% if request.user.is_authenticated %}
       <li>
-        {% if request.user.is_authenticated %}
         <div class="dropdown" id="drops"> 
           <button id="user-menu" class="btn-secondary flex-row center" onclick="userMenu()">
             <span>{{request.user.username}}</span>
@@ -81,8 +81,8 @@
             </li>
           </ul>
         </div>
-        {% endif %}
       </li>
+      {% endif %}
       <li>
         <form class="laguage-form" id="languageForm" method="POST" action="{% url 'set_language' %}">
           {% csrf_token %}
@@ -108,7 +108,7 @@
     </li> -->
 
     <form class="flex-row center" style="width: 80%; max-width: 600px; flex: 1;" method="GET" action="{% url 'home' %}">
-      <input type="text" name="s" class="search-form" placeholder="{% trans 'search'|capfirst %}" style="font-family:Arial, FontAwesome"/> 
+      <input type="text" name="s" class="search-form" placeholder="{% trans 'hero-search'|capfirst %}" style="font-family:Arial, FontAwesome"/> 
       <button class="btn-primary flex-row">
         <i class="fa fa-search" aria-hidden="true"></i>
       </button>

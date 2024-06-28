@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% load crispy_forms_tags %}
 {% load i18n %}
 
 {% block content %}
 
 {% if page == 'word' %}
-
     <!-- Word Create & Edit -->
-    <form action="." method="POST" enctype="multipart/form-data"> 
-        <div class="word-submit">
+    <form class="word-submit" action="." method="POST" enctype="multipart/form-data"> 
         {% csrf_token %}
         <div class="form-header">
             <header>{% trans 'word-form-head' %}</header>
@@ -26,16 +25,14 @@
 
         {% render_field form.word placeholder=form.word.label class+="input-box" %}
         {% render_field form.definition placeholder=form.definition.label class+="input-description" %}
-        {% render_field form.tags class+="mscroll margin-5" type+="checkbox" %}<br>
+        {% render_field form.tags class+="input-box" %}<br>
 
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
-        </div>
     </form>
 
-    {% elif page == 'tag' %}
+{% elif page == 'tag' %}
     <!-- Tag Create -->
-    <form action="{% url 'word:tag' %}" method="POST">
-        <div class="word-submit">
+    <form class="word-submit" action="{% url 'word:tag' %}" method="POST">
         {% csrf_token %}
         <div class="form-header">
             <header>{% trans 'tag-form-head' %}</header>
@@ -47,13 +44,11 @@
             {% trans 'tags-condition' %}
         </ul>
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
-        </div>
     </form>
 
-    {% else %}
+{% else %}
     <!-- Tag Edit -->
-    <form action="." method="POST"> 
-        <div class="word-submit">
+    <form class="word-submit" action="." method="POST"> 
         {% csrf_token %}
         <div class="form-header">
             <header>{% trans 'tag-fedit-head' %}</header>
@@ -65,10 +60,14 @@
             {% trans 'tags-condition' %}
         </ul>
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
-        </div>
     </form>
-</div>
 {% endif %}
 
 <div class="loader"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $("#id_tags").select2();
+</script>
 {% endblock %}

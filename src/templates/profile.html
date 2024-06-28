@@ -10,7 +10,10 @@
             <header>{% trans 'profile-page' %}</header>
         </div>
 
-        {{ form.as_p }}
+        {% render_field form.username class+="input-box" placeholder=form.username.label %}
+        {% render_field form.email class+="input-box" placeholder=form.email.label %}
+        {{ form.password }}
+        <p>{{ form.password.help_text|safe }}</p> 
 
         <div class="input-submit margin-top-10">
             <input type="submit" class="btn-primary" value="{% trans 'submit' %}"/>

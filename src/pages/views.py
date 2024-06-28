@@ -50,7 +50,7 @@ def homepage(request, *args, **kwargs):
     if request.GET.get('q') != None: 
         q = request.GET.get('q')  
         wordlist = Word.objects.filter(
-            Q(tags__translations__name__icontains=q)
+            Q(tags__translations__name__iexact=q)
             ).exclude(Q(visibility='Vulgar') | Q(visibility='Hidden')).order_by('-up', 'down', '?')
 
     # Search by ASCII

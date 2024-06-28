@@ -9,7 +9,6 @@ class WordForm(forms.ModelForm):
         model = Word
         fields = [
             'word',
-            # 'pronunciation',
             'definition',
             'tags',
         ]
@@ -31,7 +30,7 @@ class RawWordForm(forms.Form):
         )
     tags = forms.ModelMultipleChoiceField(
         queryset=Tag.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.SelectMultiple,
         required=False,
         )
     user = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)

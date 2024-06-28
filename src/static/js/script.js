@@ -5,14 +5,29 @@
 --------------------------------------
 ======================================*/
 
+/*----------------------------------------*/
+/* Template default Script
+/*----------------------------------------*/
 
+
+/*----------------------------------------*/
 /* Contents of Javascript
- * 1
- *
- * 
+/*----------------------------------------*/
+
+/* 1 - Base Html 
+ * 2 - User Dropdown
+ * 3 - User Dropdown
+ * 4 - Loader
+ * 5 - Up and Down votes
+ * 6 - Play sounds
+ * 7 - Rating
+ * 8 - Change Language
+ * 9 - Peak Password
  */
 
-// Dropdown Function
+/*----------------------------------------*/
+/* 1 Dropdown Function
+/*----------------------------------------*/
 function dropFunc() {
     document.getElementById("menu").classList.toggle("show");
     document.getElementById("dd").classList.toggle("caret-rotate");
@@ -31,7 +46,9 @@ function dropFunc() {
 //     }
 // }
 
-// User Dropdown
+/*----------------------------------------*/
+/* 2 User Dropdown
+/*----------------------------------------*/
 function userMenu() {
     document.getElementById("u-menu").classList.toggle("show");
     document.getElementById("caret").classList.toggle("caret-rotate");
@@ -58,12 +75,16 @@ function userMenu() {
 //     });
 // });
 
-// Toggle Popup
+/*----------------------------------------*/
+/* 3 - Toggle Popup
+/*----------------------------------------*/
 function togglePopUp() {
     document.getElementById("List-Tags").classList.toggle("active");
 }
 
-// Loader
+/*----------------------------------------*/
+/* 4 Loader
+/*----------------------------------------*/
 window.addEventListener("load", () => {
     const loader = document.querySelector(".loader");
 
@@ -74,36 +95,32 @@ window.addEventListener("load", () => {
     })
 })
 
-// Up and Down votes
+/*----------------------------------------*/
+/* 5 Up and Down votes
+/*----------------------------------------*/
 var positive = document.getElementById('positive');
 var negative = document.getElementById('negative');
 
 function toggleP() {
-    if (positive.style.color == "#402E32") {
-        positive.style.color = "#205EFF"
-    }
-    else {
-        positive.style.color = "#402E32"   
-    }
+    positive.style.color = "#205EFF"
 }
 
 function toggleN() {
-    if (negative.style.color == "#402E32") {
-        negative.style.color = "#FF002E"
-    }
-    else {
-        negative.style.color = "#402E32"   
-    }
+    negative.style.color = "#FF002E";
 }
 
-// Play sounds
+/*----------------------------------------*/
+/* 6 Play sounds
+/*----------------------------------------*/
 function playSound(soundSrc) {
     let audioPlayer = new Audio(soundSrc);
     audioPlayer.play();
     console.log('played ' + soundSrc);
 }
 
-// Rating
+/*----------------------------------------*/
+/* 7 Rating
+/*----------------------------------------*/
 document.addEventListener("DOMContentLoaded", function() {
     const ratingDivs = document.querySelectorAll('.rating');
 
@@ -157,9 +174,53 @@ document.addEventListener("DOMContentLoaded", function() {
 //     }
 // }
 
-// Change Language
+/*----------------------------------------*/
+/* 8 Change Language
+/*----------------------------------------*/
 function changeLanguage(languageCode) {
     const form = document.getElementById('languageForm');
     form.elements.language.value = languageCode;
     form.submit();
+}
+
+/*----------------------------------------*/
+/* 9 Peak Password
+/*----------------------------------------*/
+let eyeicon1 = document.getElementById("eye-icon1");
+let password1 = document.getElementById("password1");
+
+eyeicon1.onclick = function() {
+    if(password1.type == "password") {
+        password1.type = "text";
+        eyeicon1.className = 'fa fa-eye';
+    } else {
+        password1.type = "password";
+        eyeicon1.className = 'fa fa-eye-slash';
+    }
+}
+
+let eyeicon2 = document.getElementById("eye-icon2");
+let password2 = document.getElementById("password2");
+
+eyeicon2.onclick = function() {
+    if(password2.type == "password") {
+        password2.type = "text";
+        eyeicon2.className = 'fa fa-eye';
+    } else {
+        password2.type = "password";
+        eyeicon2.className = 'fa fa-eye-slash';
+    }
+}
+
+let eyeicon0 = document.getElementById("eye-icon0");
+let password0 = document.getElementById("password0");
+
+eyeicon0.onclick = function() {
+    if(password0.type == "password") {
+        password0.type = "text";
+        eyeicon0.className = 'fa fa-eye';
+    } else {
+        password0.type = "password";
+        eyeicon0.className = 'fa fa-eye-slash';
+    }
 }

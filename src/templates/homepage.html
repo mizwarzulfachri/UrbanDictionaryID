@@ -21,18 +21,6 @@
 </div>
 
 <div class="homepage">
-  <!-- ----------------- -->
-  <!-- Left Side Content -->
-  <!-- ----------------- -->
-  <!-- <div class="lside-content">
-    {% for tags in filter %}
-      <button onclick="location.href=`{% url 'home' %}?q={{ tags.name }}`" class="btn-submit">{{ tags.name }}</button>
-      <br>
-    {% endfor %}
-
-    <button onclick="location.href=`{% url 'home' %}`" class="btn-submit">Reset ↻</button></a>
-  </div> -->
-
   <!-- --------- -->
   <!-- User Page -->
   <!-- --------- -->
@@ -176,7 +164,7 @@
           <h4><i class="fa fa-bolt" aria-hidden="true"></i> {% trans 'popular-topic' %}</h4><br>
           <div class="tag-horizontal" id="Shortcut">
             {% for tags in filter|slice:"5" %}
-              <button onclick="location.href=`{% url 'home' %}?q={{ tags.tags__translations__name }}`" class="btn-primary">
+              <button onclick="location.href=`{% url 'home' %}?q={{ tags.name }}`" class="btn-primary">
                 <span>{{ tags.name }}</span>
                 <span class="btn-badge">{{ tags.word_count }}</span>
               </button>
@@ -249,25 +237,6 @@
       </div>
     </div>
 {% endif %}
-
-  <!-- ------------------ -->
-  <!-- Right Side Content -->
-  <!-- ------------------ -->
-  <!-- <div class="rside-content">
-    {% if request.user.is_authenticated %}
-      <p style="font-weight: bold; margin-top: 72px; margin-bottom: 80px;">Buat definsi kata sekarang!</p>
-      <div class="content-button">
-        <button onclick="location.href=`{% url 'word:create' %}`" class="rsc-rbtn">Tambah Definisi</button>
-        <button onclick="location.href=`{% url 'logout' %}`" class="rsc-lbtn">Logout</button>
-      </div>
-    {% else %}
-      <p style="font-weight: bold; margin-top: 87px; margin-bottom: 90px;">Buat akunmu sekarang!</p>
-      <div class="content-button">
-        <button onclick="location.href=`{% url 'register' %}`" class="rsc-rbtn">Register</button>
-        <button onclick="location.href=`{% url 'login' %}`" class="rsc-lbtn">Login</button>
-      </div>
-    {% endif %}
-  </div> -->
 </div>
 
 <div class="bottom-bar">®2023</div>
