@@ -71,14 +71,14 @@
             <li class="flex-row center" onclick="window.location.href=`{% url 'user' request.user.pk %}`">
               {% trans 'usr-page' %} <i class="fa fa-user-o" aria-hidden="true"></i>
             </li>
-            <li class="flex-row center" onclick="window.location.href=`{% url 'edit_usr' %}`">
-              {% trans 'settings' %} <i class="fa fa-cog" aria-hidden="true"></i>
-            </li>
             {% if request.user.is_superuser %}
             <li class="flex-row center" onclick="window.location.href=`{% url 'database:database' %}`">
               {% trans 'adm-page' %} <i class="fa fa-lock" aria-hidden="true"></i>
             </li>
             {% endif %}
+            <li class="flex-row center" onclick="window.location.href=`{% url 'edit_usr' %}`">
+              {% trans 'settings' %} <i class="fa fa-cog" aria-hidden="true"></i>
+            </li>
             <li class="flex-row center" onclick="window.location.href=`{% url 'logout' %}`">
               {% trans 'Logout' %} <i class="fa fa-sign-out" aria-hidden="true"></i>
             </li>
