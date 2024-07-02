@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-21 09:35+0700\n"
-"PO-Revision-Date: 2024-06-21 09:41+0000\n"
+"POT-Creation-Date: 2024-07-02 08:28+0700\n"
+"PO-Revision-Date: 2024-07-02 01:30+0000\n"
 "Last-Translator:   <miswar_zul@mhs.usk.ac.id>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -72,8 +72,8 @@ msgstr "date"
 msgid "option"
 msgstr "option"
 
-#: database/models.py:30 templates/homepage.html:115
-#: templates/homepage.html:243 word/templates/word/word_detail.html:52
+#: database/models.py:30 templates/homepage.html:99
+#: templates/homepage.html:227 word/templates/word/word_detail.html:52
 msgid "report"
 msgstr "report"
 
@@ -97,12 +97,12 @@ msgstr "censorships"
 msgid "add-tag"
 msgstr "Add Tags"
 
-#: database/templates/database/database.html:38 templates/homepage.html:156
-#: templates/navbar.html:111
+#: database/templates/database/database.html:38 templates/homepage.html:140
 msgid "search"
 msgstr "search"
 
 #: database/templates/database/database.html:43
+#: templates/login_register.html:33
 msgid "register-account"
 msgstr "Register an Account"
 
@@ -117,12 +117,12 @@ msgid "username"
 msgstr "Username"
 
 #: database/templates/database/database.html:61
-#: database/templates/database/database.html:70 templates/homepage.html:47
+#: database/templates/database/database.html:70 templates/homepage.html:35
 msgid "last-login"
 msgstr "Last login "
 
 #: database/templates/database/database.html:62
-#: database/templates/database/database.html:71 templates/homepage.html:45
+#: database/templates/database/database.html:71 templates/homepage.html:33
 msgid "join-date"
 msgstr "Joined on "
 
@@ -158,11 +158,11 @@ msgstr "Regular User"
 #: database/templates/database/database.html:204
 #: database/templates/database/database.html:243
 #: database/templates/database/report.html:42
-#: database/templates/database/report_delete.html:11
-#: database/templates/database/report_delete.html:16
+#: database/templates/database/report_delete.html:14
 #: database/templates/database/report_delete.html:21
-#: templates/homepage.html:111 word/templates/word/word_delete.html:10
-#: word/templates/word/word_delete.html:15
+#: database/templates/database/report_delete.html:28
+#: templates/homepage.html:95 word/templates/word/word_delete.html:13
+#: word/templates/word/word_delete.html:20
 #: word/templates/word/word_detail.html:48
 msgid "delete"
 msgstr "Delete"
@@ -184,7 +184,7 @@ msgid "word"
 msgstr "Word"
 
 #: database/templates/database/database.html:95
-#: database/templates/database/database.html:112 templates/homepage.html:46
+#: database/templates/database/database.html:112 templates/homepage.html:34
 #: word/models.py:21
 msgid "definition"
 msgstr "definition"
@@ -291,31 +291,36 @@ msgstr "Reason being..."
 msgid "return"
 msgstr "Return"
 
-#: database/templates/database/report_delete.html:9
+#: database/templates/database/report_delete.html:11
 msgid "del-report-header-1"
 msgstr "Are you sure you want to delete this report from"
 
-#: database/templates/database/report_delete.html:9
+#: database/templates/database/report_delete.html:11
 msgid "del-report-header-2"
 msgstr "for this word "
 
-#: database/templates/database/report_delete.html:11
-#: database/templates/database/report_delete.html:16
+#: database/templates/database/report_delete.html:14
 #: database/templates/database/report_delete.html:21
-#: word/templates/word/word_delete.html:10
-#: word/templates/word/word_delete.html:15
+#: database/templates/database/report_delete.html:28
+#: word/templates/word/word_delete.html:13
+#: word/templates/word/word_delete.html:20
 msgid "cancel"
 msgstr "Cancel"
 
-#: database/templates/database/report_delete.html:14
+#: database/templates/database/report_delete.html:18
 msgid "del-user-header"
 msgstr "Are you sure you want to delete user"
 
-#: database/templates/database/report_delete.html:19
-#: word/templates/word/word_delete.html:8
-#: word/templates/word/word_delete.html:13
+#: database/templates/database/report_delete.html:25
+#: word/templates/word/word_delete.html:10
+#: word/templates/word/word_delete.html:17
 msgid "del-header"
 msgstr "Are you sure you want to delete"
+
+#: database/templates/database/report_delete.html:34
+#| msgid "admin"
+msgid "not-admin"
+msgstr "You are not an admin!"
 
 #: database/templates/database/report_form.html:11
 msgid "report-head"
@@ -324,10 +329,10 @@ msgstr "Report this word"
 #: database/templates/database/report_form.html:27
 #: database/templates/database/report_form.html:51
 #: database/templates/database/report_form.html:75
-#: templates/forgot_pass/change_password.html:36
+#: templates/forgot_pass/change_password.html:43
 #: templates/forgot_pass/request_password_change_password.html:26
-#: templates/profile.html:16 word/templates/word/word_form.html:31
-#: word/templates/word/word_form.html:49 word/templates/word/word_form.html:67
+#: templates/profile.html:22 word/templates/word/word_form.html:29
+#: word/templates/word/word_form.html:45 word/templates/word/word_form.html:61
 msgid "submit"
 msgstr "Submit"
 
@@ -347,19 +352,23 @@ msgstr "Username or password is incorrect"
 msgid "Error saat mendaftarkan user"
 msgstr "There was an error registering your user"
 
+#: templates/forgot_pass/change_password.html:9 templates/profile.html:9
+msgid "profile-page"
+msgstr "Profile Page"
+
 #: templates/forgot_pass/change_password.html:10
 #: templates/forgot_pass/request_password_change_password.html:10
-#: templates/forgot_pass/reset_pass.html:28
+#: templates/forgot_pass/reset_pass.html:28 templates/profile.html:10
 msgid "pass-submit"
 msgstr "Change Password"
 
-#: templates/forgot_pass/change_password.html:29
-#: templates/login_register.html:64
+#: templates/forgot_pass/change_password.html:36
+#: templates/login_register.html:71
 msgid "pass-condition-1"
 msgstr "Password must have 8 characters or more."
 
-#: templates/forgot_pass/change_password.html:32
-#: templates/login_register.html:67
+#: templates/forgot_pass/change_password.html:39
+#: templates/login_register.html:74
 msgid "pass-condition-2"
 msgstr "Passwords cannot be only numeric."
 
@@ -371,8 +380,8 @@ msgstr "Password Reset Completed"
 msgid "pcompl-message"
 msgstr "Your password has been resetted. You can continue and log in now."
 
-#: templates/forgot_pass/complete_pass.html:15 templates/homepage.html:162
-#: templates/login_register.html:12 templates/login_register.html:27
+#: templates/forgot_pass/complete_pass.html:15 templates/homepage.html:146
+#: templates/login_register.html:12 templates/login_register.html:28
 #: templates/navbar.html:60
 msgid "Login"
 msgstr "Login"
@@ -391,7 +400,7 @@ msgstr ""
 "The link to reset your password is invalid, perhaps it has already been "
 "used. Please request a new password reset link."
 
-#: templates/forgot_pass/reset_pass.html:41 templates/login_register.html:31
+#: templates/forgot_pass/reset_pass.html:41 templates/login_register.html:35
 msgid "forgot-pass"
 msgstr "Forgot password"
 
@@ -411,93 +420,85 @@ msgstr ""
 msgid "list-tag"
 msgstr "List of Tags"
 
-#: templates/homepage.html:46
+#: templates/homepage.html:34
 msgid "has-created"
 msgstr "has created "
 
-#: templates/homepage.html:50
-msgid "to-edit-profile"
-msgstr "To edit your profile "
-
-#: templates/homepage.html:50
-msgid "click-me"
-msgstr "click me"
-
-#: templates/homepage.html:58 templates/homepage.html:195
+#: templates/homepage.html:42 templates/homepage.html:179
 msgid "word-categories"
 msgstr "Word Categories"
 
-#: templates/homepage.html:88 templates/homepage.html:225
+#: templates/homepage.html:72 templates/homepage.html:209
 #: word/templates/word/word_detail.html:16
 msgid "by"
 msgstr "by"
 
-#: templates/homepage.html:108 word/templates/word/word_detail.html:45
+#: templates/homepage.html:92 word/templates/word/word_detail.html:45
 msgid "edit"
 msgstr "Edit"
 
-#: templates/homepage.html:140
+#: templates/homepage.html:124
 msgid "hero-header"
 msgstr "About SlangID"
 
-#: templates/homepage.html:143 templates/homepage.html:145
+#: templates/homepage.html:127 templates/homepage.html:129
 msgid "first"
 msgstr "The first"
 
-#: templates/homepage.html:143 templates/homepage.html:145
+#: templates/homepage.html:127 templates/homepage.html:129
 msgid "hero-paragraph-1"
 msgstr "slang dictionary website"
 
-#: templates/homepage.html:147
+#: templates/homepage.html:131
 msgid "hero-paragraph-2"
 msgstr "in Indonesia!"
 
-#: templates/homepage.html:148
+#: templates/homepage.html:132
 msgid "hero-paragraph-3"
 msgstr "This dictionary is written by"
 
-#: templates/homepage.html:148
+#: templates/homepage.html:132
 msgid "you"
 msgstr "you"
 
-#: templates/homepage.html:148
+#: templates/homepage.html:132
 msgid "hero-paragraph-4"
 msgstr "Share words now by registering an account "
 
-#: templates/homepage.html:149
+#: templates/homepage.html:133
 msgid "hero-paragraph-5"
 msgstr "or start"
 
-#: templates/homepage.html:149
+#: templates/homepage.html:133
 msgid "browsing"
 msgstr "browsing"
 
-#: templates/homepage.html:149
+#: templates/homepage.html:133
 msgid "hero-paragraph-6"
 msgstr "slangs..."
 
-#: templates/homepage.html:154
+#: templates/homepage.html:138 templates/navbar.html:114
 msgid "hero-search"
 msgstr "Search for slang..."
 
-#: templates/homepage.html:159 templates/navbar.html:58
+#: templates/homepage.html:143 templates/navbar.html:58
 msgid "add-definition"
 msgstr "Create Definition"
 
-#: templates/homepage.html:161 templates/login_register.html:38
-#: templates/login_register.html:70
+#: templates/homepage.html:145 templates/login_register.html:43
+#: templates/login_register.html:77
 msgid "Register"
 msgstr "Register"
 
-#: templates/homepage.html:176
+#: templates/homepage.html:160
 msgid "popular-topic"
 msgstr "Popular Topics"
 
-#: templates/homepage.html:184
+#: templates/homepage.html:168 templates/login_register.html:34
 msgid "or"
 msgstr "or"
 
-#: templates/homepage.html:186
+#: templates/homepage.html:170
 msgid "browse-tag"
 msgstr "Browse All Tags"
 
@@ -505,7 +506,7 @@ msgstr "Browse All Tags"
 msgid "password1"
 msgstr "Password"
 
-#: templates/login_register.html:58
+#: templates/login_register.html:65
 msgid "admin-usr"
 msgstr "Admin user"
 
@@ -521,18 +522,17 @@ msgstr "new"
 msgid "usr-page"
 msgstr "User Page"
 
-#: templates/navbar.html:76
+#: templates/navbar.html:75
+msgid "settings"
+msgstr "Settings"
+
+#: templates/navbar.html:79
 msgid "adm-page"
 msgstr "Administration"
 
-#: templates/navbar.html:80
+#: templates/navbar.html:83
 msgid "Logout"
 msgstr "Logout"
-
-#: templates/profile.html:10
-#| msgid "usr-page"
-msgid "profile-page"
-msgstr "Profile Page"
 
 #: word/models.py:22
 msgid "up"
@@ -582,23 +582,29 @@ msgstr "Rating"
 msgid "created-date"
 msgstr "Date created"
 
-#: word/templates/word/word_form.html:14
+#: word/templates/word/word_form.html:12
 msgid "word-form-head"
 msgstr "Word Form"
 
-#: word/templates/word/word_form.html:41
+#: word/templates/word/word_form.html:37
 msgid "tag-form-head"
 msgstr "Tag Form"
 
-#: word/templates/word/word_form.html:47 word/templates/word/word_form.html:65
+#: word/templates/word/word_form.html:43 word/templates/word/word_form.html:59
 msgid "tags-condition"
 msgstr ""
 "***Tags must be added for both languages by changing the page to the "
 "respective language."
 
-#: word/templates/word/word_form.html:59
+#: word/templates/word/word_form.html:53
 msgid "tag-fedit-head"
 msgstr "Edit Tag Form"
+
+#~ msgid "to-edit-profile"
+#~ msgstr "To edit your profile "
+
+#~ msgid "click-me"
+#~ msgstr "click me"
 
 #, fuzzy
 #~ msgid "register"

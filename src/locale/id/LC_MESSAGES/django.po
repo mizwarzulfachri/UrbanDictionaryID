@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-21 09:35+0700\n"
-"PO-Revision-Date: 2024-06-21 09:39+0000\n"
+"POT-Creation-Date: 2024-07-02 08:28+0700\n"
+"PO-Revision-Date: 2024-07-02 01:31+0000\n"
 "Last-Translator:   <miswar_zul@mhs.usk.ac.id>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -72,8 +72,8 @@ msgstr "tanggal"
 msgid "option"
 msgstr "opsi"
 
-#: database/models.py:30 templates/homepage.html:115
-#: templates/homepage.html:243 word/templates/word/word_detail.html:52
+#: database/models.py:30 templates/homepage.html:99
+#: templates/homepage.html:227 word/templates/word/word_detail.html:52
 msgid "report"
 msgstr "lapor"
 
@@ -97,12 +97,12 @@ msgstr "sensor"
 msgid "add-tag"
 msgstr "Tambah tag"
 
-#: database/templates/database/database.html:38 templates/homepage.html:156
-#: templates/navbar.html:111
+#: database/templates/database/database.html:38 templates/homepage.html:140
 msgid "search"
 msgstr "cari"
 
 #: database/templates/database/database.html:43
+#: templates/login_register.html:33
 msgid "register-account"
 msgstr "Daftar Akun"
 
@@ -117,12 +117,12 @@ msgid "username"
 msgstr "Nama pengguna"
 
 #: database/templates/database/database.html:61
-#: database/templates/database/database.html:70 templates/homepage.html:47
+#: database/templates/database/database.html:70 templates/homepage.html:35
 msgid "last-login"
 msgstr "Terakhir masuk "
 
 #: database/templates/database/database.html:62
-#: database/templates/database/database.html:71 templates/homepage.html:45
+#: database/templates/database/database.html:71 templates/homepage.html:33
 msgid "join-date"
 msgstr "Tanggal bergabung"
 
@@ -158,11 +158,11 @@ msgstr "Pengguna Biasa"
 #: database/templates/database/database.html:204
 #: database/templates/database/database.html:243
 #: database/templates/database/report.html:42
-#: database/templates/database/report_delete.html:11
-#: database/templates/database/report_delete.html:16
+#: database/templates/database/report_delete.html:14
 #: database/templates/database/report_delete.html:21
-#: templates/homepage.html:111 word/templates/word/word_delete.html:10
-#: word/templates/word/word_delete.html:15
+#: database/templates/database/report_delete.html:28
+#: templates/homepage.html:95 word/templates/word/word_delete.html:13
+#: word/templates/word/word_delete.html:20
 #: word/templates/word/word_detail.html:48
 msgid "delete"
 msgstr "Hapus"
@@ -184,7 +184,7 @@ msgid "word"
 msgstr "kata"
 
 #: database/templates/database/database.html:95
-#: database/templates/database/database.html:112 templates/homepage.html:46
+#: database/templates/database/database.html:112 templates/homepage.html:34
 #: word/models.py:21
 msgid "definition"
 msgstr "definisi"
@@ -291,31 +291,36 @@ msgstr "Alasannya..."
 msgid "return"
 msgstr "Kembali"
 
-#: database/templates/database/report_delete.html:9
+#: database/templates/database/report_delete.html:11
 msgid "del-report-header-1"
 msgstr "Apakah betul mau dihapus laporan dari"
 
-#: database/templates/database/report_delete.html:9
+#: database/templates/database/report_delete.html:11
 msgid "del-report-header-2"
 msgstr "untuk kata"
 
-#: database/templates/database/report_delete.html:11
-#: database/templates/database/report_delete.html:16
+#: database/templates/database/report_delete.html:14
 #: database/templates/database/report_delete.html:21
-#: word/templates/word/word_delete.html:10
-#: word/templates/word/word_delete.html:15
+#: database/templates/database/report_delete.html:28
+#: word/templates/word/word_delete.html:13
+#: word/templates/word/word_delete.html:20
 msgid "cancel"
 msgstr "Batal"
 
-#: database/templates/database/report_delete.html:14
+#: database/templates/database/report_delete.html:18
 msgid "del-user-header"
 msgstr "Apakah betul mau dihapus pengguna"
 
-#: database/templates/database/report_delete.html:19
-#: word/templates/word/word_delete.html:8
-#: word/templates/word/word_delete.html:13
+#: database/templates/database/report_delete.html:25
+#: word/templates/word/word_delete.html:10
+#: word/templates/word/word_delete.html:17
 msgid "del-header"
 msgstr "Apakah betul mau dihapus"
+
+#: database/templates/database/report_delete.html:34
+#| msgid "admin"
+msgid "not-admin"
+msgstr "Anda bukan admin!"
 
 #: database/templates/database/report_form.html:11
 msgid "report-head"
@@ -324,10 +329,10 @@ msgstr "Lapor kata"
 #: database/templates/database/report_form.html:27
 #: database/templates/database/report_form.html:51
 #: database/templates/database/report_form.html:75
-#: templates/forgot_pass/change_password.html:36
+#: templates/forgot_pass/change_password.html:43
 #: templates/forgot_pass/request_password_change_password.html:26
-#: templates/profile.html:16 word/templates/word/word_form.html:31
-#: word/templates/word/word_form.html:49 word/templates/word/word_form.html:67
+#: templates/profile.html:22 word/templates/word/word_form.html:29
+#: word/templates/word/word_form.html:45 word/templates/word/word_form.html:61
 msgid "submit"
 msgstr "Simpan"
 
@@ -347,19 +352,23 @@ msgstr "Nama user atau kata sandi salah"
 msgid "Error saat mendaftarkan user"
 msgstr "Ada error saat pendaftaran akun Anda"
 
+#: templates/forgot_pass/change_password.html:9 templates/profile.html:9
+msgid "profile-page"
+msgstr "Halaman Profile"
+
 #: templates/forgot_pass/change_password.html:10
 #: templates/forgot_pass/request_password_change_password.html:10
-#: templates/forgot_pass/reset_pass.html:28
+#: templates/forgot_pass/reset_pass.html:28 templates/profile.html:10
 msgid "pass-submit"
 msgstr "Ubah Sandi"
 
-#: templates/forgot_pass/change_password.html:29
-#: templates/login_register.html:64
+#: templates/forgot_pass/change_password.html:36
+#: templates/login_register.html:71
 msgid "pass-condition-1"
 msgstr "Kata sandi harus memiliki 8 karakter atau lebih."
 
-#: templates/forgot_pass/change_password.html:32
-#: templates/login_register.html:67
+#: templates/forgot_pass/change_password.html:39
+#: templates/login_register.html:74
 msgid "pass-condition-2"
 msgstr "Kata sandi tidak bisa hanya numerik."
 
@@ -372,8 +381,8 @@ msgid "pcompl-message"
 msgstr ""
 "Kata sandi Anda sudah digantikan. Anda dapat melanjutkan dan masuk sekarang."
 
-#: templates/forgot_pass/complete_pass.html:15 templates/homepage.html:162
-#: templates/login_register.html:12 templates/login_register.html:27
+#: templates/forgot_pass/complete_pass.html:15 templates/homepage.html:146
+#: templates/login_register.html:12 templates/login_register.html:28
 #: templates/navbar.html:60
 msgid "Login"
 msgstr "Masuk"
@@ -392,7 +401,7 @@ msgstr ""
 "Link untuk reset kata sandi tidak valid, mungkin karena sudah pernah "
 "digunakan. Silakan meminta pengaturan ulang kata sandi baru."
 
-#: templates/forgot_pass/reset_pass.html:41 templates/login_register.html:31
+#: templates/forgot_pass/reset_pass.html:41 templates/login_register.html:35
 msgid "forgot-pass"
 msgstr "Lupa kata sandi"
 
@@ -412,93 +421,85 @@ msgstr ""
 msgid "list-tag"
 msgstr "Daftar Tag"
 
-#: templates/homepage.html:46
+#: templates/homepage.html:34
 msgid "has-created"
 msgstr "sudah membuat "
 
-#: templates/homepage.html:50
-msgid "to-edit-profile"
-msgstr "Untuk mensunting profile Anda "
-
-#: templates/homepage.html:50
-msgid "click-me"
-msgstr "klik saya"
-
-#: templates/homepage.html:58 templates/homepage.html:195
+#: templates/homepage.html:42 templates/homepage.html:179
 msgid "word-categories"
 msgstr "Kategori Kata-kata"
 
-#: templates/homepage.html:88 templates/homepage.html:225
+#: templates/homepage.html:72 templates/homepage.html:209
 #: word/templates/word/word_detail.html:16
 msgid "by"
 msgstr "oleh"
 
-#: templates/homepage.html:108 word/templates/word/word_detail.html:45
+#: templates/homepage.html:92 word/templates/word/word_detail.html:45
 msgid "edit"
 msgstr "Sunting"
 
-#: templates/homepage.html:140
+#: templates/homepage.html:124
 msgid "hero-header"
 msgstr "Tentang SlangID"
 
-#: templates/homepage.html:143 templates/homepage.html:145
+#: templates/homepage.html:127 templates/homepage.html:129
 msgid "first"
 msgstr "pertama"
 
-#: templates/homepage.html:143 templates/homepage.html:145
+#: templates/homepage.html:127 templates/homepage.html:129
 msgid "hero-paragraph-1"
 msgstr "Situs web kamus gaul yang"
 
-#: templates/homepage.html:147
+#: templates/homepage.html:131
 msgid "hero-paragraph-2"
 msgstr "di Indonesia!"
 
-#: templates/homepage.html:148
+#: templates/homepage.html:132
 msgid "hero-paragraph-3"
 msgstr "Kamus ini ditulis oleh"
 
-#: templates/homepage.html:148
+#: templates/homepage.html:132
 msgid "you"
 msgstr "Anda"
 
-#: templates/homepage.html:148
+#: templates/homepage.html:132
 msgid "hero-paragraph-4"
 msgstr "Bagikan kata-kata sekarang dengan mendaftarkan akun"
 
-#: templates/homepage.html:149
+#: templates/homepage.html:133
 msgid "hero-paragraph-5"
 msgstr "atau mulai"
 
-#: templates/homepage.html:149
+#: templates/homepage.html:133
 msgid "browsing"
 msgstr "jelajah"
 
-#: templates/homepage.html:149
+#: templates/homepage.html:133
 msgid "hero-paragraph-6"
 msgstr "kata-kata gaul..."
 
-#: templates/homepage.html:154
+#: templates/homepage.html:138 templates/navbar.html:114
 msgid "hero-search"
 msgstr "Cari slang..."
 
-#: templates/homepage.html:159 templates/navbar.html:58
+#: templates/homepage.html:143 templates/navbar.html:58
 msgid "add-definition"
 msgstr "Tambah Definisi"
 
-#: templates/homepage.html:161 templates/login_register.html:38
-#: templates/login_register.html:70
+#: templates/homepage.html:145 templates/login_register.html:43
+#: templates/login_register.html:77
 msgid "Register"
 msgstr "Daftar"
 
-#: templates/homepage.html:176
+#: templates/homepage.html:160
 msgid "popular-topic"
 msgstr "Topik Populer"
 
-#: templates/homepage.html:184
+#: templates/homepage.html:168 templates/login_register.html:34
 msgid "or"
 msgstr "atau"
 
-#: templates/homepage.html:186
+#: templates/homepage.html:170
 msgid "browse-tag"
 msgstr "Jelajah Semua Tag"
 
@@ -506,7 +507,7 @@ msgstr "Jelajah Semua Tag"
 msgid "password1"
 msgstr "Sandi"
 
-#: templates/login_register.html:58
+#: templates/login_register.html:65
 msgid "admin-usr"
 msgstr "Pengguna admin"
 
@@ -522,18 +523,17 @@ msgstr "baru"
 msgid "usr-page"
 msgstr "Hal. Pengguna"
 
-#: templates/navbar.html:76
+#: templates/navbar.html:75
+msgid "settings"
+msgstr "Pengaturan"
+
+#: templates/navbar.html:79
 msgid "adm-page"
 msgstr "Hal. Admin"
 
-#: templates/navbar.html:80
+#: templates/navbar.html:83
 msgid "Logout"
 msgstr "Keluar"
-
-#: templates/profile.html:10
-#| msgid "usr-page"
-msgid "profile-page"
-msgstr "Halaman Profile"
 
 #: word/models.py:22
 msgid "up"
@@ -583,23 +583,29 @@ msgstr "Rating"
 msgid "created-date"
 msgstr "Tanggal dibuat"
 
-#: word/templates/word/word_form.html:14
+#: word/templates/word/word_form.html:12
 msgid "word-form-head"
 msgstr "Formulir Kata"
 
-#: word/templates/word/word_form.html:41
+#: word/templates/word/word_form.html:37
 msgid "tag-form-head"
 msgstr "Formulir Tag"
 
-#: word/templates/word/word_form.html:47 word/templates/word/word_form.html:65
+#: word/templates/word/word_form.html:43 word/templates/word/word_form.html:59
 msgid "tags-condition"
 msgstr ""
 "***Tag harus ditambahkan untuk kedua bahasa dengan mengubah halaman ke "
 "bahasa tertentu."
 
-#: word/templates/word/word_form.html:59
+#: word/templates/word/word_form.html:53
 msgid "tag-fedit-head"
 msgstr "Formulir Sunting Tag"
+
+#~ msgid "to-edit-profile"
+#~ msgstr "Untuk mensunting profile Anda "
+
+#~ msgid "click-me"
+#~ msgstr "klik saya"
 
 #, fuzzy
 #~ msgid "register"
