@@ -30,7 +30,7 @@
  * P1.1 -- Popup box
  * P1.2 -- Word card 
  * P2 - Register/Login/Word Form 
- * P3 - About Page Styling # Removed
+ * P3 - About Page Styling & Tab Content # About Page Removed
  * P4 - Forms
  * P5 - Bottom-Bar
  * P6 - Database
@@ -51,6 +51,13 @@
 body {
     position: relative;
     overflow-x: hidden;
+}
+
+@media screen and (orientation: portrait) {
+    html {
+        position: relative;
+        overflow-x: hidden;
+    }
 }
 
 .wrapper {
@@ -738,6 +745,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     flex-direction: column;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
     grid-template-rows: repeat(1, 1fr);
+    animation: moving .5s ease;
 }
 
 @media screen and (max-width: 500px) {
@@ -810,6 +818,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     min-width: 20%;
     width: 80%;
     max-width: 100%;
+    animation: floating 8s linear infinite;
 }
 
 .img-2 {
@@ -818,6 +827,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     min-width: 20%;
     width: 80%;
     max-width: 100%;
+    animation: floating 5s linear infinite;
 }
 
 .img-3 {
@@ -826,6 +836,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     min-width: 20%;
     width: 80%;
     max-width: 100%;
+    animation: floating 10s ease-in-out infinite;
 }
 
 .img-4 {
@@ -834,6 +845,8 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     min-width: 20%;
     width: 80%;
     max-width: 100%;
+    animation: floating 10s ease-in-out infinite;
+    animation-direction: reverse;
 }
 
 .hero-menu {
@@ -881,6 +894,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     margin-left: 5%;
     margin-bottom: 4%;
     text-align: center;
+    animation: moving .5s ease;
 }
 
 @media screen and (max-width: 1200px) {
@@ -1259,7 +1273,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 /*----------------------------------------*/
 
 /*----------------------------------------*/
-/* P3 About Page Styling 
+/* P3 About Page Styling & Tab Content
 /*----------------------------------------*/
 .section {
     width: 85%;
@@ -1284,6 +1298,60 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 
 .section p {
     font-size: large;
+}
+
+.tab-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 2px solid var(--light-mode-card2);
+    font-size: 18px;
+    font-weight: 600;
+    position: relative;
+}
+.tab-box .tab-btn {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-lt);
+    background: none;
+    border: none;
+    padding: 18px;
+    cursor: pointer;
+}
+.tab-box .tab-btn.active {
+    color: var(--primary-lt);
+}
+
+.content_box {
+    width: 100%;
+    padding: 20px;
+}
+
+.content_box .tab-content {
+    display: none;
+    animation: moving .5s ease;
+}
+@keyframes moving {
+    from{transform: translateX(50px);opacity: 0;}
+    to{transform: translateX(0px);opacity: 1;}
+}
+.content_box .tab-content.active {
+    display: block;
+}
+
+.line {
+    position: absolute;
+    top: 62px;
+    left: 0px;
+    width: 50%;
+    height: 5px;
+    background-color: var(--primary-lt);
+    border-radius: 10px;
+    transition: all .2s ease-in-out;
+}
+.right {
+    left: 50%;
 }
 
 /*----------------------------------------*/
@@ -1785,23 +1853,30 @@ tr:nth-of-type(2n) {
 /*----------------------------------------*/
 @keyframes floating {
     0% {
-        transform: translateY(10), rotate(5deg);
-
+        transform:rotate(5deg) translateY(0px);
     }
 
-    100% {
-        transform: translateY(0), rotate(-5deg);
+    25% {
+        transform:rotate(3deg) translateY(5px);
     }
-}
 
-.floating {
-    animation-name: floating;
+    50% {
+        transform:rotate(0deg) translateY(10px);
+    }
+
+    75%{
+        transform:rotate(-3deg) translateY(5px);
+    }
+
+    100%{
+        transform:rotate(5deg) translateY(0px);
+    }
 }
 
 /*----------------------------------------*/
 /* A1.1 Utility Classes 
 /*----------------------------------------*/
-.animate {
+/* .animate {
     animation-duration: 1s;
     animation-fill-mode: both;
 }
@@ -1816,7 +1891,7 @@ tr:nth-of-type(2n) {
 
 .animate.animate--slowest {
     animation-duration: 5s;
-}
+} */
 
 /*----------------------------------------*/
 /* End of Animation 

@@ -2,20 +2,26 @@
 {% load i18n %}
 
 {% block content %}
-<form class="word-submit" action='' method="POST">
-    {% csrf_token %}
-    {% if page == 'tag' %}
-    <header>{% trans 'del-header' %} {{ object.name }}?</header>
-    <div class="flex-row">    
-        <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}">{% trans 'cancel' %}</a>
-    </div>
-    {% else %}
-    <header>{% trans 'del-header' %} {{ object.word }}?</header>
-    <div class="flex-row">
-        <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'word:word' object.pk %}">{% trans 'cancel' %}</a>
-    </div>
-    {% endif %}
-</form>
+<div class="container">
+    <form class="word-submit" action='' method="POST">
+        {% csrf_token %}
+        {% if page == 'tag' %}
+	<div class="form-header">
+            <header>{% trans 'del-header' %} {{ object.name }}?</header>
+	</div>
+        <div class="flex-row">    
+            <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}">{% trans 'cancel' %}</a>
+        </div>
+        {% else %}
+	<div class="form-header">
+            <header>{% trans 'del-header' %} {{ object.word }}?</header>
+	</div>
+        <div class="flex-row">
+            <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'word:word' object.pk %}">{% trans 'cancel' %}</a>
+        </div>
+        {% endif %}
+    </form>
+</div>
 
 <div class="loader"></div>
 {% endblock %}

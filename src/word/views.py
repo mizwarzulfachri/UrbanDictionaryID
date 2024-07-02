@@ -30,7 +30,6 @@ def word_create(request):
     if request.method == "POST":
         form_data = {
             'word': request.POST.get('word'),
-            # 'pronunciation': request.FILES.get('pronunciation'),
             'definition': request.POST.get('definition'),
             'tags': request.POST.getlist('tags'),
             'user': request.user,
@@ -40,7 +39,7 @@ def word_create(request):
         if form.is_valid(): 
             # Pronounce 
             try:
-                p = get_object_or_404(Pronounce, name__icontains=form.cleaned_data['word'])
+                p = get_object_or_404(Pronounce, name__iexact=form.cleaned_data['word'])
                 print(form.cleaned_data['word'] + " has been successfully linked")
             except Http404:
                 obj = gTTS(text=form.cleaned_data['word'], lang='id', slow=False)

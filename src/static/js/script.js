@@ -14,7 +14,7 @@
 /* Contents of Javascript
 /*----------------------------------------*/
 
-/* 1 - Base Html 
+/* 1 - Base Html
  * 2 - User Dropdown
  * 3 - User Dropdown
  * 4 - Loader
@@ -23,6 +23,7 @@
  * 7 - Rating
  * 8 - Change Language
  * 9 - Peak Password
+ * 10 - Tab Change
  */
 
 /*----------------------------------------*/
@@ -106,7 +107,7 @@ function toggleP() {
 }
 
 function toggleN() {
-    negative.style.color = "#FF002E";
+    negative.style.color = "#FF002E"
 }
 
 /*----------------------------------------*/
@@ -224,3 +225,23 @@ eyeicon0.onclick = function() {
         eyeicon0.className = 'fa fa-eye-slash';
     }
 }
+
+/*----------------------------------------*/
+/* 10 Tab Change
+/*----------------------------------------*/
+const tabs = document.querySelectorAll('.tab-btn');
+const all_content = document.querySelectorAll('.tab-content');
+
+tabs.forEach((tab, index)=> {
+    tab.addEventListener('click', (e)=>{
+        tabs.forEach(tab=>{tab.classList.remove('active')});
+        tab.classList.add('active');
+
+        var line = document.querySelector('.line');
+        line.style.width = e.target.offsetWidth + "px";
+        line.style.left = e.target.offsetLeft + "px";
+
+        all_content.forEach(content=>{content.classList.remove('active')})
+        all_content[index].classList.add('active');
+    });
+});

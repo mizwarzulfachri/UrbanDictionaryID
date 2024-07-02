@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
 {% load i18n %}
 
 {% block content %}
-
+<div class="container">
 {% if page == 'word' %}
     <!-- Word Create & Edit -->
-    <form class="word-submit" action="." method="POST" enctype="multipart/form-data"> 
+    <form class="form" action="." method="POST" enctype="multipart/form-data"> 
         {% csrf_token %}
         <div class="form-header">
             <header>{% trans 'word-form-head' %}</header>
@@ -32,7 +31,7 @@
 
 {% elif page == 'tag' %}
     <!-- Tag Create -->
-    <form class="word-submit" action="{% url 'word:tag' %}" method="POST">
+    <form class="form" action="{% url 'word:tag' %}" method="POST">
         {% csrf_token %}
         <div class="form-header">
             <header>{% trans 'tag-form-head' %}</header>
@@ -48,7 +47,7 @@
 
 {% else %}
     <!-- Tag Edit -->
-    <form class="word-submit" action="." method="POST"> 
+    <form class="form" action="." method="POST"> 
         {% csrf_token %}
         <div class="form-header">
             <header>{% trans 'tag-fedit-head' %}</header>
@@ -62,6 +61,7 @@
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
     </form>
 {% endif %}
+</div>
 
 <div class="loader"></div>
 {% endblock %}

@@ -33,10 +33,6 @@
           <p>{% trans 'join-date' %} {{ user.date_joined }}</p>
           <p>{{ user.username }} {% trans 'has-created' %} {{ count }} {% trans 'definition' %}</p>
           <p>{% trans 'last-login' %} {{ user.last_login }}</p>
-          
-          {% if request.user.id == user.id %}
-            <p>{% trans 'to-edit-profile' %} <a href="{% url 'edit_usr' %}">{% trans 'click-me' %}</a>!</p>
-          {% endif %}
         </div>
       </div>
 
@@ -153,10 +149,10 @@
           </div>
 
           <div class="hero-image">
-            <img src="{% static 'images/Urban Dictionary Mascot_1.png' %}" class="img-1 animate floating animate--infinite animate--slowest"/>
-            <img src="{% static 'images/Urban Dictionary Mascot_2.png' %}" class="img-2 animate floating animate--infinite animate--slow"/>
-            <img src="{% static 'images/Urban Dictionary Mascot_3.png' %}" class="img-3 animate floating animate--infinite animate--slow"/>
-            <img src="{% static 'images/Urban Dictionary Mascot_4.png' %}" class="img-4 animate floating animate--infinite animate--slow"/>
+            <img src="{% static 'images/Urban Dictionary Mascot_1.png' %}" class="img-1"/>
+            <img src="{% static 'images/Urban Dictionary Mascot_2.png' %}" class="img-2"/>
+            <img src="{% static 'images/Urban Dictionary Mascot_3.png' %}" class="img-3"/>
+            <img src="{% static 'images/Urban Dictionary Mascot_4.png' %}" class="img-4"/>
           </div>
         </section>
         
