@@ -39,7 +39,7 @@
             </h5></button>
         </div>
 
-        <div class="flex-row">
+        <div class="word-interactions">
             {% if request.user == object.user or request.user.is_superuser %}
                 <button class="btn-tertiary" onclick="location.href=`{% url 'word:edit' object.pk %}`">
                     {% trans 'edit' %} <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

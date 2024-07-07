@@ -13,7 +13,7 @@
     <span class="hamburger-menu">
       <li>
         <div class="dropdown">
-          <button onclick="dropFunc()", class="btn-secondary flex-row center">
+          <button onclick="dropFunc()", class="btn-secondary flex-row center font-bold">
             {% trans 'browse'|capfirst %}
             <div class="caret" id="dd"></div>
           </button>
@@ -55,16 +55,16 @@
         {% endif %} -->
       <li>
         {% if request.user.is_authenticated %}
-        <button onclick="location.href=`{% url 'word:create' %}`" class="btn-secondary">{% trans 'add-definition' %}</button>
+        <button onclick="location.href=`{% url 'word:create' %}`" class="btn-secondary font-bold">{% trans 'add-definition' %}</button>
         {% else %}
-        <button onclick="location.href=`{% url 'login' %}`" class="btn-secondary">{% trans 'Login' %} <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+        <button onclick="location.href=`{% url 'login' %}`" class="btn-secondary font-bold">{% trans 'Login' %} <i class="fa fa-sign-in" aria-hidden="true"></i></button>
         {% endif %}
       </li>
       {% if request.user.is_authenticated %}
       <li>
         <div class="dropdown" id="drops"> 
           <button id="user-menu" class="btn-secondary flex-row center" onclick="userMenu()">
-            <span>{{request.user.username}}</span>
+            <span class="font-bold">{{request.user.username}}</span>
             <div class="caret" id="caret"></div>
           </button>  
           <ul class="menu" id="u-menu">
@@ -89,7 +89,7 @@
       <li>
         <form class="laguage-form" id="languageForm" method="POST" action="{% url 'set_language' %}">
           {% csrf_token %}
-          <select class="btn-secondary laguage-select" style="padding: .5rem 5px;" name="language" id="language" onchange="changeLanguage(this.value)">
+          <select class="btn-secondary laguage-select font-bold" style="padding: .5rem 5px;" name="language" id="language" onchange="changeLanguage(this.value)">
             <!-- <span class="ID">ID</span>
             <input type="checkbox" class="check">
             <span class="EN">EN</span> -->

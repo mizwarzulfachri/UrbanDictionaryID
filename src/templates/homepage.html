@@ -10,7 +10,7 @@
     <div class="popup-content">
       <div class="popup-header">
         <h5>{% trans 'list-tag' %}</h5>
-        <div onclick="togglePopUp()" class="btn-close">&times;</div>
+        <div onclick="togglePopUp()" class="btn-close"></div>
       </div>
       <div class="popup-body">
         {% for tags in filter %}
@@ -50,6 +50,7 @@
         </div>
         
         <section>
+        {% if object_list %}
         <!-- <h2>WoTD! - Word of The Day</h2> -->
           {% for instance in object_list %}
           <div class="word-list" id="List-Words">
@@ -102,6 +103,14 @@
             </div>
           </div>
           {% endfor %}
+        {% else %}
+          <h3>{% trans 'user-no-words' %}.</h3>
+          
+          {% if request.user.id == user.id %}
+            <h3>{% trans 'add-now' %}...</h3>
+            <h3><a href="{% url 'word:create' %}">{% trans 'add-definition' %}!</a></h3>
+          {% endif %}
+        {% endif %}
         </section>
       </div>
     </div>
@@ -187,6 +196,7 @@
         </div>
         
         <section>
+        {% if object_list %}
         <!-- <h2>WoTD! - Word of The Day</h2> -->
           {% for instance in object_list %}
           <div class="word-list" id="List-Words">
@@ -223,12 +233,28 @@
                 </h5></button>
               </div>
 
-              <button class="btn-tertiary" onclick="location.href=`{% url 'database:form' instance.pk %}`">
-                {% trans 'report'|capfirst %} <i class="fa fa-flag" aria-hidden="true"></i>
-              </button>
+              <div class="word-interactions">
+                {% if request.user.id == instance.user.id %}
+                  <button class="btn-tertiary"  onclick="location.href=`{% url 'word:edit' instance.pk %}`">
+                    {% trans 'edit' %} <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                  </button>
+                  <button class="btn-tertiary danger-border"  onclick="location.href=`{% url 'word:delete' instance.pk %}`">
+                    {% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i>
+                  </button>
+                {% endif %}
+                <button class="btn-tertiary" onclick="location.href=`{% url 'database:form' instance.pk %}`">
+                  {% trans 'report'|capfirst %} <i class="fa fa-flag" aria-hidden="true"></i>
+                </button>
+              </div>
             </div>
           </div>
           {% endfor %}
+
+          {% else %}
+          <h3>{% trans 'search-not-found' %}.</h3>
+          <h3>{% trans 'add-now' %}...</h3>
+          <h3><a href="{% url 'word:create' %}">{% trans 'add-definition' %}!</a></h3>
+          {% endif %}
         </section>
       </div>
     </div>

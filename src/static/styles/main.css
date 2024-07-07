@@ -315,6 +315,10 @@ small {font-size: 0.707rem; /* 11.36px */}
 
 p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 
+.font-bold {
+    font-weight: bold;
+}
+
 /*----------------------------------------*/
 /* 0.3 UI Elements */
 /*----------------------------------------*/
@@ -521,10 +525,6 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     padding: 5px;
     margin: 0;
 }
-
-/* .navbar-list li {
-    margin-right: 15px; 
-} */
 
 #check {display:none;}
 
@@ -979,14 +979,11 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 
 .popup .btn-close {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
     width: 30px;
     height: 30px;
-    color: var(--text-lt);
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 30px;
+    color: var(--primary-lt);
     text-align: center;
 }
 
@@ -1010,6 +1007,12 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 
 .popup-body button{
     margin: 5px;
+}
+
+@media screen and (max-height: 680px) {
+    .popup-body {
+        max-height: 300px;
+    }
 }
 
 /*----------------------------------------*/
@@ -1284,6 +1287,7 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     border: 1px solid var(--secondary-hv-lt);
     box-shadow: 0px 0px 25px var(--secondary-hv-lt);
     padding: 15px;
+    margin: 0;
     top: 50%;
     left: 50%;
     position: absolute;
@@ -1298,6 +1302,18 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 
 .section p {
     font-size: large;
+}
+
+@media screen and (max-width: 1090px) {
+    .section {
+        margin: 0 auto;
+        margin-top: 25%;
+        margin-bottom: 15%;
+        top: 0;
+        left: 0;
+        position: static;
+        transform: translate(0%, 0%);
+    }
 }
 
 .tab-box {
@@ -1449,107 +1465,11 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
 }
 
 @media screen and (orientation: portrait) {
-    .scroll {max-height: 150px;}
     .mscroll {max-height: 45px;}
 }
 
 .checkbox {
     accent-color: var(--success-colour);
-}
-
-.custom-select {
-    position: relative;
-    width: 500px;
-}
-.select-box {
-    background-color: transparent;
-    border: 1px solid var(--light-mode-card2);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 56px;
-    padding: 0 10px;
-    cursor: pointer;
-}
-.selected-options {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 0;
-}
-.tag {
-    background-color: var(--secondary-lt);
-    color: var(--text-lt);
-    border-radius: 5px;
-    margin-right: 5px;
-    padding: 6px 14px;
-    display: flex;
-    align-items: center;
-}
-.remove_tag {
-    margin-left: 6px;
-    cursor: pointer;
-}
-
-.options {
-    display: none;
-    position: absolute;
-    width: 100%;
-    background-color: var(--light-mode-card1);
-    border: 1px solid var(--light-mode-card2);
-    border-top: none;
-    margin-bottom: 20px;
-    max-height: 125px;
-    overflow-y: auto;
-    top: 58px;
-    left: 50%;
-    z-index: 1;
-    transform: translate(-50%);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-}
-.open .options{
-    display: block;
-}
-.option-search-tags {
-    background-color: var(--light-mode-card1);
-    border: 1px solid var(--light-mode-card2);
-    padding: 5px 0px;
-    margin: 5px;
-}
-.search-tags {
-    background-color: transparent;
-    width: 100%;
-    border: none;
-    outline: none;
-    padding: 8px;
-    font-size: 14px;
-}
-.clear {
-    position: absolute;
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 0;
-    color: var(--text-lt);
-    top: 20px;
-    left: auto;
-    right: 15px;
-}
-.option {
-    padding: 12px;
-    cursor: pointer;
-}
-.option .active {
-    color: var(--text-lt);
-    background-color: var(--light-mode-card2);
-    border-bottom: 1px solid var(--light-mode-card1);
-}
-.tag:hover, .option:hover {
-    background-color: var(--accent-lt);
-}
-.no-result-message {
-    padding: 0 0 12px 12px;
 }
 
 .messages {

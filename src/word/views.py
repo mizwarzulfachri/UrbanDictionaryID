@@ -12,9 +12,7 @@ from .forms import WordForm, RawWordForm, TagForm, RawTagForm
 from .models import Word, Tag, Upvotes, Downvotes, Pronounce
 from database.models import Censorship
 
-import os
 from io import BytesIO
-import pyttsx3 # Text to speech API
 from gtts import gTTS # Google Text To Speech only works when the audio is saved!
 from pygame import mixer
 

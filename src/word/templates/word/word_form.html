@@ -24,7 +24,7 @@
 
         {% render_field form.word placeholder=form.word.label class+="input-box" %}
         {% render_field form.definition placeholder=form.definition.label class+="input-description" %}
-        {% render_field form.tags class+="input-box" %}<br>
+        {% render_field form.tags class+="input-box" id+="selecttag" %}<br>
 
         <input type="submit" value="{% trans 'submit' %}" class="btn-primary"/>
     </form>

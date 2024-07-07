@@ -121,7 +121,7 @@
                                 {% if word.visibility == 'Vulgar' %}
                                     {% trans 'public' %}
                                 {% else %}
-                                    {% trans 'vulgar' %}
+                                    {% trans 'Vulgar' %}
                                 {% endif %}
                             </button>
                             <button class="btn-tertiary" onclick="location.href=`{% url 'word:hide' word.pk %}`">

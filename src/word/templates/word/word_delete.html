@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="container">
-    <form class="word-submit" action='' method="POST">
+    <form class="form" action='' method="POST">
         {% csrf_token %}
         {% if page == 'tag' %}
 	<div class="form-header">

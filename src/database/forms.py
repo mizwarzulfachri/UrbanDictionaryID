@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 from parler.forms import TranslatableModelForm
 
 from .models import Report, Censorship
@@ -18,8 +19,10 @@ class ReportForm(forms.ModelForm):
 
 class RawReportForm(forms.Form):
     Choice = [
-        ("Vulgar", "Vulgar"),
-        ("Spam", "Spam"),
+        ("Vulgar", _("Vulgar")),
+        ("Spam", _("Spam")),
+        ("Slur", _("Slur")),
+        ("Other", _("Other")),
     ]
 
     user        = forms.ModelChoiceField(queryset=User.objects.all(), widget=forms.HiddenInput)
@@ -40,6 +43,10 @@ class RawReportForm(forms.Form):
             }
         )
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['description'].required = False
 
 class CensorshipForm(TranslatableModelForm):
     class Meta:

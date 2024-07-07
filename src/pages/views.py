@@ -73,7 +73,6 @@ def homepage(request, *args, **kwargs):
 
     # Tags Order
     recent = datetime.now() - timedelta(days=7)
-    wordtaglst = Word.objects.filter(date__gte=recent)
     
     tags_count = Tag.objects.annotate(
         word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent))
@@ -181,7 +180,6 @@ def user_pg(request, pk):
 
     # Tags Order
     recent = datetime.now() - timedelta(days=7)
-    wordtaglst = Word.objects.filter(date__gte=recent)
     
     tags_count = Tag.objects.annotate(word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent)))
     queryset = tags_count.order_by('-word_count').exclude(translations__name='Vulgar')

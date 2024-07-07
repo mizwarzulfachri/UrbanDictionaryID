@@ -11,6 +11,8 @@ class Report(models.Model):
     Choice = [
         ("Vulgar", _("Vulgar")),
         ("Spam", _("Spam")),
+        ("Slur", _("Slur")),
+        ("Other", _("Other")),
     ]
     Options = [
         ("Selesai", _("Selesai")),
@@ -21,7 +23,7 @@ class Report(models.Model):
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
 
     category = models.CharField(_('category'), max_length=8, choices=Choice)
-    description = models.TextField(_('description'), blank=False, null=False)
+    description = models.TextField(_('description'), blank=True, null=True)
     date = models.DateField(_('date'), auto_now=False, auto_now_add=True)
 
     option = models.CharField(_('option'), max_length=8, choices=Options, default="Tinjau")
