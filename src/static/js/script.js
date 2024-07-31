@@ -22,8 +22,9 @@
  * 6 - Play sounds
  * 7 - Rating
  * 8 - Change Language
- * 9 - Peak Password
- * 10 - Tab Change
+ * 9 - Database
+ * 10 - Peak Password
+ * 11 - Tab Change
  */
 
 /*----------------------------------------*/
@@ -93,8 +94,8 @@ window.addEventListener("load", () => {
 
     loader.addEventListener("transitionend", () => {
         document.body.removeChild("loader");
-    })
-})
+    });
+});
 
 /*----------------------------------------*/
 /* 5 Up and Down votes
@@ -185,7 +186,150 @@ function changeLanguage(languageCode) {
 }
 
 /*----------------------------------------*/
-/* 9 Peak Password
+/* 9 Tab Change
+/*----------------------------------------*/
+const tabs = document.querySelectorAll('.tab-btn');
+const all_content = document.querySelectorAll('.tab-content');
+
+tabs.forEach((tab, index)=> {
+    tab.addEventListener('click', (e)=>{
+        tabs.forEach(tab=>{tab.classList.remove('active')});
+        tab.classList.add('active');
+
+        var line = document.querySelector('.line');
+        line.style.width = e.target.offsetWidth + "px";
+        line.style.left = e.target.offsetLeft + "px";
+
+        all_content.forEach(content=>{content.classList.remove('active')});
+        all_content[index].classList.add('active');
+    });
+});
+
+/*----------------------------------------*/
+/* 10 Database
+/*----------------------------------------*/
+const page = document.querySelectorAll('aside div a');
+
+page.forEach((p) => {
+    p.addEventListener('click', () => {
+        document.querySelector('.active').classList.remove('active');
+        p.classList.add('active');
+    });
+});
+
+function setActive(el) {
+    const currentUrl = el.getAttribute('href');
+    const classSelector = currentUrl.replace('#', '.');
+
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+    });
+
+    const currentContent = document.querySelector(classSelector);
+    if (currentContent) {
+        currentContent.classList.add('active');
+    }
+}
+
+let srch_w = document.getElementById('search-word');
+let srch_u = document.getElementById('search-user');
+let srch_c = document.getElementById('search_tag');
+
+srch_w?.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const hash = '#Word';
+    const searchQuery = form.querySelector('input[name="s"]').value;
+
+    let actionUrl = form.action;
+    if (searchQuery) {
+        actionUrl += `?s=${encodeURIComponent(searchQuery)}${hash}`;
+    } else {
+        actionUrl += hash;
+    }
+
+    window.location.href = actionUrl;
+});
+
+srch_u?.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const hash = '#User';
+    const searchQuery = form.querySelector('input[name="u"]').value;
+
+    let actionUrl = form.action;
+    if (searchQuery) {
+        actionUrl += `?u=${encodeURIComponent(searchQuery)}${hash}`;
+    } else {
+        actionUrl += hash;
+    }
+
+    window.location.href = actionUrl;
+});
+
+srch_c?.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const form = event.target;
+    const hash = '#Tag';
+    const searchQuery = form.querySelector('input[name="c"]').value;
+
+    let actionUrl = form.action;
+    if (searchQuery) {
+        actionUrl += `?c=${encodeURIComponent(searchQuery)}${hash}`;
+    } else {
+        actionUrl += hash;
+    }
+
+    window.location.href = actionUrl;
+});
+
+function redirectToWord(url) {
+    const changeUrl = `${url}#Word`;
+
+    window.location.href = changeUrl;
+}
+
+function redirectToReport(url) {
+    const changeUrl = `${url}#Report`;
+
+    window.location.href = changeUrl;
+}
+
+/*----------------------------------------*/
+/* 11 Check Redirect
+/*----------------------------------------*/
+function checkHash() {
+    const hash = window.location.hash;
+    if (hash) {
+        const classSelector = hash.replace('#', '.');
+        
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        const currentContent = document.querySelector(classSelector);
+        if (currentContent) {
+            currentContent.classList.add('active');
+        }
+
+        document.querySelectorAll('.side_link').forEach(link => {
+            if (link.getAttribute('href') === hash) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', checkHash);
+window.addEventListener('hashchange', checkHash);
+
+/*----------------------------------------*/
+/* 12 Peak Password
 /*----------------------------------------*/
 let eyeicon1 = document.getElementById("eye-icon1");
 let password1 = document.getElementById("password1");
@@ -225,23 +369,3 @@ eyeicon0.onclick = function() {
         eyeicon0.className = 'fa fa-eye-slash';
     }
 }
-
-/*----------------------------------------*/
-/* 10 Tab Change
-/*----------------------------------------*/
-const tabs = document.querySelectorAll('.tab-btn');
-const all_content = document.querySelectorAll('.tab-content');
-
-tabs.forEach((tab, index)=> {
-    tab.addEventListener('click', (e)=>{
-        tabs.forEach(tab=>{tab.classList.remove('active')});
-        tab.classList.add('active');
-
-        var line = document.querySelector('.line');
-        line.style.width = e.target.offsetWidth + "px";
-        line.style.left = e.target.offsetLeft + "px";
-
-        all_content.forEach(content=>{content.classList.remove('active')})
-        all_content[index].classList.add('active');
-    });
-});

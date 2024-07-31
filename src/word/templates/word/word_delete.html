@@ -10,7 +10,7 @@
             <header>{% trans 'del-header' %} {{ object.name }}?</header>
 	</div>
         <div class="flex-row">    
-            <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}">{% trans 'cancel' %}</a>
+            <input class="btn-tertiary danger-border" type="submit" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}#Tag">{% trans 'cancel' %}</a>
         </div>
         {% else %}
 	<div class="form-header">

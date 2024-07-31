@@ -27,7 +27,9 @@
   </head>
 
   <body>
+    {% if page != 'database' %}
     {% include 'navbar.html' %}
+    {% endif %}
 
     <div id="background" class="wrapper">
       {% block content %} 

@@ -20,10 +20,13 @@
         </ul>
         {% endif %}
         
-        <input type="text" class="input-box" name="username" placeholder="{% trans 'username' %}"/>
-        <input type="password" class="input-box" name="password" placeholder="{% trans 'password1' %}" id="password1"/>
-        <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon1" style="position: absolute; top:54.5%; left: 76%;"></i>
-
+        <div class="relative width-fit">
+            <input type="text" class="input-box" name="username" placeholder="{% trans 'username' %}"/>
+        </div>
+        <div class="relative width-fit">
+            <input type="password" class="input-box" name="password" placeholder="{% trans 'password1' %}" id="password1"/>
+            <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon1" style="position: absolute;top:30%; left: 85%;"></i>
+        </div>
         <div class="input-submit margin-top-10">
             <input type="submit" class="btn-primary" value="{% trans 'Login' %}"/>
         </div>
@@ -53,12 +56,20 @@
             </ul>
         {% endif %}
         
-        {% render_field form.username class+="input-box" placeholder=form.username.label %}
-        {% render_field form.email class+="input-box" placeholder=form.email.label %}
-        {% render_field form.password1 class+="input-box" placeholder=form.password1.label id+="password1" %}
-        <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon1" style="position: absolute; top:52.5%; left: 76%;"></i>
-        {% render_field form.password2 class+="input-box" placeholder=form.password2.label id+="password2" %}
-        <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon2" style="position: absolute; top:63%; left: 76%;"></i></i>
+        <div class="relative width-fit">
+            {% render_field form.username class+="input-box" placeholder=form.username.label %}
+            {% render_field form.email class+="input-box" placeholder=form.email.label %}
+        </div>
+        <div class="relative width-fit">
+            {% render_field form.password1 class+="input-box" placeholder=form.password1.label id+="password1" %}
+            <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon1" style="position: absolute;top:30%; left: 85%;"></i>
+        </div>
+
+        <div class="relative width-fit">
+            {% render_field form.password2 class+="input-box" placeholder=form.password2.label id+="password2" %}
+            <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon2" style="position: absolute;top:30%; left: 85%;"></i>
+        </div>
+
         {% if request.user.is_superuser %}
         <div class="flex-row">
             <input class="checkbox" type="checkbox" id="admin" value="Admin" name="checked">

@@ -18,7 +18,7 @@
                 {% if report.word.visibility == 'Vulgar' %}
                     {% trans 'public' %}
                 {% else %}
-                    {% trans 'vulgar' %}
+                    {% trans 'Vulgar' %}
                 {% endif %}
             </button>
             <button class="btn-tertiary" onclick="location.href=`{% url 'word:hide' report.word.pk %}`">
@@ -43,7 +43,7 @@
         </div>
     </section>
     <div class="flex-row jus-center">
-        <button class="btn-tertiary" onclick="location.href=`{% url 'database:list' %}`">{% trans 'return' %} <i class="fa fa-reply" aria-hidden="true"></i></button>
+        <button class="btn-tertiary" onclick="location.href=`{% url 'database:database' %}#Report`">{% trans 'return' %} <i class="fa fa-reply" aria-hidden="true"></i></button>
     </div>
 </div>
 

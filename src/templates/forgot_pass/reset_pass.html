@@ -20,9 +20,15 @@
                 {% endfor %}
             </ul>
             {% endif %}
-        
-            {% render_field form.new_password1 placeholder=form.new_password1.label class+="input-box" %}
-            {% render_field form.new_password2 placeholder=form.new_password2.label class+="input-box" %}
+            
+            <div class="relative width-fit">
+                {% render_field form.new_password1 placeholder=form.new_password1.label class+="input-box" %}
+                <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon1" style="position: absolute;top:30%; left: 85%;"></i>
+            </div>
+            <div class="relative width-fit">
+                {% render_field form.new_password2 placeholder=form.new_password2.label class+="input-box" %}
+                <i class="fa fa-eye-slash" aria-hidden="true" id="eye-icon2" style="position: absolute;top:30%; left: 85%;"></i>
+            </div>
     
             <div class="input-submit margin-top-10">
                 <input type="submit" class="btn-primary" value="{% trans 'pass-submit' %}"/>

@@ -41,10 +41,10 @@
         <div class="sidebar padding-side-20">
           <h4><i class="fa fa-cubes" aria-hidden="true"></i> {% trans 'word-categories' %}</h4>
 
-          {% for tags in filter %}
+          {% for tags in count_word %}
             <a href="{% url 'home' %}?q={{ tags.name }}" class="space-between margin-5">
               <span class="font-weight-600">{{ tags.name }}</span>
-              <span class="btn-icon">{{ tags.word_count }}</span>
+              <span class="btn-icon">{{ tags.tag_counter }}</span>
             </a>
           {% endfor %}
         </div>
@@ -187,10 +187,10 @@
         <div class="sidebar padding-side-20">
           <h4><i class="fa fa-cubes" aria-hidden="true"></i> {% trans 'word-categories' %}</h4>
 
-          {% for tags in filter %}
+          {% for tags in count_word %}
             <a href="{% url 'home' %}?q={{ tags.name }}" class="space-between margin-5">
               <span class="font-weight-600">{{ tags.name }}</span>
-              <span class="btn-icon">{{ tags.word_count }}</span>
+              <span class="btn-icon">{{ tags.tag_counter }}</span>
             </a>
           {% endfor %}
         </div>

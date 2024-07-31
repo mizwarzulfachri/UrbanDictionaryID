@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-05 19:19+0700\n"
-"PO-Revision-Date: 2024-07-07 14:59+0000\n"
-"Last-Translator:   <hackersrepel@gmail.com>\n"
+"POT-Creation-Date: 2024-07-30 17:30+0700\n"
+"PO-Revision-Date: 2024-07-31 01:08+0000\n"
+"Last-Translator:   <miswar_zul@mhs.usk.ac.id>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,9 @@ msgid "Indonesian"
 msgstr "indonesian"
 
 #: database/forms.py:22 database/models.py:12
+#: database/templates/database/database.html:175
+#: database/templates/database/database.html:286
+#: database/templates/database/report.html:21
 msgid "Vulgar"
 msgstr "Vulgar"
 
@@ -51,28 +54,30 @@ msgstr "done"
 msgid "Tinjau"
 msgstr "review"
 
-#: database/models.py:25 database/templates/database/database.html:154
-#: database/templates/database/database.html:164
-#: database/templates/database/database.html:187
-#: database/templates/database/database.html:197
+#: database/models.py:25 database/templates/database/database.html:385
+#: database/templates/database/database.html:395
+#: database/templates/database/database.html:419
+#: database/templates/database/database.html:429
 msgid "category"
 msgstr "category"
 
 #: database/models.py:26 database/models.py:41
-#: database/templates/database/database.html:227
-#: database/templates/database/database.html:240
+#: database/templates/database/database.html:460
+#: database/templates/database/database.html:473
 msgid "description"
 msgstr "description"
 
 #: database/models.py:27 database/models.py:43
-#: database/templates/database/database.html:97
-#: database/templates/database/database.html:114
-#: database/templates/database/database.html:157
-#: database/templates/database/database.html:167
-#: database/templates/database/database.html:190
-#: database/templates/database/database.html:200
-#: database/templates/database/database.html:226
-#: database/templates/database/database.html:239 word/models.py:24
+#: database/templates/database/database.html:148
+#: database/templates/database/database.html:165
+#: database/templates/database/database.html:259
+#: database/templates/database/database.html:276
+#: database/templates/database/database.html:388
+#: database/templates/database/database.html:398
+#: database/templates/database/database.html:422
+#: database/templates/database/database.html:432
+#: database/templates/database/database.html:459
+#: database/templates/database/database.html:472 word/models.py:24
 msgid "date"
 msgstr "date"
 
@@ -85,7 +90,7 @@ msgstr "option"
 msgid "report"
 msgstr "report"
 
-#: database/models.py:33 database/templates/database/database.html:46
+#: database/models.py:33 database/templates/database/database.html:376
 msgid "reports"
 msgstr "reports"
 
@@ -101,74 +106,146 @@ msgstr "censorship"
 msgid "censorships"
 msgstr "censorships"
 
-#: database/templates/database/database.html:13
-msgid "add-tag"
-msgstr "Add Tags"
+#: database/templates/database/database.html:11 templates/homepage.html:12
+msgid "list-tag"
+msgstr "List of Tags"
 
-#: database/templates/database/database.html:38 templates/homepage.html:149
-msgid "search"
-msgstr "search"
+#: database/templates/database/database.html:77
+msgid "dashboard"
+msgstr "Dashboard"
 
-#: database/templates/database/database.html:43
-#: templates/login_register.html:33
-msgid "register-account"
-msgstr "Register an Account"
+#: database/templates/database/database.html:85
+msgid "top-recent-word"
+msgstr "Top Recent Word Tags"
 
-#: database/templates/database/database.html:56
-msgid "user-table"
-msgstr "User Table"
+#: database/templates/database/database.html:95
+msgid "last-7-days"
+msgstr "In the last 7 days"
 
-#: database/templates/database/database.html:59
-#: database/templates/database/database.html:68
-#: templates/login_register.html:23
-msgid "username"
-msgstr "Username"
+#: database/templates/database/database.html:104
+#| msgid "tags"
+msgid "top-tags"
+msgstr "Top Used Word Tags"
 
-#: database/templates/database/database.html:61
-#: database/templates/database/database.html:70 templates/homepage.html:35
-msgid "last-login"
-msgstr "Last login "
+#: database/templates/database/database.html:114
+msgid "last-12-months"
+msgstr "In the last 12 months"
 
-#: database/templates/database/database.html:62
-#: database/templates/database/database.html:71 templates/homepage.html:33
-msgid "join-date"
-msgstr "Joined on "
+#: database/templates/database/database.html:123
+#| msgid "no-report"
+msgid "highest-report"
+msgstr "Highest Report Category"
 
-#: database/templates/database/database.html:63
-#: database/templates/database/database.html:72
-msgid "status"
-msgstr "Status"
+#: database/templates/database/database.html:133
+msgid "last-2-weeks"
+msgstr "In the last 2 weeks"
 
-#: database/templates/database/database.html:64
-#: database/templates/database/database.html:79
-#: database/templates/database/database.html:101
-#: database/templates/database/database.html:118
+#: database/templates/database/database.html:140
+#| msgid "censor-words"
+msgid "recent-word"
+msgstr "Recent Words"
+
+#: database/templates/database/database.html:145
 #: database/templates/database/database.html:158
-#: database/templates/database/database.html:168
-#: database/templates/database/database.html:191
 #: database/templates/database/database.html:201
-#: database/templates/database/database.html:228
-#: database/templates/database/database.html:241
+#: database/templates/database/database.html:256
+#: database/templates/database/database.html:269
+#: database/templates/database/database.html:387
+#: database/templates/database/database.html:397
+#: database/templates/database/database.html:421
+#: database/templates/database/database.html:431
+#: database/templates/database/database.html:458
+#: database/templates/database/database.html:467 word/models.py:20
+#: word/models.py:33
+msgid "word"
+msgstr "Word"
+
+#: database/templates/database/database.html:146
+#: database/templates/database/database.html:163
+#: database/templates/database/database.html:257
+#: database/templates/database/database.html:274 templates/homepage.html:34
+#: word/models.py:21
+msgid "definition"
+msgstr "definition"
+
+#: database/templates/database/database.html:147
+#: database/templates/database/database.html:258
+msgid "author"
+msgstr "Author"
+
+#: database/templates/database/database.html:149
+#: database/templates/database/database.html:166
+#: database/templates/database/database.html:260
+#: database/templates/database/database.html:277
+msgid "likes"
+msgstr "Upvote"
+
+#: database/templates/database/database.html:150
+#: database/templates/database/database.html:167
+#: database/templates/database/database.html:261
+#: database/templates/database/database.html:278
+msgid "dislikes"
+msgstr "Downvote"
+
+#: database/templates/database/database.html:151
+#: database/templates/database/database.html:168
+#: database/templates/database/database.html:262
+#: database/templates/database/database.html:279 word/models.py:26
+msgid "visibility"
+msgstr "visibility"
+
+#: database/templates/database/database.html:152
+#: database/templates/database/database.html:169
+#: database/templates/database/database.html:263
+#: database/templates/database/database.html:280
+#: database/templates/database/database.html:340
+#: database/templates/database/database.html:357
+#: database/templates/database/database.html:389
+#: database/templates/database/database.html:399
+#: database/templates/database/database.html:423
+#: database/templates/database/database.html:433
+#: database/templates/database/database.html:461
+#: database/templates/database/database.html:474
+#: database/templates/database/database.html:512
+#: database/templates/database/database.html:524
 msgid "action"
 msgstr "Action"
 
-#: database/templates/database/database.html:74
-msgid "admin"
-msgstr "Admin"
+#: database/templates/database/database.html:164
+#: database/templates/database/database.html:275
+#: database/templates/database/database.html:386
+#: database/templates/database/database.html:396
+#: database/templates/database/database.html:420
+#: database/templates/database/database.html:430
+msgid "user"
+msgstr "User"
 
-#: database/templates/database/database.html:76
-msgid "regular-usr"
-msgstr "Regular User"
+#: database/templates/database/database.html:173
+#: database/templates/database/database.html:180
+#: database/templates/database/database.html:284
+#: database/templates/database/database.html:291
+#: database/templates/database/report.html:19
+#: database/templates/database/report.html:26
+msgid "public"
+msgstr "Public"
 
-#: database/templates/database/database.html:81
-#: database/templates/database/database.html:134
-#: database/templates/database/database.html:171
-#: database/templates/database/database.html:204
-#: database/templates/database/database.html:243
+#: database/templates/database/database.html:182
+#: database/templates/database/database.html:293
+#: database/templates/database/report.html:28
+msgid "hide"
+msgstr "Hide"
+
+#: database/templates/database/database.html:185
+#: database/templates/database/database.html:296
+#: database/templates/database/database.html:359
+#: database/templates/database/database.html:402
+#: database/templates/database/database.html:436
+#: database/templates/database/database.html:477
+#: database/templates/database/database.html:526
 #: database/templates/database/report.html:42
-#: database/templates/database/report_delete.html:14
-#: database/templates/database/report_delete.html:21
-#: database/templates/database/report_delete.html:28
+#: database/templates/database/report_delete.html:15
+#: database/templates/database/report_delete.html:24
+#: database/templates/database/report_delete.html:33
 #: templates/homepage.html:96 templates/homepage.html:242
 #: word/templates/word/word_delete.html:13
 #: word/templates/word/word_delete.html:20
@@ -176,105 +253,150 @@ msgstr "Regular User"
 msgid "delete"
 msgstr "Delete"
 
-#: database/templates/database/database.html:90
-msgid "word-table"
-msgstr "Word Table"
-
-#: database/templates/database/database.html:94
-#: database/templates/database/database.html:107
-#: database/templates/database/database.html:156
-#: database/templates/database/database.html:166
-#: database/templates/database/database.html:189
-#: database/templates/database/database.html:199
-#: database/templates/database/database.html:225
-#: database/templates/database/database.html:234 word/models.py:20
-#: word/models.py:33
-msgid "word"
-msgstr "Word"
-
-#: database/templates/database/database.html:95
-#: database/templates/database/database.html:112 templates/homepage.html:34
-#: word/models.py:21
-msgid "definition"
-msgstr "definition"
-
-#: database/templates/database/database.html:96
-msgid "author"
-msgstr "Author"
-
-#: database/templates/database/database.html:98
-#: database/templates/database/database.html:115
-msgid "likes"
-msgstr "Upvote"
-
-#: database/templates/database/database.html:99
-#: database/templates/database/database.html:116
-msgid "dislikes"
-msgstr "Downvote"
-
-#: database/templates/database/database.html:100
-#: database/templates/database/database.html:117 word/models.py:26
-msgid "visibility"
-msgstr "visibility"
-
-#: database/templates/database/database.html:113
-#: database/templates/database/database.html:155
-#: database/templates/database/database.html:165
-#: database/templates/database/database.html:188
 #: database/templates/database/database.html:198
-msgid "user"
-msgstr "User"
+#| msgid "word-table"
+msgid "word-tables"
+msgstr "Word Tables"
 
-#: database/templates/database/database.html:122
-#: database/templates/database/database.html:129
-#: database/templates/database/report.html:19
-#: database/templates/database/report.html:26
-msgid "public"
-msgstr "Public"
+#: database/templates/database/database.html:201
+#: database/templates/database/database.html:203
+#: database/templates/database/database.html:318
+#: database/templates/database/database.html:495
+#: database/templates/database/database.html:497 templates/homepage.html:149
+msgid "search"
+msgstr "search"
 
-#: database/templates/database/database.html:124
-#: database/templates/database/report.html:21
-msgid "vulgar"
-msgstr "vulgar"
+#: database/templates/database/database.html:209 templates/navbar.html:24
+msgid "browse"
+msgstr "browse"
 
-#: database/templates/database/database.html:131
-#: database/templates/database/report.html:28
-msgid "hide"
-msgstr "Hide"
+#: database/templates/database/database.html:240 templates/navbar.html:55
+msgid "new"
+msgstr "new"
 
-#: database/templates/database/database.html:149
+#: database/templates/database/database.html:245 templates/homepage.html:179
+msgid "browse-tag"
+msgstr "Browse All Tags"
+
+#: database/templates/database/database.html:305
+#: database/templates/database/database.html:368
+msgid "empty"
+msgstr "empty"
+
+#: database/templates/database/database.html:313
+#| msgid "user-table"
+msgid "user-tables"
+msgstr "User Tables"
+
+#: database/templates/database/database.html:316
+msgid "user-search"
+msgstr "Search user"
+
+#: database/templates/database/database.html:323
+#: templates/login_register.html:36
+msgid "register-account"
+msgstr "Register an Account"
+
+#: database/templates/database/database.html:335
+#: database/templates/database/database.html:346
+#: templates/login_register.html:24
+msgid "username"
+msgstr "Username"
+
+#: database/templates/database/database.html:337
+#: database/templates/database/database.html:348 templates/homepage.html:35
+msgid "last-login"
+msgstr "Last login "
+
+#: database/templates/database/database.html:338
+#: database/templates/database/database.html:349 templates/homepage.html:33
+msgid "join-date"
+msgstr "Joined on "
+
+#: database/templates/database/database.html:339
+#: database/templates/database/database.html:350
+msgid "status"
+msgstr "Status"
+
+#: database/templates/database/database.html:352
+#: database/templates/database/database.html:555
+msgid "admin"
+msgstr "Admin"
+
+#: database/templates/database/database.html:354
+msgid "regular-usr"
+msgstr "Regular User"
+
+#: database/templates/database/database.html:379
 msgid "word-report"
 msgstr "Word Reports"
 
-#: database/templates/database/database.html:170
+#: database/templates/database/database.html:401
 #: database/templates/database/report.html:39
 msgid "done"
 msgstr "Done"
 
-#: database/templates/database/database.html:179
+#: database/templates/database/database.html:410
 msgid "no-report"
 msgstr "There are no reports"
 
-#: database/templates/database/database.html:182
+#: database/templates/database/database.html:414
 msgid "report-done"
 msgstr "Report Done"
 
-#: database/templates/database/database.html:203
+#: database/templates/database/database.html:435
 #: database/templates/database/report.html:36
 msgid "review-again"
 msgstr "Review again"
 
-#: database/templates/database/database.html:212
+#: database/templates/database/database.html:444
 msgid "no-report-completed"
 msgstr "There are no reports that are done"
 
-#: database/templates/database/database.html:217
+#: database/templates/database/database.html:449
 msgid "censor-words"
 msgstr "Censored Words"
 
-#: database/templates/database/database.html:219
+#: database/templates/database/database.html:451
 msgid "add-word"
 msgstr "Add Words"
+
+#: database/templates/database/database.html:491
+#| msgid "user-table"
+msgid "tag-tables"
+msgstr "Tag Tables"
+
+#: database/templates/database/database.html:495
+#: database/templates/database/database.html:510
+#: database/templates/database/database.html:518 word/models.py:64
+msgid "tag"
+msgstr "tag"
+
+#: database/templates/database/database.html:502
+msgid "add-tag"
+msgstr "Add Tags"
+
+#: database/templates/database/database.html:511
+#: database/templates/database/database.html:521
+msgid "count"
+msgstr "count"
+
+#: database/templates/database/database.html:553
+msgid "staff"
+msgstr "Staff"
+
+#: database/templates/database/database.html:575
+#| msgid "no-report"
+msgid "recent-reports"
+msgstr "Recent Reports"
+
+#: database/templates/database/database.html:581
+msgid "has-been-reported"
+msgstr "has just been reported!"
+
+#: database/templates/database/database.html:586
+msgid "hooray-report"
+msgstr "Hooray no reports so far!"
 
 #: database/templates/database/report.html:6
 msgid "from-usr"
@@ -300,33 +422,33 @@ msgstr "Reason being..."
 msgid "return"
 msgstr "Return"
 
-#: database/templates/database/report_delete.html:11
+#: database/templates/database/report_delete.html:12
 msgid "del-report-header-1"
 msgstr "Are you sure you want to delete this report from"
 
-#: database/templates/database/report_delete.html:11
+#: database/templates/database/report_delete.html:12
 msgid "del-report-header-2"
 msgstr "for this word "
 
-#: database/templates/database/report_delete.html:14
-#: database/templates/database/report_delete.html:21
-#: database/templates/database/report_delete.html:28
+#: database/templates/database/report_delete.html:15
+#: database/templates/database/report_delete.html:24
+#: database/templates/database/report_delete.html:33
 #: word/templates/word/word_delete.html:13
 #: word/templates/word/word_delete.html:20
 msgid "cancel"
 msgstr "Cancel"
 
-#: database/templates/database/report_delete.html:18
+#: database/templates/database/report_delete.html:21
 msgid "del-user-header"
 msgstr "Are you sure you want to delete user"
 
-#: database/templates/database/report_delete.html:25
+#: database/templates/database/report_delete.html:30
 #: word/templates/word/word_delete.html:10
 #: word/templates/word/word_delete.html:17
 msgid "del-header"
 msgstr "Are you sure you want to delete"
 
-#: database/templates/database/report_delete.html:34
+#: database/templates/database/report_delete.html:40
 msgid "not-admin"
 msgstr "You are not an admin!"
 
@@ -337,7 +459,7 @@ msgstr "Report this word"
 #: database/templates/database/report_form.html:27
 #: database/templates/database/report_form.html:51
 #: database/templates/database/report_form.html:75
-#: templates/forgot_pass/change_password.html:43
+#: templates/forgot_pass/change_password.html:52
 #: templates/forgot_pass/request_password_change_password.html:26
 #: templates/profile.html:22 word/templates/word/word_form.html:29
 #: word/templates/word/word_form.html:45 word/templates/word/word_form.html:61
@@ -352,11 +474,11 @@ msgstr "Words that will be censored "
 msgid "censor-edit-head"
 msgstr "Edit words that will be censored"
 
-#: pages/views.py:111
+#: pages/views.py:116
 msgid "Nama user atau kata sandi salah"
 msgstr "Username or password is incorrect"
 
-#: pages/views.py:141
+#: pages/views.py:148
 msgid "Error saat mendaftarkan user"
 msgstr "There was an error registering your user"
 
@@ -370,18 +492,17 @@ msgid "profile-page"
 msgstr "Profile Page"
 
 #: templates/forgot_pass/change_password.html:10
-#: templates/forgot_pass/request_password_change_password.html:10
-#: templates/forgot_pass/reset_pass.html:28 templates/profile.html:10
+#: templates/forgot_pass/reset_pass.html:34 templates/profile.html:10
 msgid "pass-submit"
 msgstr "Change Password"
 
-#: templates/forgot_pass/change_password.html:36
-#: templates/login_register.html:71
+#: templates/forgot_pass/change_password.html:45
+#: templates/login_register.html:82
 msgid "pass-condition-1"
 msgstr "Password must have 8 characters or more."
 
-#: templates/forgot_pass/change_password.html:39
-#: templates/login_register.html:74
+#: templates/forgot_pass/change_password.html:48
+#: templates/login_register.html:85
 msgid "pass-condition-2"
 msgstr "Passwords cannot be only numeric."
 
@@ -394,28 +515,29 @@ msgid "pcompl-message"
 msgstr "Your password has been resetted. You can continue and log in now."
 
 #: templates/forgot_pass/complete_pass.html:15 templates/homepage.html:155
-#: templates/login_register.html:12 templates/login_register.html:28
-#: templates/navbar.html:60
+#: templates/login_register.html:12 templates/login_register.html:31
+#: templates/navbar.html:64
 msgid "Login"
 msgstr "Login"
+
+#: templates/forgot_pass/request_password_change_password.html:10
+#: templates/forgot_pass/reset_pass.html:47 templates/login_register.html:38
+msgid "forgot-pass"
+msgstr "Forgot Password"
 
 #: templates/forgot_pass/reset_pass.html:11
 msgid "pass-header"
 msgstr "Password Reset"
 
-#: templates/forgot_pass/reset_pass.html:35
+#: templates/forgot_pass/reset_pass.html:41
 msgid "pfail-header"
 msgstr "Password Reset Failed"
 
-#: templates/forgot_pass/reset_pass.html:38
+#: templates/forgot_pass/reset_pass.html:44
 msgid "pfail-message"
 msgstr ""
 "The link to reset your password is invalid, perhaps it has already been "
 "used. Please request a new password reset link."
-
-#: templates/forgot_pass/reset_pass.html:41 templates/login_register.html:35
-msgid "forgot-pass"
-msgstr "Forgot Password"
 
 #: templates/forgot_pass/sent_email.html:8
 msgid "pemail-header"
@@ -428,10 +550,6 @@ msgstr ""
 "the email you have just entered. You will receive it soon. If you do not "
 "receive an email, please ensure you have entered the correct email address, "
 "and check your spam folder."
-
-#: templates/homepage.html:12
-msgid "list-tag"
-msgstr "List of Tags"
 
 #: templates/homepage.html:34
 msgid "has-created"
@@ -452,7 +570,6 @@ msgid "edit"
 msgstr "Edit"
 
 #: templates/homepage.html:107
-#| msgid "censor-words"
 msgid "user-no-words"
 msgstr "This user has not posted any words"
 
@@ -461,7 +578,7 @@ msgid "add-now"
 msgstr "You can add it yourself now"
 
 #: templates/homepage.html:111 templates/homepage.html:152
-#: templates/homepage.html:256 templates/navbar.html:58
+#: templates/homepage.html:256 templates/navbar.html:62
 msgid "add-definition"
 msgstr "Create Definition"
 
@@ -505,12 +622,12 @@ msgstr "browsing"
 msgid "hero-paragraph-6"
 msgstr "slangs..."
 
-#: templates/homepage.html:147 templates/navbar.html:114
+#: templates/homepage.html:147 templates/navbar.html:13
 msgid "hero-search"
-msgstr "Search for slang..."
+msgstr "Search for slang"
 
-#: templates/homepage.html:154 templates/login_register.html:43
-#: templates/login_register.html:77
+#: templates/homepage.html:154 templates/login_register.html:46
+#: templates/login_register.html:88
 msgid "Register"
 msgstr "Register"
 
@@ -518,47 +635,35 @@ msgstr "Register"
 msgid "popular-topic"
 msgstr "Popular Topics"
 
-#: templates/homepage.html:177 templates/login_register.html:34
+#: templates/homepage.html:177 templates/login_register.html:37
 msgid "or"
 msgstr "or"
-
-#: templates/homepage.html:179
-msgid "browse-tag"
-msgstr "Browse All Tags"
 
 #: templates/homepage.html:254
 msgid "search-not-found"
 msgstr "The searched term was not found"
 
-#: templates/login_register.html:24
+#: templates/login_register.html:27
 msgid "password1"
 msgstr "Password"
 
-#: templates/login_register.html:65
+#: templates/login_register.html:76
 msgid "admin-usr"
 msgstr "Admin user"
 
-#: templates/navbar.html:17
-msgid "browse"
-msgstr "browse"
-
-#: templates/navbar.html:48
-msgid "new"
-msgstr "new"
-
-#: templates/navbar.html:72
+#: templates/navbar.html:76
 msgid "usr-page"
 msgstr "User Page"
 
-#: templates/navbar.html:76
+#: templates/navbar.html:80
 msgid "adm-page"
 msgstr "Administration"
 
-#: templates/navbar.html:80
+#: templates/navbar.html:84
 msgid "settings"
 msgstr "Settings"
 
-#: templates/navbar.html:83
+#: templates/navbar.html:87
 msgid "Logout"
 msgstr "Logout"
 
@@ -577,10 +682,6 @@ msgstr "updated"
 #: word/models.py:34
 msgid "words"
 msgstr "Words"
-
-#: word/models.py:64
-msgid "tag"
-msgstr "Tag"
 
 #: word/models.py:80
 msgid "pronunciation"
@@ -623,6 +724,9 @@ msgstr ""
 #: word/templates/word/word_form.html:53
 msgid "tag-fedit-head"
 msgstr "Edit Tag Form"
+
+#~ msgid "vulgar"
+#~ msgstr "vulgar"
 
 #~ msgid "to-edit-profile"
 #~ msgstr "To edit your profile "

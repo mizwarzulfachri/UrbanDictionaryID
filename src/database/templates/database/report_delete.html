@@ -6,29 +6,35 @@
     {% if request.user.is_superuser %}
     <form class="form" action='' method="POST">
         {% csrf_token %}
+        <!-- Delete a Report -->
         {% if page == 'delete' %}
             <div class="form-header">
                 <header>{% trans 'del-report-header-1' %} {{ object.user }}, {% trans 'del-report-header-2' %} "{{ object.word }}"?</header><br>
             </div>
             <div class="flex-row">
-                <input type="submit" class="btn-tertiary danger-border" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:list' %}">{% trans 'cancel' %}</a>
+                <input type="submit" class="btn-tertiary danger-border" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}#Report">{% trans 'cancel' %}</a>
             </div>
+
+        <!-- Delete a User -->
         {% elif page == 'user' %}
             <div class="form-header">
                 <header>{% trans 'del-user-header' %} {{ object.username }}?</header><br>
             </div>
             <div class="flex-row">
-                <input type="submit" class="btn-tertiary danger-border" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}">{% trans 'cancel' %}</a>
+                <input type="submit" class="btn-tertiary danger-border" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}#User">{% trans 'cancel' %}</a>
             </div>
+
+        <!-- Delete a Censorship -->
         {% else %}
             <div class="form-header">
                 <header>{% trans 'del-header' %} {{ object.name }}?</header><br>
             </div>
             <div class="flex-row">
-                <input type="submit" class="btn-tertiary danger-border" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:list' %}">{% trans 'cancel' %}</a>
+                <input type="submit" class="btn-tertiary danger-border" value="{% trans 'delete' %}"> <a class="btn-tertiary" href="{% url 'database:database' %}#Report">{% trans 'cancel' %}</a>
             </div>
         {% endif %}
     </form>
+    
     {% else %}
     <div class="form">
         <h1>{% trans 'not-admin' %}</h1>

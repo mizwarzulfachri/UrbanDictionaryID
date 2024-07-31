@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 from django.utils.translation import get_language
-from parler.utils import get_active_language_choices
+from datetime import datetime, timedelta
+from django.utils.translation import gettext as _
 
 from .forms import ReportForm, RawReportForm, CensorshipForm, RawCensorshipForm
 
@@ -23,64 +25,171 @@ def database_pg(request, *args, **kwargs):
     if not request.user.is_superuser:
         raise Http404
 
+    # Dashboard Page
+    rcnt_wrd = Word.objects.all().order_by("-date")
+    last_week = datetime.now() - timedelta(days=7)
+    two_weeks = datetime.now() - timedelta(weeks=2)
+    last_year = datetime.now() - timedelta(weeks=52)
+
+    # Graph of the tags being used since a week ago
+    tag_week_counts = Tag.objects.annotate(
+        word_count=Count('word_tag', filter=Q(word_tag__date__gte=last_week)))
+
+    tag_week_percentages = {}
+    top_recent_tags = None
+    top_tpercentage = 0
+    total_tag_week = 0
+
+    for tag_week_count in tag_week_counts:
+        total_tag_week = total_tag_week + tag_week_count.word_count
+
+    if total_tag_week != 0:
+        for tag_week_count in tag_week_counts:
+            tag = tag_week_count.name
+            count = tag_week_count.word_count
+            percentage = (count / total_tag_week) * 100
+            tag_week_percentages[tag] = percentage
+
+            if percentage > top_tpercentage:
+                top_tpercentage = percentage
+                top_recent_tags = tag
+
+    # Graph of the tags being used since a year ago
+    tag_year_counts = Tag.objects.annotate(
+        word_count=Count('word_tag', filter=Q(word_tag__date__gte=last_year)))
+    
+    tag_year_percentages = {}
+    top_year_tags = None
+    top_ytpercentage = 0
+    total_tag_year = 0
+
+    for tag_year_count in tag_year_counts:
+        total_tag_year = total_tag_year + tag_year_count.word_count
+
+    if tag_year_count != 0:
+        for tag_year_count in tag_year_counts:
+            tag = tag_year_count.name
+            count = tag_year_count.word_count
+    
+            percentage = (count / total_tag_year) * 100
+            tag_year_percentages[tag] = percentage
+    
+            if percentage > top_ytpercentage:
+                top_ytpercentage = percentage
+                top_year_tags = tag
+
+    # Word Page
+    wordlist = Word.objects.all().order_by('word')
+
+    # User Page
     user = get_user_model()
     userlist = user.objects.all().order_by('-date_joined')
-    current_language = get_language()
-
-    wordlist = Word.objects.all().order_by('word')
-    taglist = Tag.objects.active_translations(current_language).order_by(
-        'translations__name'
-        ).filter(Q(translations__language_code__icontains=current_language))
-    reportlist = Report.objects.filter(Q(option__icontains="Tinjau"))
+    
+    # Report Page
+    reportlist = Report.objects.filter(Q(option__icontains="Tinjau")).order_by("-date")
+    donelist = Report.objects.filter(Q(option__icontains="Selesai")).order_by("date")
+    censorlist = Censorship.objects.all().order_by('name')
     countrpt = reportlist.count()
 
-    # Search
+    rcnt_rpt = Report.objects.filter(date__gte=two_weeks)
+    category_counts = rcnt_rpt.values('category').annotate(count=Count('category'))
+    total_reports = rcnt_rpt.count()
+
+    category_percentages = {}
+    top_category = None
+    top_percentage = 0
+
+    for category_count in category_counts:
+        category = category_count['category']
+        count = category_count['count']
+        percentage = (count / total_reports) * 100
+        category_percentages[category] = percentage
+
+        if percentage > top_percentage:
+            top_percentage = percentage
+            top_category = category
+
+    if top_category:
+        translated_top_category = _(top_category)
+
+    # Tag Page
+    current_language = get_language()
+    taglist = Tag.objects.active_translations(current_language).order_by(
+        'translations__name' 
+        ).filter(Q(translations__language_code__icontains=current_language))
+    
+    total_tag_count = Tag.objects.annotate(
+        tag_counter=Count('word_tag')
+    )
+    total_queryset = total_tag_count.order_by('-tag_counter').exclude(translations__name='Vulgar')
+
+    # Search Filters
     if request.GET.get('s') != None:
         q = request.GET.get('s')
         wordlist = Word.objects.filter(
             Q(word__istartswith=q) 
-            ).order_by('word', '-up')
-
-        userlist = set()
-        for word in wordlist:
-            userlist.add(word.user)
+            ).order_by('word')
+        
+    # Search by ASCII
+    if request.GET.get('a') != None: 
+        wordlist = Word.objects.order_by('word')
+        
+    # Search by date
+    if request.GET.get('n') != None: 
+        q = request.GET.get('n')  
+        wordlist = Word.objects.order_by('-date')
 
     if request.GET.get('t') != None: 
         q = request.GET.get('t')
-        wordlist = Word.objects.filter(Q(tags__translations__name__icontains=q)).order_by('word', '-up',)
+        wordlist = Word.objects.filter(
+            Q(tags__translations__name__icontains=q)
+            ).order_by('word')
 
-        userlist = set()
-        for word in wordlist:
-            userlist.add(word.user)
+    if request.GET.get('u') != None:
+        q = request.GET.get('u')
+        userlist = User.objects.filter(
+            Q(username__istartswith=q)
+            ).order_by('username')
 
     context = {
         "uobject": userlist,
         "wobject": wordlist,
+        "recentw": rcnt_wrd,
         "tobject": taglist,
+        "counttag": total_queryset,
+        "robject": reportlist,
+        "done": donelist,
+        "censored": censorlist,
         "count": countrpt,
+        "top_tag_per": top_tpercentage,
+        "top_rtag": top_recent_tags,
+        "top_ytag_per": top_ytpercentage,
+        "top_ytag": top_year_tags,
+        "top_percent": top_percentage,
+        "top_categor": translated_top_category,
         "page": page,
     }
     return render(request, "database/database.html", context)
 
 # Report List
-@login_required(login_url='login')
-def report_list(request):
-    page = "list"
+# @login_required(login_url='login')
+# def report_list(request):
+#     page = "list"
 
-    if not request.user.is_superuser:
-        raise Http404
+#     if not request.user.is_superuser:
+#         raise Http404
 
-    reportlist = Report.objects.filter(Q(option__icontains="Tinjau")).order_by("date")
-    donelist = Report.objects.filter(Q(option__icontains="Selesai")).order_by("date")
-    censorlist = Censorship.objects.all().order_by('name')
+#     reportlist = Report.objects.filter(Q(option__icontains="Tinjau")).order_by("date")
+#     donelist = Report.objects.filter(Q(option__icontains="Selesai")).order_by("date")
+#     censorlist = Censorship.objects.all().order_by('name')
 
-    context = {
-        "robject": reportlist,
-        "done": donelist,
-        "censored": censorlist,
-        "page": page,
-    }
-    return render(request, "database/database.html", context)
+#     context = {
+#         "robject": reportlist,
+#         "done": donelist,
+#         "censored": censorlist,
+#         "page": page,
+#     }
+#     return render(request, "database/database.html", context)
 
 # View Reports 
 @login_required(login_url='login')
@@ -139,7 +248,9 @@ def report_del(request, pk):
 
     if request.method == 'POST':
         rpt.delete()
-        return redirect('database:list')
+        base_url = reverse('database:database')
+        url = f"{base_url}#Report"
+        return redirect(url)
     
     context = {
         "page": page,
@@ -188,7 +299,10 @@ def censorship_create(request):
         if form.is_valid():
             print(form.cleaned_data)
             Censorship.objects.create(**form.cleaned_data)
-            return redirect('database:list')
+            base_url = reverse('database:database')
+            url = f"{base_url}#Report"
+            return redirect(url)
+        
         else:
             print(form.errors)
     
@@ -212,7 +326,9 @@ def censorship_edit(request, csp_id):
     form = CensorshipForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return redirect('database:list')
+        base_url = reverse('database:database')
+        url = f"{base_url}#Report"
+        return redirect(url)
 
     context = {
         "form": form,
@@ -230,7 +346,9 @@ def censorship_delete(request, csp_id):
     
     if request.method == 'POST':
         censor.delete()
-        return redirect('database:list')
+        base_url = reverse('database:database')
+        url = f"{base_url}#Report"
+        return redirect(url)
     
     context = {
         "object": censor,

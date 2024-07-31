@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -7,8 +8,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from django.db.models import Q
-from django.db.models import Count
+from django.db.models import Q, Count
 from django.views import generic
 from datetime import datetime, timedelta
 
@@ -78,6 +78,11 @@ def homepage(request, *args, **kwargs):
         word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent))
         )
     queryset = tags_count.order_by('-word_count').exclude(translations__name='Vulgar')
+
+    total_tag_count = Tag.objects.annotate(
+        tag_counter=Count('word_tag')
+    )
+    total_queryset = total_tag_count.order_by('-tag_counter').exclude(translations__name='Vulgar')
     
     # for tag in tags_count:
     #     print(f"Tag: {tag.name}, Word Count: {tag.word_count}")
@@ -86,7 +91,7 @@ def homepage(request, *args, **kwargs):
     context = {
         "object_list": wordlist,
         "filter": queryset,
-        "filter_count": tags_count,
+        "count_word": total_queryset,
         "query": q,
         "page": page,
     }
@@ -133,7 +138,9 @@ def register_pg(request):
                 print('user is an admin')
             
             if user.is_superuser:
-                return redirect('database:database')
+                base_url = reverse('database:database')
+                url = f"{base_url}#User"
+                return redirect(url)
             
             login(request, user)
             return redirect('home')
@@ -155,7 +162,9 @@ def del_usr(request, pk):
 
     if request.method == 'POST':
         user.delete()
-        return redirect('database:database')
+        base_url = reverse('database:database')
+        url = f"{base_url}#User"
+        return redirect(url)
 
     context = {
         "object": user,
@@ -173,7 +182,6 @@ def user_pg(request, pk):
         ).exclude(
             Q(visibility='Vulgar') | Q(visibility='Hidden')
             ).order_by('-up')
-    word_count = wordlist.count()
 
     if user == request.user:
         wordlist = Word.objects.filter(Q(user__username__icontains=user.username)).order_by('-up')
@@ -183,6 +191,11 @@ def user_pg(request, pk):
     
     tags_count = Tag.objects.annotate(word_count=Count('word_tag', filter=Q(word_tag__date__gte=recent)))
     queryset = tags_count.order_by('-word_count').exclude(translations__name='Vulgar')
+
+    total_tag_count = Tag.objects.annotate(
+        tag_counter=Count('word_tag')
+    )
+    total_queryset = total_tag_count.order_by('-tag_counter').exclude(translations__name='Vulgar')
     
     # queryset = Tag.objects.all().order_by('name').exclude(name='Vulgar')
 
@@ -190,8 +203,7 @@ def user_pg(request, pk):
         'user': user,
         'object_list': wordlist,
         "filter": queryset,
-        "filter_count": tags_count,
-        'count': word_count,
+        "count_word": total_queryset,
         'page': page,
     }
     return render(request, 'homepage.html', context)

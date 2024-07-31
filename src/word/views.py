@@ -263,7 +263,9 @@ def tag_create(request):
         if inform.is_valid():
             print(inform.cleaned_data)
             Tag.objects.create(**inform.cleaned_data)
-            return redirect('database:database')
+            base_url = reverse('database:database')
+            url = f"{base_url}#Tag"
+            return redirect(url)
         else:
             print(inform.errors)
     
@@ -284,7 +286,9 @@ def tag_edit(request, tag_id):
     form = TagForm(request.POST or None, instance=obj)
     if form.is_valid():
         form.save()
-        return redirect('database:database')
+        base_url = reverse('database:database')
+        url = f"{base_url}#Tag"
+        return redirect(url)
 
     context = {
         "form": form,
@@ -299,7 +303,9 @@ def tag_delete(request, tag_id):
     
     if request.method == 'POST':
         tag.delete()
-        return redirect('database:database')
+        base_url = reverse('database:database')
+        url = f"{base_url}#Tag"
+        return redirect(url)
     
     context = {
         "object": tag,
