@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-05 18:12+0700\n"
-"PO-Revision-Date: 2024-08-05 18:29+0700\n"
-"Last-Translator:   <hackersrepel@gmail.com>\n"
+"POT-Creation-Date: 2024-08-07 17:36+0700\n"
+"PO-Revision-Date: 2024-08-07 18:03+0700\n"
+"Last-Translator:   <miswar_zul@mhs.usk.ac.id>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -492,7 +492,6 @@ msgid "has-created"
 msgstr "has created "
 
 #: database/templates/database/user_report_list.html:19
-#| msgid "usr-page"
 msgid "return-user-page"
 msgstr "Return to the user page"
 
@@ -500,6 +499,10 @@ msgstr "Return to the user page"
 #: templates/homepage.html:45 templates/homepage.html:191
 msgid "word-categories"
 msgstr "Word Categories"
+
+#: database/views.py:50 database/views.py:75
+msgid "Unnamed Tag"
+msgstr "Unnamed Tag"
 
 #: pages/views.py:117
 msgid "Nama user atau kata sandi salah"
@@ -579,7 +582,6 @@ msgstr ""
 "and check your spam folder."
 
 #: templates/homepage.html:37
-#| msgid "word-report"
 msgid "your-report"
 msgstr "View your report"
 

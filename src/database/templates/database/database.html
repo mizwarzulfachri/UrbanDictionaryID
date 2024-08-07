@@ -516,7 +516,13 @@
                     {% for tags in counttag %}
                     <tr>
                         <td data-cell="{% trans 'tag' %}">
-                            <a href="{% url 'word:tag-update' tags.pk %}" class="tag-name">{{ tags.name }}</a>
+                            <a href="{% url 'word:tag-update' tags.pk %}" class="tag-name">
+                                {% if tags.name %}
+                                    {{ tags.name }}
+                                {% else %}
+                                    {% trans 'Unnamed Tag' %}
+                                {% endif %}
+                            </a>
                         </td>
                         <td data-cell="{% trans 'count' %}">
                             {{ tags.tag_counter }}

@@ -138,7 +138,7 @@ def register_pg(request):
                 user.save()
                 print('user is an admin')
             
-            if user.is_superuser:
+            if request.user.is_superuser:
                 base_url = reverse('database:database')
                 url = f"{base_url}#User"
                 return redirect(url)

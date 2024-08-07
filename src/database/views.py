@@ -45,7 +45,9 @@ def database_pg(request, *args, **kwargs):
 
     if total_tag_week != 0:
         for tag_week_count in tag_week_counts:
-            tag = tag_week_count.name
+            tag = getattr(tag_week_count, 'name', None)
+            if not tag:
+                tag = _("Unnamed Tag")
             count = tag_week_count.word_count
             percentage = (count / total_tag_week) * 100
             tag_week_percentages[tag] = percentage
@@ -68,7 +70,9 @@ def database_pg(request, *args, **kwargs):
 
     if tag_year_count != 0:
         for tag_year_count in tag_year_counts:
-            tag = tag_year_count.name
+            tag = getattr(tag_year_count, 'name', None)
+            if not tag:
+                tag = _("Unnamed Tag")
             count = tag_year_count.word_count
     
             percentage = (count / total_tag_year) * 100
