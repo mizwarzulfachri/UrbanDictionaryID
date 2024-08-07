@@ -116,7 +116,7 @@ def word_edit(request, srch_id):
         raise Http404
 
     if request.user != obj.user and not request.user.is_superuser: 
-        return HttpResponse('<h1>Anda tidak dapat access</h1>')
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     form = WordForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -135,7 +135,7 @@ def word_delete(request, wrd_id):
     wrd = get_object_or_404(Word, pk=wrd_id)
     
     if request.user != wrd.user and not request.user.is_superuser: 
-        return HttpResponse('<h1>Anda tidak dapat access</h1>')
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if request.method == 'POST':
         wrd.delete()
@@ -152,43 +152,51 @@ def word_delete(request, wrd_id):
 def up(request, word_id):
     user = request.user
     word = get_object_or_404(Word, pk=word_id)
-
     up_currently = word.up
-    up = Upvotes.objects.filter(user=user, word=word).count()
     down_currently = word.down
-    down = Downvotes.objects.filter(user=user, word=word).count()
+
+    # down_currently = word.down
+    # down = Downvotes.objects.filter(user=user, word=word).count()
     
-    if not up:
-        up = Upvotes.objects.create(user=user, word=word)
-        up_currently = up_currently + 1
+    if Upvotes.objects.filter(user=user, word=word).exists():
+        Upvotes.objects.filter(user=user, word=word).delete()
+        up_currently -= 1
     else:
-        up = Upvotes.objects.filter(user=user, word=word).delete()
-        up_currently = up_currently - 1
+        Upvotes.objects.create(user=user, word=word)
+        up_currently += 1
+
+        # if Downvotes.objects.filter(user=user, word=word).exists():
+        #    Downvotes.objects.filter(user=user, word=word).delete()
+        #    down_currently -= 1
 
     word.up = up_currently
     word.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return JsonResponse({'up': up_currently})
 
 @login_required(login_url='login')
 def down(request, word_id):
     user = request.user
     word = get_object_or_404(Word, pk=word_id)
-
     down_currently = word.down
-    down = Downvotes.objects.filter(user=user, word=word).count()
     up_currently = word.up
-    up = Upvotes.objects.filter(user=user, word=word).count()
+
+    # up_currently = word.up
+    # up = Upvotes.objects.filter(user=user, word=word).count()
     
-    if not down:
-        down = Downvotes.objects.create(user=user, word=word)
-        down_currently = down_currently + 1
+    if Downvotes.objects.filter(user=user, word=word).exists():
+        Downvotes.objects.filter(user=user, word=word).delete()
+        down_currently -= 1
     else:
-        down = Downvotes.objects.filter(user=user, word=word).delete()
-        down_currently = down_currently - 1
+        Downvotes.objects.create(user=user, word=word)
+        down_currently += 1
+
+        # if Upvotes.objects.filter(user=user, word=word).exists():
+        #    Upvotes.objects.filter(user=user, word=word).delete()
+        #    up_currently -= 1
 
     word.down = down_currently
     word.save()
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return JsonResponse({'down': down_currently})
 
 # Visibility
 @login_required(login_url='login')
@@ -196,7 +204,7 @@ def vulgar(request, wrd_id):
     wrd = get_object_or_404(Word, pk=wrd_id)
 
     if not request.user.is_superuser:
-        return HttpResponse('<h1>404</h1>')
+        return HttpResponse('<h1>Error 505</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if wrd.visibility == 'Vulgar':
         wrd.visibility = 'Public'
@@ -215,7 +223,7 @@ def hide(request, wrd_id):
     wrd = get_object_or_404(Word, pk=wrd_id)
 
     if not request.user.is_superuser:
-        return HttpResponse('<h1>404</h1>')
+        return HttpResponse('<h1>Error 505</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if wrd.visibility == 'Hidden':
         wrd.visibility = 'Public'
@@ -253,6 +261,9 @@ def text_to_speech(request, pk):
 def tag_create(request):
     page = 'tag'
     inform = RawTagForm()
+    
+    if not request.user.is_superuser:
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if request.method == "POST":
         form_data = {
@@ -278,6 +289,10 @@ def tag_create(request):
 @login_required(login_url='login')
 def tag_edit(request, tag_id):
     page = 'edit'
+    
+    if not request.user.is_superuser:
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
+
     try: 
         obj = Tag.objects.get(pk=tag_id)
     except Tag.DoesNotExist:
@@ -301,6 +316,9 @@ def tag_delete(request, tag_id):
     page = 'tag'
     tag = get_object_or_404(Tag, pk=tag_id)
     
+    if not request.user.is_superuser:
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
+    
     if request.method == 'POST':
         tag.delete()
         base_url = reverse('database:database')
@@ -314,7 +332,6 @@ def tag_delete(request, tag_id):
     return render(request, "word/word_delete.html", context)
 
 # Word Censorship
-
 def censor_word(word1, word2, threshold=0.8):
     similarity_ratio = SequenceMatcher(None, word1, word2).ratio()
     return similarity_ratio >= threshold

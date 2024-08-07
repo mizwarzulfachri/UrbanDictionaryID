@@ -24,7 +24,7 @@ class Report(models.Model):
 
     category = models.CharField(_('category'), max_length=8, choices=Choice)
     description = models.TextField(_('description'), blank=True, null=True)
-    date = models.DateField(_('date'), auto_now=False, auto_now_add=True)
+    date = models.DateTimeField(_('date'), auto_now=False, auto_now_add=True)
 
     option = models.CharField(_('option'), max_length=8, choices=Options, default="Tinjau")
 

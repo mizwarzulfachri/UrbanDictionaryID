@@ -14,6 +14,7 @@ from datetime import datetime, timedelta
 
 # App models
 from word.models import Word, Tag
+from database.models import Report
 from .forms import RegisterUserForm, EditProfileForm
 
 # Import
@@ -158,7 +159,7 @@ def del_usr(request, pk):
     user = get_object_or_404(User, pk=pk)
 
     if not request.user.is_superuser:
-        return HttpResponse('<h1>Anda bukan admin</h1>')
+        return HttpResponse('<h1>Error 505</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if request.method == 'POST':
         user.delete()
@@ -186,6 +187,9 @@ def user_pg(request, pk):
     if user == request.user:
         wordlist = Word.objects.filter(Q(user__username__icontains=user.username)).order_by('-up')
 
+    # Count Word List
+    count_submit = wordlist.count()
+
     # Tags Order
     recent = datetime.now() - timedelta(days=7)
     
@@ -202,11 +206,33 @@ def user_pg(request, pk):
     context = {
         'user': user,
         'object_list': wordlist,
+        'count_submit': count_submit,
         "filter": queryset,
         "count_word": total_queryset,
         'page': page,
     }
     return render(request, 'homepage.html', context)
+
+def report_user(request, pk):
+    user = get_object_or_404(User, id=pk)
+    
+    if request.user != user:
+        return HttpResponse('<h1>Error 505</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
+
+    reportlist = Report.objects.filter(Q(user__username__icontains=user.username)).order_by("-date")
+    
+    count_submit = reportlist.count()
+
+    # report_count = Report.objects.annotate(users_report=Count('category', filter=Q(user__username__icontains=user.username)))
+    # queryset = report_count.order_by('-users_report')
+
+    context = {
+        'user': user,
+        'instance': reportlist,
+        'count': count_submit,
+        # 'count_report': queryset,
+    }
+    return render(request, 'database/user_report_list.html', context)
 
 # Edit user profile 
 class UserEditView(generic.UpdateView):

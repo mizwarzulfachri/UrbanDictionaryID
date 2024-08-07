@@ -31,8 +31,11 @@
         
         <div class="custom-border">
           <p>{% trans 'join-date' %} {{ user.date_joined }}</p>
-          <p>{{ user.username }} {% trans 'has-created' %} {{ count }} {% trans 'definition' %}</p>
+          <p>{{ user.username }} {% trans 'has-created' %} <b>{{ count_submit }} {% trans 'definition' %}</b></p>
           <p>{% trans 'last-login' %} {{ user.last_login }}</p>
+          {% if request.user.id == user.id %}
+            <p><a href="{% url 'report_usr' user.pk %}">{% trans 'your-report' %}</a></p>
+          {% endif %}
         </div>
       </div>
 
@@ -76,14 +79,14 @@
 
             <div class="word-interact">
               <div class="flex-row">
-                <button class="borderless-trans " id="positive" onclick="location.href=`{% url 'word:upvotes' word_id=instance.pk %}`, toggleP()"><h5>
+                <button class="borderless-trans positive" data-word-id="{{ instance.id }}" onclick="toggleP()"><h5>
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  {{ instance.up }}
+                  <span id="like-count">{{ instance.up }}</span>
                 </h5></button>
 
-                <button class="borderless-trans " id="negative" onclick="location.href=`{% url 'word:downvotes' word_id=instance.pk %}`, toggleN()"><h5>
+                <button class="borderless-trans negative" data-word-id="{{ instance.id }}" onclick="toggleN()"><h5>
                   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                  {{ instance.down }}
+                  <span id="dislike-count">{{ instance.down }}</span>
                 </h5></button>
               </div>
               
@@ -222,14 +225,14 @@
 
             <div class="word-interact">
               <div class="flex-row">
-                <button class="borderless-trans font-weight-600" id="positive" onclick="location.href=`{% url 'word:upvotes' word_id=instance.pk %}`, toggleP()"><h5>
+                <button class="borderless-trans positive" data-word-id="{{ instance.id }}" onclick="toggleP()"><h5>
                   <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                  {{ instance.up }}
+                  <span id="like-count">{{ instance.up }}</span>
                 </h5></button>
 
-                <button class="borderless-trans font-weight-600" id="negative" onclick="location.href=`{% url 'word:downvotes' word_id=instance.pk %}`, toggleN()"><h5>
+                <button class="borderless-trans negative" data-word-id="{{ instance.id }}" onclick="toggleN()"><h5>
                   <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                  {{ instance.down }}
+                  <span id="dislike-count">{{ instance.down }}</span>
                 </h5></button>
               </div>
 
@@ -261,6 +264,6 @@
 {% endif %}
 </div>
 
-<div class="bottom-bar">®2023</div>
+<div class="bottom-bar">®2024</div>
 <div class="loader"></div>
 {% endblock %}

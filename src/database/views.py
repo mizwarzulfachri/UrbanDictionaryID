@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q, Count
 from django.contrib.auth.models import User
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils.translation import get_language
 from datetime import datetime, timedelta
@@ -23,7 +23,7 @@ def database_pg(request, *args, **kwargs):
     page = 'database'
 
     if not request.user.is_superuser:
-        raise Http404
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     # Dashboard Page
     rcnt_wrd = Word.objects.all().order_by("-date")
@@ -198,7 +198,7 @@ def report_view(request, srch_id):
     report = get_object_or_404(Report, pk=srch_id)
 
     if not request.user.is_superuser:
-        raise Http404
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     context = {
         'report': report,
@@ -243,14 +243,18 @@ def report_del(request, pk):
     page = 'delete'
     rpt = get_object_or_404(Report, pk=pk)
 
-    if not request.user.is_superuser:
-        raise Http404
+    if request.user != rpt.user and not request.user.is_superuser:
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if request.method == 'POST':
         rpt.delete()
-        base_url = reverse('database:database')
-        url = f"{base_url}#Report"
-        return redirect(url)
+        
+        if request.user.is_superuser:
+            base_url = reverse('database:database')
+            url = f"{base_url}#Report"
+            return redirect(url)
+        else:
+            return redirect('report_usr', request.user.pk)
     
     context = {
         "page": page,
@@ -267,7 +271,7 @@ def report_done(request, srch_id):
         raise Http404
 
     if not request.user.is_superuser:
-        raise Http404
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
     
     print(obj.option)
     
@@ -287,7 +291,7 @@ def censorship_create(request):
     form = RawCensorshipForm()
 
     if not request.user.is_superuser:
-        raise Http404
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     if request.method == "POST":
         form_data = {
@@ -321,7 +325,7 @@ def censorship_edit(request, csp_id):
         raise Http404
 
     if not request.user.is_superuser:
-        raise Http404
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
 
     form = CensorshipForm(request.POST or None, instance=obj)
     if form.is_valid():
@@ -342,7 +346,7 @@ def censorship_delete(request, csp_id):
     censor = get_object_or_404(Censorship, pk=csp_id)
 
     if not request.user.is_superuser:
-        raise Http404
+        return HttpResponse('<h1>Error 404</h1><script>setTimeout(function(){ window.location.href = "' + reverse('home') + '"; }, 5000);</script>')
     
     if request.method == 'POST':
         censor.delete()

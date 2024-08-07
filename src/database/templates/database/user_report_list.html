@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="homepage">
+  <!-- ---------------- -->
+  <!-- User Report Page -->
+  <!-- ---------------- -->
+  <div class="main-container">
+    <div class="divide-split padding-30 margin-side-15 center">
+      <h2>{{ user.username }}</h2>
+      
+      <div class="custom-border">
+        <p>{% trans 'join-date' %} {{ user.date_joined }}</p>
+        <p>{{ user.username }} {% trans 'has-created' %} <b>{{ count }} {% trans 'reports' %}</b></p>
+        <p>{% trans 'last-login' %} {{ user.last_login }}</p>
+        <p><a href="{% url 'user' user.pk %}">{% trans 'return-user-page' %}</a></p>
+      </div>
+    </div>
+    
+    <!-- Report Content -->
+    <div class="margin-5">
+      <!-- <div class="sidebar padding-side-20">
+        <h4><i class="fa fa-cubes" aria-hidden="true"></i> {% trans 'word-categories' %}</h4>
+        {% for report in count_report %}
+          <a href="{% url 'home' %}?q={{ tags.name }}" class="space-between margin-5">
+            <span class="font-weight-600">{{ report.category }}</span>
+            <span class="btn-icon">{{ report.users_report }}</span>
+          </a>
+        {% endfor %}
+      </div> -->
+      
+      <section>
+      {% if instance %}
+      {% for rpt in instance %}
+      <div class="word-list" id="List-Words">
+        <div class="word-def">
+          <h4>{{ rpt.category }} - <a style="font-weight: bold;" href="{% url 'word:word' rpt.word.pk %}">{{ rpt.word }}</a></h4>
+        
+          <p>{% trans 'description'|capfirst %}: 
+            {% if rpt.description %}
+              {{ rpt.description }} 
+            {% else %}
+              {% trans 'none'|capfirst %}
+            {% endif %}
+          </p>
+        </div>
+
+        <div class="word-detail">
+          <div class="reviewed"><h5>{{ rpt.option }}</h5></div>
+          <p><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ rpt.date }}</p>
+        </div>
+
+        <div class="word-interact">
+          <div class="flex-row"></div>
+
+          <div class="flex-row">              
+            <div class="word-interactions">
+              <button class="btn-tertiary danger-border"  onclick="location.href=`{% url 'database:delete' rpt.pk %}`">
+                {% trans 'delete' %} <i class="fa fa-times" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+        <h3>{% trans 'no-report' %}.</h3>
+      {% endif %}
+      </section>
+    <!-- </div> -->
+  </div>
+</div>
+
+<div class="bottom-bar">®2024</div>
+<div class="loader"></div>
+{% endblock %}

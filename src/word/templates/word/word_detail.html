@@ -28,14 +28,14 @@
 
     <div class="word-interact">
         <div class="flex-row margin-5">
-            <button class="borderless-trans " id="positive" onclick="location.href=`{% url 'word:upvotes' word_id=object.pk %}`, toggleP()"><h5>
+            <button class="borderless-trans positive" data-word-id="{{ object.id }}" onclick="toggleP()"><h5>
                 <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                {{ object.up }}
-            </h5></button>
+                <span id="like-count">{{ object.up }}</span>
+              </h5></button>
 
-            <button class="borderless-trans " id="negative" onclick="location.href=`{% url 'word:downvotes' word_id=object.pk %}`, toggleN()"><h5>
+            <button class="borderless-trans negative" data-word-id="{{ object.id }}" onclick="toggleN()"><h5>
                 <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                {{ object.down }}
+                <span id="dislike-count">{{ object.down }}</span>
             </h5></button>
         </div>
 

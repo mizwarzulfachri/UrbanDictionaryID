@@ -65,6 +65,7 @@ urlpatterns = i18n_patterns(
     path('user_del/<int:pk>/', del_usr, name='delete_usr'),
     path('user-edit/', UserEditView.as_view(), name=('edit_usr')),
     path('user/<int:pk>/', user_pg, name='user'),
+    path('user-report/<int:pk>/', report_user, name='report_usr'),
     # path('about/', about_pg, name='about'),
 )
 

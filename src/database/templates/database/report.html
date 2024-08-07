@@ -10,7 +10,11 @@
         {% trans 'reason' %} 
     </p>
     <p class="scroll">
-        {{ report.description }} 
+        {% if report.description %}
+            {{ report.description }} 
+        {% else %}
+            {% trans 'none'|capfirst %}
+        {% endif %}
     </p>
     <section class="space-between">
         <div class="margin-5">

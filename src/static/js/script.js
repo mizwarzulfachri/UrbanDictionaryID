@@ -22,9 +22,10 @@
  * 6 - Play sounds
  * 7 - Rating
  * 8 - Change Language
- * 9 - Database
- * 10 - Peak Password
- * 11 - Tab Change
+ * 9 - Tab Change
+ * 10 - Database 
+ * 11 - Check Redirect
+ * 12 - Peak Password
  */
 
 /*----------------------------------------*/
@@ -110,6 +111,38 @@ function toggleP() {
 function toggleN() {
     negative.style.color = "#FF002E"
 }
+
+$(function () {
+    $('.positive').click(function () {
+        var button = $(this);
+        var wordID = $(this).data('word-id');
+        $.ajax({
+            url: `/word/up/${wordID}`,
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            success: function (response) {
+                button.find('#like-count').text(response.up);
+                console.log('liked');
+            }
+        });
+    });
+});
+
+$(function () {
+    $('.negative').click(function () {
+        var button = $(this);
+        var wordID = $(this).data('word-id');
+        $.ajax({
+            url: `/word/down/${wordID}`,
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            success: function (response) {
+                button.find('#dislike-count').text(response.down);
+                console.log('disliked');
+            }
+        });
+    });
+});
 
 /*----------------------------------------*/
 /* 6 Play sounds
