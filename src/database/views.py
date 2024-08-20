@@ -115,6 +115,8 @@ def database_pg(request, *args, **kwargs):
 
     if top_category:
         translated_top_category = _(top_category)
+    else:
+        translated_top_category = None
 
     # Tag Page
     current_language = get_language()

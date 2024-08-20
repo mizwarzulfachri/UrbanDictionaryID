@@ -37,6 +37,16 @@
             <header>{% trans 'tag-form-head' %}</header>
         </div>
 
+        {% if form.errors %}
+            <ul class="messages">
+                {% for field, errors in form.errors.items %}
+                    {% for message in errors %}
+                        {{ message }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% render_field form.name placeholder=form.name.label class+="input-box" %}<br>
 
         <ul>
@@ -52,6 +62,16 @@
         <div class="form-header">
             <header>{% trans 'tag-fedit-head' %}</header>
         </div>
+
+        {% if form.errors %}
+            <ul class="messages">
+                {% for field, errors in form.errors.items %}
+                    {% for message in errors %}
+                        {{ message }}<br>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
 
         {% render_field form.name placeholder=form.name.label class+="input-box" %}<br>
         

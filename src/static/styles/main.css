@@ -1236,16 +1236,20 @@ p {font-size: clamp(0.2rem, 10cqi, 1rem)}
     position: absolute;
 }
 
-@media screen and (max-height: 900px) {
+@media screen and (max-height: 700px) {
     .container {
         margin: 0 auto;
-        margin-top: 10%;
+        margin-top: 8%;
         margin-bottom: 10%;
         top: 0;
         left: 0;
         position: static;
         transform: translate(0%, 0%);
     }
+}
+
+@media screen and (max-height: 670px) {
+    .container {margin-top: 25%;}
 }
 
 .form {
